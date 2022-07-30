@@ -1,4 +1,8 @@
 # CHANGELOG
+
+## [1.3.1] - 2022-07-30
+- 🐛 Fixed a memory leak where invisible code windows weren't hidden. In doing this fix, only visible editors are semantically highlighted. A future change will need to be made to keep background editors highlighted.
+
 ## [1.3.0] - 2022-07-30
 
 - ✨ Added `lighting` and `saturation` configuration settings for all color theme types.
