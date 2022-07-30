@@ -4,18 +4,25 @@ export function updateConfiguration() {
 	const configuration = vscode.workspace.getConfiguration('colorcoder')
 	
 	tokenKinds = new Set(configuration.get('tokenKinds') ?? [
+		'class.defaultLibrary',
 		'class',
-		'decorator',
 		'enum',
+		'enumMember',
 		'event',
+		'function.defaultLibrary',
 		'function',
-		'label',
+		'interface',
 		'macro',
 		'method',
 		'namespace',
 		'parameter',
+		'property.readonly',
 		'property',
+		'struct',
+		'type.defaultLibrary',
 		'type',
+		'variable.readonly.defaultLibrary',
+		'variable.readonly',
 		'variable',
 	])
 	ignoredLanguages = new Set(configuration.get('ignoredLanguages') ?? [])
