@@ -1,22 +1,26 @@
-# Color Identifiers for Visual Studio Code
+# CodeMate for Visual Studio Code
+The best Semantic highlighting for VSCode!
 
-Color Identifiers is a syntax highlighter that gives each identifier a different color, inspired by [Color Identifiers Mode](https://github.com/ankurdave/color-identifiers-mode) for Emacs.
+ColorMate colors all similarly named variables the same, so you can quickly and easily skim your code by reading colors instead of text. The hashing algorithm is modeled after the same amazing CRC8 hasher used by [Colorcoder for Sublime Text](https://packagecontrol.io/packages/Colorcoder).
+
+ColorMate is a semantic highlighter (similar to a syntax highlighter) that gives each identifier (variable, method, function, etc) the same color each time that particular identifier appears.
+
+Built by a long-time user of [Colorcoder for Sublime Text](https://packagecontrol.io/packages/Colorcoder), this solves a specific set of accessibility requirements for code skimming.
+
+This package was originally forked from [Color Identifiers](https://marketplace.visualstudio.com/items?itemName=MatthewNespor.vscode-color-identifiers-mode) by Matthew Nespor.
 
 ## Features
 
-This extension works for any language that offers semantic highlighting in Visual Studio Code. It uses the language server to determine which words to highlight.
+This extension works for any language that has semantic tokens in Visual Studio Code. It uses the language server to determine which words to highlight.
 
-Two themes, Color Identifiers Dark and Color Identifiers Light, are included. These themes make variables more prominent and language keywords less prominent. Color Identifiers is also compatible with any existing theme.
+It changes the color settings based on a light or dark theme.
 
-![feature X](images/screenshot_00.png)
-![feature X](images/screenshot_01.png)
+<!-- ![feature X](images/screenshot_00.png)
+![feature X](images/screenshot_01.png) -->
 
 ## Extension Settings
 
 This extension contributes the following settings:
 
-* `colorIdentifiersMode.tokenKinds`: The types of language tokens that should have a color applied.
-* `colorIdentifiersMode.paletteMode`: Automatic or manual. The automatic palette chooses colors that are likely to work well with the active color theme. The manual palette chooses colors from a user-defined list.
-* `colorIdentifiersMode.manualColors`: The list of colors used in the manual palette mode.
-* `colorIdentifiersMode.ignoredLanguages`: Don't colorize files in these languages.
-* `colorIdentifiersMode.method`: Sequential or hash. Sequential mode assigns colors to identifiers in the order the identifiers appear in the file. Hash mode uses the variable's name to decide its color.
+* `colormate.tokenKinds`: The types of language tokens that should have a color applied.
+* `colormate.ignoredLanguages`: Don't colorize files in these languages.

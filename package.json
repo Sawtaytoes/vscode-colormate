@@ -1,6 +1,6 @@
 {
   "name": "vscode-colormate",
-  "displayName": "ColorMate: The best Semantic highlighting for VSCode",
+  "displayName": "ColorMate: The best Semantic highlighting for VSCode!",
   "description": "ColorMate colors all similarly named variables the same, so you can quickly and easily skim your code by reading colors instead of text. The hashing algorithm is modeled after the same amazing CRC8 hasher used by Colorcoder for Sublime Text.",
   "version": "0.0.0",
   "license": "MIT",
@@ -33,7 +33,7 @@
     "configuration": {
       "title": "SublimeText Colorcoder for VSCode",
       "properties": {
-        "colorcoder.tokenKinds": {
+        "colormate.tokenKinds": {
           "type": "array",
           "default": [
             "variable",
@@ -42,7 +42,7 @@
           ],
           "markdownDescription": "The types of language tokens that should have a color applied. In addition to the [list of common types](https://code.visualstudio.com/api/language-extensions/semantic-highlight-guide#standard-token-types-and-modifiers), language authors may define their own."
         },
-        "colorcoder.ignoredLanguages": {
+        "colormate.ignoredLanguages": {
           "type": "array",
           "default": [],
           "markdownDescription": "Don't colorize files in these [languages](https://code.visualstudio.com/docs/languages/identifiers#_known-language-identifiers)."
