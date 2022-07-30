@@ -31,21 +31,78 @@
   "main": "./out/extension.js",
   "contributes": {
     "configuration": {
-      "title": "SublimeText Colorcoder for VSCode",
+      "title": "ColorMate Options",
       "properties": {
-        "colormate.tokenKinds": {
-          "type": "array",
-          "default": [
-            "variable",
-            "parameter",
-            "property"
-          ],
-          "markdownDescription": "The types of language tokens that should have a color applied. In addition to the [list of common types](https://code.visualstudio.com/api/language-extensions/semantic-highlight-guide#standard-token-types-and-modifiers), language authors may define their own."
-        },
         "colormate.ignoredLanguages": {
           "type": "array",
           "default": [],
           "markdownDescription": "Don't colorize files in these [languages](https://code.visualstudio.com/docs/languages/identifiers#_known-language-identifiers)."
+        },
+        "colormate.darkTheme.lighting": {
+          "type": "number",
+          "default": 60,
+          "markdownDescription": "This controls the `lighting` in a dark color theme. This is used in an HSL function."
+        },
+        "colormate.darkTheme.saturation": {
+          "type": "number",
+          "default": 65,
+          "markdownDescription": "This controls the `saturation` in a dark color theme. This is used in an HSL function."
+        },
+        "colormate.highContrastDarkTheme.lighting": {
+          "type": "number",
+          "default": 100,
+          "markdownDescription": "This controls the `lighting` in a high-contrast dark color theme. This is used in an HSL function."
+        },
+        "colormate.highContrastDarkTheme.saturation": {
+          "type": "number",
+          "default": 50,
+          "markdownDescription": "This controls the `saturation` in a high-contrast dark color theme. This is used in an HSL function."
+        },
+        "colormate.highContrastLightTheme.lighting": {
+          "type": "number",
+          "default": 50,
+          "markdownDescription": "This controls the `lighting` in a high-contrast light color theme. This is used in an HSL function."
+        },
+        "colormate.highContrastLightTheme.saturation": {
+          "type": "number",
+          "default": 100,
+          "markdownDescription": "This controls the `saturation` in a high-contrast light color theme. This is used in an HSL function."
+        },
+        "colormate.lightTheme.lighting": {
+          "type": "number",
+          "default": 100,
+          "markdownDescription": "This controls the `lighting` in a light color theme. This is used in an HSL function."
+        },
+        "colormate.lightTheme.saturation": {
+          "type": "number",
+          "default": 35,
+          "markdownDescription": "This controls the `saturation` in a light color theme. This is used in an HSL function."
+        },
+        "colormate.tokenKinds": {
+          "type": "array",
+          "default": [
+            "class.defaultLibrary",
+            "class",
+            "enum",
+            "enumMember",
+            "event",
+            "function.defaultLibrary",
+            "function",
+            "interface",
+            "macro",
+            "method",
+            "namespace",
+            "parameter",
+            "property.readonly",
+            "property",
+            "struct",
+            "type.defaultLibrary",
+            "type",
+            "variable.readonly.defaultLibrary",
+            "variable.readonly",
+            "variable"
+          ],
+          "markdownDescription": "The types of language tokens that should have a color applied. In addition to the [list of common types](https://code.visualstudio.com/api/language-extensions/semantic-highlight-guide#standard-token-types-and-modifiers), language authors may define their own."
         }
       }
     }
@@ -60,7 +117,6 @@
     "watch": "tsc -watch -p ./"
   },
   "devDependencies": {
-    "@types/color-convert": "^2.0.0",
     "@types/glob": "^7.2.0",
     "@types/mocha": "^9.1.1",
     "@types/node": "^18.6.2",
@@ -74,7 +130,6 @@
     "vscode-test": "^1.6.1"
   },
   "dependencies": {
-    "color-convert": "^2.0.1",
     "just-debounce": "^1.1.0"
   }
 }

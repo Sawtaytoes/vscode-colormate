@@ -1,74 +1,155 @@
-import vscode from 'vscode'
+import vscode, {
+  ColorThemeKind,
+} from 'vscode'
 
-export const updateConfiguration = () => { 
-	const configuration = (
-		vscode
-		.workspace
-		.getConfiguration(
-			'colormate'
-		)
-	)
+const getConfiguration = () => (
+  vscode
+  .workspace
+  .getConfiguration(
+    'colormate'
+  )
+)
 
-	ignoredLanguages = (
-		new Set(
-			(
-				configuration
-				.get(
-					'ignoredLanguages'
-				)
-			)
-			?? []
-		)
-	)
+export const getIgnoredLanguages: (
+  () => (
+    Set<
+      string
+    >
+  )
+) = () => (
+  new Set(
+    (
+      getConfiguration()
+      .get(
+        'ignoredLanguages'
+      )
+    )
+    ?? []
+  )
+)
 
-	tokenKinds = (
-		new Set(
-			(
-				configuration
-				.get(
-					'tokenKinds'
-				)
-			)
-			?? [
-				'class.defaultLibrary',
-				'class',
-				'enum',
-				'enumMember',
-				'event',
-				'function.defaultLibrary',
-				'function',
-				'interface',
-				'macro',
-				'method',
-				'namespace',
-				'parameter',
-				'property.readonly',
-				'property',
-				'struct',
-				'type.defaultLibrary',
-				'type',
-				'variable.readonly.defaultLibrary',
-				'variable.readonly',
-				'variable',
-			]
-		)
-	)
+export const getTokenKinds: (
+  () => (
+    Set<
+      string
+    >
+  )
+) = () => (
+  new Set(
+    (
+      getConfiguration()
+      .get(
+        'tokenKinds'
+      )
+    )
+    ?? [
+      'class.defaultLibrary',
+      'class',
+      'enum',
+      'enumMember',
+      'event',
+      'function.defaultLibrary',
+      'function',
+      'interface',
+      'macro',
+      'method',
+      'namespace',
+      'parameter',
+      'property.readonly',
+      'property',
+      'struct',
+      'type.defaultLibrary',
+      'type',
+      'variable.readonly.defaultLibrary',
+      'variable.readonly',
+      'variable',
+    ]
+  )
+)
+
+export const hslConfig = {
+  [
+    ColorThemeKind
+    .Dark
+  ]: {
+    getLighting: () => (
+      (
+        getConfiguration()
+        .get(
+          'darkTheme.lighting'
+        )
+      ) as number
+      ?? 60
+    ),
+    getSaturation: () => (
+      getConfiguration()
+      .get(
+        'darkTheme.saturation'
+      ) as number
+      ?? 65
+    ),
+  },
+  [
+    ColorThemeKind
+    .HighContrast
+  ]: {
+    getLighting: () => (
+      (
+        getConfiguration()
+        .get(
+          'highContrastDarkTheme.lighting'
+        )
+      ) as number
+      ?? 100
+    ),
+    getSaturation: () => (
+      getConfiguration()
+      .get(
+        'highContrastDarkTheme.saturation'
+      ) as number
+      ?? 50
+    ),
+  },
+  [
+    ColorThemeKind
+    .HighContrastLight
+  ]: {
+    getLighting: () => (
+      (
+        getConfiguration()
+        .get(
+          'highContrastLightTheme.lighting'
+        )
+      ) as number
+      ?? 50
+    ),
+    getSaturation: () => (
+      getConfiguration()
+      .get(
+        'highContrastLightTheme.saturation'
+      ) as number
+      ?? 100
+    ),
+  },
+  [
+    ColorThemeKind
+    .Light
+  ]: {
+    getLighting: () => (
+      (
+        getConfiguration()
+        .get(
+          'lightTheme.lighting'
+        )
+      ) as number
+      ?? 100
+    ),
+    getSaturation: () => (
+      getConfiguration()
+      .get(
+        'lightTheme.saturation'
+      ) as number
+      ?? 35
+    ),
+  },
 }
-
-export let ignoredLanguages: (
-	Set<
-		string
-	>
-)
-
-export let tokenKinds: (
-	Set<
-		string
-	>
-)
-
-vscode
-.workspace
-.getConfiguration(
-	'colormate'
-)

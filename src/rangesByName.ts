@@ -1,6 +1,12 @@
+// Originally sourced from https://github.com/mnespor/vscode-color-identifiers-mode/blob/a2fbd18e64c200dfe29f391addff6bca327ac414/src/rangesByName.ts
 import * as vscode from 'vscode'
-import { tokenKinds } from './configuration'
-import { pushValue } from "./pushValue"
+
+import {
+  getTokenKinds,
+} from './configuration'
+import {
+  pushValue,
+} from './pushValue'
 
 /**
  * Tokens in a file are represented as an array of integers. The position of each token is expressed relative to
@@ -19,7 +25,7 @@ import { pushValue } from "./pushValue"
  *
  * Here is an example for encoding a file with 3 tokens in a uint32 array:
  * ```
- *    { line: 2, startChar:  5, length: 3, tokenType: "property",  tokenModifiers: ["private", "static"] },
+ *    { line: 2, startChar:  5, length: 3, tokenType: 'property",  tokenModifiers: ["private", "static"] },
  *    { line: 2, startChar: 10, length: 4, tokenType: "type",      tokenModifiers: [] },
  *    { line: 5, startChar:  2, length: 7, tokenType: "class",     tokenModifiers: [] }
  * ```
@@ -68,19 +74,32 @@ export function rangesByName(
 ): Record<string, vscode.Range[]> {
 	const accumulator: Record<string, vscode.Range[]> = {}
 	const recordSize = 5
+
 	let line = 0
 	let column = 0
 
 	for (let i = 0; i < data.data.length; i += recordSize) {
 		const [deltaLine, deltaColumn, length, kindIndex, _] = data.data.slice(i, i + recordSize)
+
 		column = deltaLine === 0 ? column : 0
 		line += deltaLine
 		column += deltaColumn
+
 		const range = new vscode.Range(line, column, line, column + length)
 		const name = editor.document.getText(range)
 		const kind = legend.tokenTypes[kindIndex]
-		if (tokenKinds.has(kind)) {
-			pushValue(accumulator, name, range)
+
+		if (
+      getTokenKinds()
+      .has(
+        kind
+      )
+    ) {
+			pushValue(
+        accumulator,
+        name,
+        range,
+      )
 		}
 	}
 
