@@ -10,7 +10,7 @@
   "repository": "https://www.github.com/mnespor/vscode-color-identifiers-mode.git",
   "icon": "images/icon.png",
   "engines": {
-    "vscode": ">=1.56.0"
+    "vscode": "^1.69.0"
   },
   "categories": [
     "Programming Languages"
