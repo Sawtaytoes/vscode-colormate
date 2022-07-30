@@ -1,0 +1,119 @@
+{
+  "name": "vscode-sublime-style-color-identifiers",
+  "displayName": "SublimeText-style Colorcoder for VSCode",
+  "description": "Hashes each variable, so it retains a consistent color throughout your project.",
+  "version": "0.0.0",
+  "license": "MIT",
+  "publisher": "Sawtaytoes",
+  "packageManager": "yarn@3.2.2",
+  "repository": {
+    "type": "git",
+    "url": "https://www.github.com/mnespor/vscode-color-identifiers-mode.git"
+  },
+  "icon": "images/icon.png",
+  "engines": {
+    "vscode": ">=1.56.0"
+  },
+  "categories": [
+    "Programming Languages"
+  ],
+  "keywords": [
+    "highlighting",
+    "rainbow",
+    "semantic",
+    "syntax",
+    "variables"
+  ],
+  "activationEvents": [
+    "onStartupFinished"
+  ],
+  "main": "./out/extension.js",
+  "contributes": {
+    "configuration": {
+      "title": "SublimeText-style Colorcoder for VSCode",
+      "properties": {
+        "colorIdentifiersMode.tokenKinds": {
+          "type": "array",
+          "default": [
+            "variable",
+            "parameter",
+            "property"
+          ],
+          "markdownDescription": "The types of language tokens that should have a color applied. In addition to the [list of common types](https://code.visualstudio.com/api/language-extensions/semantic-highlight-guide#standard-token-types-and-modifiers), language authors may define their own."
+        },
+        "colorIdentifiersMode.paletteMode": {
+          "type": "string",
+          "default": "automatic",
+          "enum": [
+            "automatic",
+            "manual"
+          ],
+          "enumDescriptions": [
+            "Chooses colors likely to work well with the active color theme.",
+            "Chooses colors from a user-defined list."
+          ]
+        },
+        "colorIdentifiersMode.manualColors": {
+          "type": "array",
+          "default": [
+            "#FFD479",
+            "#FF7E79",
+            "#D4FB79",
+            "#73FA79",
+            "#73FCD6",
+            "#76D6FF",
+            "#7A81FF",
+            "#7A81FF",
+            "#D783FF",
+            "#FF8AD8"
+          ],
+          "description": "In the manual palette mode, colors are chosen from this list."
+        },
+        "colorIdentifiersMode.ignoredLanguages": {
+          "type": "array",
+          "default": [],
+          "markdownDescription": "Don't colorize files in these [languages](https://code.visualstudio.com/docs/languages/identifiers#_known-language-identifiers)."
+        },
+        "colorIdentifiersMode.method": {
+          "type": "string",
+          "default": "sequential",
+          "enum": [
+            "sequential",
+            "hash"
+          ],
+          "enumDescriptions": [
+            "Assigns colors to variables in the order that the variables appear in the file.",
+            "Uses the variable's name to determine its color."
+          ]
+        }
+      }
+    }
+  },
+  "scripts": {
+    "vscode:prepublish": "npm run compile",
+    "compile": "tsc -p ./",
+    "watch": "tsc -watch -p ./",
+    "pretest": "npm run compile && npm run lint",
+    "lint": "eslint src --ext ts",
+    "test": "node ./out/test/runTest.js"
+  },
+  "devDependencies": {
+    "@types/glob": "^7.1.3",
+    "@types/mocha": "^8.0.4",
+    "@types/node": "^12.11.7",
+    "@types/vscode": "^1.56.0",
+    "@typescript-eslint/eslint-plugin": "^4.14.1",
+    "@typescript-eslint/parser": "^4.14.1",
+    "eslint": "^7.19.0",
+    "glob": "^7.1.6",
+    "mocha": "^8.2.1",
+    "typescript": "^4.1.3",
+    "vscode-test": "^1.5.0"
+  },
+  "dependencies": {
+    "@types/color-convert": "^2.0.0",
+    "color-convert": "^2.0.1",
+    "just-debounce": "^1.1.0",
+    "murmurhash": "^2.0.0"
+  }
+}
