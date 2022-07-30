@@ -3,9 +3,12 @@ const someFunction2 = ({}) => {}
 const someFunction3 = ({}) => {}
 const someFunction4 = ({}) => {}
 const yoyo = () => {}
+const someFunction23 = () => {}
+const someFunction20 = () => {}
 
 someFunction
-someFunction
+someFunction23
+someFunction20
 someFunction4
 
 const returnValue = (
