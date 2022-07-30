@@ -5,6 +5,8 @@ ColorMate is a semantic highlighter (similar to a syntax highlighter) that color
 
 This allows you to quickly and easily skim your code by reading colors instead of text. This solves a specific set of accessibility requirements for code skimming.
 
+> _**NOTE:** Your color theme needs to support semantic highlighting. See Troubleshooting below for how to **force it always on**._
+
 ## Examples
 ### Electron
 ![Electron -> Before](images/theme-electron-before.png)
