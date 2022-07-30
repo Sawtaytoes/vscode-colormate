@@ -1,4 +1,7 @@
-import vscode, { ColorThemeKind } from 'vscode'
+import vscode, {
+	ColorThemeKind,
+} from 'vscode'
+
 import { rangesByName } from './rangesByName'
 import { ignoredLanguages } from "./configuration"
 import { crc8Hash } from './crc8Hash'
@@ -33,7 +36,14 @@ export async function colorize(
 	
 	if (
 		uri == null
-		|| ignoredLanguages.has(editor.document.languageId)
+		|| (
+			ignoredLanguages
+			.has(
+				editor
+				.document
+				.languageId
+			)
+		)
 	) {
 		return
 	}
@@ -78,8 +88,8 @@ export async function colorize(
 	)
 
 	if (
-		tokensData == null
-		|| legend == null
+		legend == null
+		|| tokensData == null
 	) {
 		return
 	}
