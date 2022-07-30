@@ -1,13 +1,9 @@
-# Change Log
+# CHANGELOG
 
-## 1.2.0 (2021-10-30)
+## [1.2.0] - 2022-07-30
 
-- Colors no longer break on .toString() and .toLocaleString() (Thanks HugoMcPhee!)
+- ✨ Added more semantic token selectors for the default token configuration.
 
-## 1.1.0 (2021-06-18)
+## [1.1.1] - 2022-07-30
 
-- Debounce keystrokes.
-
-## 1.0.0 (2021-05-22)
-
-- Initial release.
+- 🎉 First 100% working release with all the right logos!
