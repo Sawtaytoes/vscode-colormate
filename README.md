@@ -18,9 +18,9 @@ This extension contributes the following settings:
 * `colormate.tokenKinds`: The types of language tokens that should have a color applied.
 * `colormate.ignoredLanguages`: Don't colorize files in these languages.
 
-# Fun Facts
+## Fun Facts
 
-## Why Semantic Highlighting?
+### Why Semantic Highlighting?
 Hi! I'm [Kevin Ghadyani](https://twitter.com/Sawtaytoes), and I was stuck on Sublime Text for years until I created this **semantic highlighting** extension for VSCode.
 
 - **Article:** [Why I don't use VSCode](https://medium.com/@Sawtaytoes/why-i-dont-use-visual-studio-code-f5ac7274fb96)
@@ -30,10 +30,10 @@ To me, semantic highlighting is an accessibility feature. It's tough to read cod
 
 Not only that, but by having each variable defined with a certain color, you'll always know exactly what "looks right" in your code.
 
-## Originally Forked
+### Originally Forked
 This package was originally forked from [Color Identifiers](https://marketplace.visualstudio.com/items?itemName=MatthewNespor.vscode-color-identifiers-mode) by Matthew Nespor.
 
-## Hashing Algorithm
+### Hashing Algorithm
 The hashing algorithm is modeled after the same amazing CRC8 hasher used by [Colorcoder for Sublime Text](https://packagecontrol.io/packages/Colorcoder).
 
 ## Special Thanks
