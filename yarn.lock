@@ -2368,9 +2368,9 @@ __metadata:
   languageName: node
   linkType: hard
 
-"vscode-sublime-style-color-identifiers@workspace:.":
+"vscode-colormate@workspace:.":
   version: 0.0.0-use.local
-  resolution: "vscode-sublime-style-color-identifiers@workspace:."
+  resolution: "vscode-colormate@workspace:."
   dependencies:
     "@types/color-convert": ^2.0.0
     "@types/glob": ^7.2.0
