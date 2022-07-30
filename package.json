@@ -7,7 +7,7 @@
   "author": "Kevin Ghadyani",
   "publisher": "Sawtaytoes",
   "packageManager": "yarn@3.2.2",
-  "repository": "https://www.github.com/mnespor/vscode-color-identifiers-mode.git",
+  "repository": "https://github.com/Sawtaytoes/vscode-colorcoder.git",
   "icon": "images/icon.png",
   "engines": {
     "vscode": "^1.69.0"
