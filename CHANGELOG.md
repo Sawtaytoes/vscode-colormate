@@ -1,4 +1,11 @@
 # CHANGELOG
+## [1.2.4] - 2022-07-30
+
+- 🚑 Fixed a critical issue where local changes were incorrectly packaged.
+
+## [1.2.3] - 2022-07-30
+
+- 📝 Updated README with a callout on how to force-enable semantic highlighting.
 
 ## [1.2.2] - 2022-07-30
 
