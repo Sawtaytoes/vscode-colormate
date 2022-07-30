@@ -31,6 +31,17 @@ This extension contributes the following settings:
 * `colormate.tokenKinds`: The types of language tokens that should have a color applied.
 * `colormate.ignoredLanguages`: Don't colorize files in these languages.
 
+## Troubleshooting
+It's possible semantic highlighting doesn't work for you. By default, VSCode only turns on semantic highlighting when the color scheme supports it. If you want it always turned on, change this setting to `true`:
+![Always enable Semantic Highlighting VSCode](images/semantic-highlighting-enable-always.png)
+
+Or manually add this to your preferences JSON:
+```json
+{
+  "editor.semanticHighlighting.enabled": true,
+}
+```
+
 ## Fun Facts
 
 ### Why Semantic Highlighting?
