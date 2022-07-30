@@ -24,8 +24,3 @@ someFunction2({})
 console.log(
   returnValue
 )
-
-
-
-
-
