@@ -7,7 +7,21 @@ export function updateConfiguration() {
 	ignoredLanguages = new Set(configuration.get('ignoredLanguages') ?? [])
 }
 
-export let tokenKinds: Set<string> = new Set(['variable', 'parameter', 'property'])
+export let tokenKinds: Set<string> = new Set([
+	'class',
+	'decorator',
+	'enum',
+	'event',
+	'function',
+	'label',
+	'macro',
+	'method',
+	'namespace',
+	'parameter',
+	'property',
+	'type',
+	'variable',
+])
 export let ignoredLanguages: Set<string> = new Set()
 export let colors = [
 	'#FF00FF'
