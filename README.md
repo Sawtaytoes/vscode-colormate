@@ -5,6 +5,19 @@ ColorMate is a semantic highlighter (similar to a syntax highlighter) that color
 
 This allows you to quickly and easily skim your code by reading colors instead of text. This solves a specific set of accessibility requirements for code skimming.
 
+## Examples
+### Electron
+![Electron -> Before](images/theme-electron-before.png)
+![Electron -> After](images/theme-electron-after.png)
+
+### VSCode Dark
+![Dark -> Before](images/theme-dark-before.png)
+![Dark -> After](images/theme-dark-after.png)
+
+### VSCode Light
+![Light -> Before](images/theme-light-before.png)
+![Light -> After](images/theme-light-after.png)
+
 ## Features
 
 This extension works for any language that has semantic tokens in Visual Studio Code. It uses the language server to determine which words to highlight.
