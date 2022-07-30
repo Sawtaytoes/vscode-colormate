@@ -1,16 +1,32 @@
 import vscode from 'vscode'
 import debounce from 'just-debounce'
-import { colorize } from './colorize'
-import { updateConfiguration } from './configuration'
+import vscode from 'vscode'
 
 const colorizeIfNeeded = debounce(colorize, 200)
 
-function handleActiveEditorChange(editor: vscode.TextEditor | undefined) {
+const colorizeIfNeeded = (
+	debounce(
+		colorize,
+		200,
+	)
+)
+
+const handleActiveEditorChange = (
+	editor: (
+		| (
+			vscode
+			.TextEditor
+		)
+		| undefined
+	)
+) => {
 	if (editor == null) {
 		return
 	}
 
-	colorizeIfNeeded(editor)
+	colorizeIfNeeded(
+		editor
+	)
 }
 
 function handleColorThemeChange() {

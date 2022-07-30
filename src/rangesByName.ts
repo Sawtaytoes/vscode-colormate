@@ -61,7 +61,11 @@ import { pushValue } from "./pushValue"
  * *NOTE*: When doing edits, it is possible that multiple edits occur until VS Code decides to invoke the semantic tokens provider.
  * *NOTE*: If the provider cannot temporarily compute semantic tokens, it can indicate this by throwing an error with the message 'Busy'.
  */
-export function rangesByName(data: vscode.SemanticTokens, legend: vscode.SemanticTokensLegend, editor: vscode.TextEditor): Record<string, vscode.Range[]> {
+export function rangesByName(
+	data: vscode.SemanticTokens,
+	legend: vscode.SemanticTokensLegend,
+	editor: vscode.TextEditor,
+): Record<string, vscode.Range[]> {
 	const accumulator: Record<string, vscode.Range[]> = {}
 	const recordSize = 5
 	let line = 0
