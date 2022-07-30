@@ -1,11 +1,11 @@
 {
   "name": "vscode-colormate",
-  "displayName": "ColorMate: The best Semantic highlighting for VSCode!",
+  "displayName": "ColorMate: Semantic Highlighting",
   "description": "ColorMate colors all similarly named variables the same, so you can quickly and easily skim your code by reading colors instead of text. The hashing algorithm is modeled after the same amazing CRC8 hasher used by Colorcoder for Sublime Text.",
-  "version": "0.0.0",
+  "version": "0.0.1",
   "license": "MIT",
   "author": "Kevin Ghadyani",
-  "publisher": "Sawtaytoes",
+  "publisher": "KevinGhadyani",
   "packageManager": "yarn@3.2.2",
   "repository": "https://github.com/Sawtaytoes/vscode-colorcoder.git",
   "icon": "images/icon.png",
@@ -54,6 +54,7 @@
     "compile": "tsc -p ./",
     "lint": "eslint src --ext ts",
     "pretest": "npm run compile && npm run lint",
+    "publishPackage": "vsce package --no-yarn && vsce publish --no-yarn",
     "test": "node ./out/test/runTest.js",
     "vscode:prepublish": "npm run compile",
     "watch": "tsc -watch -p ./"
