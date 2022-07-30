@@ -1,4 +1,11 @@
 # CHANGELOG
+## [1.3.0] - 2022-07-30
+
+- ✨ Added `lighting` and `saturation` configuration settings for all color theme types.
+- ✨ Changing settings now results in immediate visible changes.
+- 🐛 Fixed an issue where leaving an editor view would remove semantic highlighting. This was most-apparent when using multiple columns or windows.
+- 🎨 Major code styling and refactoring.
+
 ## [1.2.4] - 2022-07-30
 
 - 🚑 Fixed a critical issue where local changes were incorrectly packaged.
