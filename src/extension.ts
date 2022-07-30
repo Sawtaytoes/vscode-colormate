@@ -4,6 +4,7 @@ import vscode from 'vscode'
 import {
   colorize,
   removePreviousTextEditorDecorations,
+  removeUnusedTextEditorDecorations,
 } from './colorize'
 
 const colorizeIfNeeded = (
@@ -51,6 +52,15 @@ function onConfigChange() {
       editor
     )
   })
+}
+
+
+function onTextEditorListChange() {
+  removeUnusedTextEditorDecorations(
+    vscode
+    .window
+    .visibleTextEditors
+  )
 }
 
 function onTextDocumentChange(
@@ -124,6 +134,16 @@ export const activate = (
     .workspace
     .onDidChangeTextDocument(
       onTextDocumentChange
+    )
+  )
+
+  context
+  .subscriptions
+  .push(
+    vscode
+    .window
+    .onDidChangeVisibleTextEditors(
+      onTextEditorListChange
     )
   )
 

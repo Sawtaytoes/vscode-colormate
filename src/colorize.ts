@@ -26,6 +26,39 @@ const textEditorDecorationMap = new Map<
   )
 >()
 
+export const removeUnusedTextEditorDecorations = (
+  editors: (
+    readonly (
+      vscode
+      .TextEditor
+    )[]
+  ),
+) => {
+  Array
+  .from(
+    textEditorDecorationMap
+    .keys()
+  )
+  .filter((
+    editor,
+  ) => (
+    !(
+      editors
+      .includes(
+        editor
+      )
+    )
+  ))
+  .forEach((
+    editor,
+  ) => {
+    textEditorDecorationMap
+    .delete(
+      editor
+    )
+  })
+}
+
 export const removePreviousTextEditorDecorations = (
   editor?: (
     vscode
