@@ -1,7 +1,8 @@
 import vscode from 'vscode'
 
 export function updateConfiguration() { 
-	const configuration = vscode.workspace.getConfiguration('colorIdentifiersMode')
+	const configuration = vscode.workspace.getConfiguration('colorcoder')
+	
 	tokenKinds = new Set(configuration.get('tokenKinds') ?? [])
 	ignoredLanguages = new Set(configuration.get('ignoredLanguages') ?? [])
 }
@@ -12,4 +13,4 @@ export let colors = [
 	'#FF00FF'
 ].map(color => vscode.window.createTextEditorDecorationType({ color }))
 
-vscode.workspace.getConfiguration('colorIdentifiersMode')
+vscode.workspace.getConfiguration('colorcoder')

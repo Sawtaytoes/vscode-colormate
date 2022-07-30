@@ -1,9 +1,10 @@
 {
-  "name": "vscode-sublime-style-color-identifiers",
-  "displayName": "SublimeText-style Colorcoder for VSCode",
-  "description": "Hashes each variable, so it retains a consistent color throughout your project.",
+  "name": "vscode-colormate",
+  "displayName": "ColorMate: The best Semantic highlighting for VSCode",
+  "description": "ColorMate colors all similarly named variables the same, so you can quickly and easily skim your code by reading colors instead of text. The hashing algorithm is modeled after the same amazing CRC8 hasher used by Colorcoder for Sublime Text.",
   "version": "0.0.0",
   "license": "MIT",
+  "author": "Kevin Ghadyani",
   "publisher": "Sawtaytoes",
   "packageManager": "yarn@3.2.2",
   "repository": "https://www.github.com/mnespor/vscode-color-identifiers-mode.git",
@@ -15,6 +16,9 @@
     "Programming Languages"
   ],
   "keywords": [
+    "colorcoder",
+    "colormate",
+    "color-mate",
     "highlighting",
     "rainbow",
     "semantic",
@@ -27,9 +31,9 @@
   "main": "./out/extension.js",
   "contributes": {
     "configuration": {
-      "title": "SublimeText-style Colorcoder for VSCode",
+      "title": "SublimeText Colorcoder for VSCode",
       "properties": {
-        "colorIdentifiersMode.tokenKinds": {
+        "colorcoder.tokenKinds": {
           "type": "array",
           "default": [
             "variable",
@@ -38,50 +42,10 @@
           ],
           "markdownDescription": "The types of language tokens that should have a color applied. In addition to the [list of common types](https://code.visualstudio.com/api/language-extensions/semantic-highlight-guide#standard-token-types-and-modifiers), language authors may define their own."
         },
-        "colorIdentifiersMode.paletteMode": {
-          "type": "string",
-          "default": "automatic",
-          "enum": [
-            "automatic",
-            "manual"
-          ],
-          "enumDescriptions": [
-            "Chooses colors likely to work well with the active color theme.",
-            "Chooses colors from a user-defined list."
-          ]
-        },
-        "colorIdentifiersMode.manualColors": {
-          "type": "array",
-          "default": [
-            "#FFD479",
-            "#FF7E79",
-            "#D4FB79",
-            "#73FA79",
-            "#73FCD6",
-            "#76D6FF",
-            "#7A81FF",
-            "#7A81FF",
-            "#D783FF",
-            "#FF8AD8"
-          ],
-          "description": "In the manual palette mode, colors are chosen from this list."
-        },
-        "colorIdentifiersMode.ignoredLanguages": {
+        "colorcoder.ignoredLanguages": {
           "type": "array",
           "default": [],
           "markdownDescription": "Don't colorize files in these [languages](https://code.visualstudio.com/docs/languages/identifiers#_known-language-identifiers)."
-        },
-        "colorIdentifiersMode.method": {
-          "type": "string",
-          "default": "sequential",
-          "enum": [
-            "sequential",
-            "hash"
-          ],
-          "enumDescriptions": [
-            "Assigns colors to variables in the order that the variables appear in the file.",
-            "Uses the variable's name to determine its color."
-          ]
         }
       }
     }
@@ -111,6 +75,5 @@
     "@types/color-convert": "^2.0.0",
     "color-convert": "^2.0.1",
     "just-debounce": "^1.1.0"
-  },
-  "author": "Kevin Ghadyani"
+  }
 }
