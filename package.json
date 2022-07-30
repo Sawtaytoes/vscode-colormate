@@ -6,10 +6,7 @@
   "license": "MIT",
   "publisher": "Sawtaytoes",
   "packageManager": "yarn@3.2.2",
-  "repository": {
-    "type": "git",
-    "url": "https://www.github.com/mnespor/vscode-color-identifiers-mode.git"
-  },
+  "repository": "https://www.github.com/mnespor/vscode-color-identifiers-mode.git",
   "icon": "images/icon.png",
   "engines": {
     "vscode": ">=1.56.0"
@@ -115,5 +112,6 @@
     "color-convert": "^2.0.1",
     "just-debounce": "^1.1.0",
     "murmurhash": "^2.0.0"
-  }
+  },
+  "author": "Kevin Ghadyani"
 }
