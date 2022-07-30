@@ -4,9 +4,39 @@ import { ignoredLanguages } from "./configuration"
 import { crc8Hash } from './crc8Hash'
 import { hslToHexColor } from './hslToHexColor'
 
-export async function colorize(editor: vscode.TextEditor): Promise<void> {
+const textEditorDecorations = new Map()
+
+export const removePreviousTextEditorDecorations = () => {
+	Array
+	.from(
+		textEditorDecorations
+		.entries()
+	)
+	.forEach(([
+		symbol,
+		textEditorDecoration,
+	]) => {
+		textEditorDecoration
+		.dispose()
+
+		textEditorDecorations
+		.delete(
+			symbol
+		)
+	})
+}
+
+export async function colorize(
+	editor: vscode.TextEditor,
+): Promise<void> {
 	const uri = editor.document.uri
-	if (uri == null || ignoredLanguages.has(editor.document.languageId)) { return }
+	
+	if (
+		uri == null
+		|| ignoredLanguages.has(editor.document.languageId)
+	) {
+		return
+	}
 
 	const [
 		legend,
@@ -62,6 +92,8 @@ export async function colorize(editor: vscode.TextEditor): Promise<void> {
 		)
 	)
 
+	removePreviousTextEditorDecorations()
+
 	Object
 	.entries(
 		rangesBySymbolName
@@ -89,33 +121,45 @@ export async function colorize(editor: vscode.TextEditor): Promise<void> {
 			)
 		)
 
-		const color = (
+		const hexColor = (
 			hslToHexColor(
-				crcHex * (360 / 256),
+				(
+					crcHex
+					* (
+						360
+						/ 256
+					)
+				),
 				(
 					isLightTheme
 					? 100
-					: 62
+					: 65
 				),
 				(
 					isLightTheme
 					? 35
-					: 65
+					: 60
 				),
 			)
 		)
 
-		const hexColor = (
+		const textEditorDecoration = (
 			vscode
 			.window
 			.createTextEditorDecorationType({
-				color,
+				color: hexColor,
 			})
+		)
+
+		textEditorDecorations
+		.set(
+			symbolName,
+			textEditorDecoration,
 		)
 
 		editor
 		.setDecorations(
-			hexColor,
+			textEditorDecoration,
 			ranges,
 		)
 	})

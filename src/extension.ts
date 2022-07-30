@@ -1,8 +1,13 @@
-import vscode from 'vscode'
 import debounce from 'just-debounce'
 import vscode from 'vscode'
 
-const colorizeIfNeeded = debounce(colorize, 200)
+import {
+	colorize,
+	removePreviousTextEditorDecorations,
+} from './colorize'
+import {
+	updateConfiguration,
+} from './configuration'
 
 const colorizeIfNeeded = (
 	debounce(
@@ -56,6 +61,9 @@ export function activate(context: vscode.ExtensionContext) {
 
 	if (editor != null) {
 		colorizeIfNeeded(editor)
+	}
+	else {
+		removePreviousTextEditorDecorations()
 	}
 }
 
