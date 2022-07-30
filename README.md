@@ -1,4 +1,6 @@
 # CodeMate for Visual Studio Code
+![ColorMate logo by Noah Raskin](images/logo.png)
+
 The best Semantic highlighting for VSCode!
 
 ColorMate colors all similarly named variables the same, so you can quickly and easily skim your code by reading colors instead of text. The hashing algorithm is modeled after the same amazing CRC8 hasher used by [Colorcoder for Sublime Text](https://packagecontrol.io/packages/Colorcoder).
@@ -24,3 +26,6 @@ This extension contributes the following settings:
 
 * `colormate.tokenKinds`: The types of language tokens that should have a color applied.
 * `colormate.ignoredLanguages`: Don't colorize files in these languages.
+
+## Special Thanks
+Beautiful logo curtesy of [Noah Raskin](https://twitter.com/NoahRaskin_).
