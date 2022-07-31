@@ -28,7 +28,7 @@ export const getIgnoredLanguages: (
   )
 )
 
-export const getSemanticTokenTypes: (
+export const getConfiguredSemanticTokenTypes: (
   () => (
     Set<
       string

@@ -2,7 +2,7 @@
 import * as vscode from 'vscode'
 
 import {
-  getSemanticTokenTypes,
+  getConfiguredSemanticTokenTypes,
 } from './configuration'
 import {
   pushValue,
@@ -90,7 +90,7 @@ export function rangesByName(
 		const kind = legend.tokenTypes[kindIndex]
 
 		if (
-      getSemanticTokenTypes()
+      getConfiguredSemanticTokenTypes()
       .has(
         kind
       )
