@@ -35,7 +35,7 @@
       "properties": {
         "colormate.darkTheme.lighting": {
           "type": "number",
-          "default": 60,
+          "default": 65,
           "markdownDescription": "This controls the `lighting` in a dark color theme. This is used in an HSL function."
         },
         "colormate.darkTheme.saturation": {
@@ -45,17 +45,17 @@
         },
         "colormate.highContrastDarkTheme.lighting": {
           "type": "number",
-          "default": 100,
+          "default": 90,
           "markdownDescription": "This controls the `lighting` in a high-contrast dark color theme. This is used in an HSL function."
         },
         "colormate.highContrastDarkTheme.saturation": {
           "type": "number",
-          "default": 50,
+          "default": 100,
           "markdownDescription": "This controls the `saturation` in a high-contrast dark color theme. This is used in an HSL function."
         },
         "colormate.highContrastLightTheme.lighting": {
           "type": "number",
-          "default": 50,
+          "default": 15,
           "markdownDescription": "This controls the `lighting` in a high-contrast light color theme. This is used in an HSL function."
         },
         "colormate.highContrastLightTheme.saturation": {
@@ -65,12 +65,12 @@
         },
         "colormate.lightTheme.lighting": {
           "type": "number",
-          "default": 100,
+          "default": 35,
           "markdownDescription": "This controls the `lighting` in a light color theme. This is used in an HSL function."
         },
         "colormate.lightTheme.saturation": {
           "type": "number",
-          "default": 35,
+          "default": 100,
           "markdownDescription": "This controls the `saturation` in a light color theme. This is used in an HSL function."
         },
         "colormate.ignoredLanguages": {

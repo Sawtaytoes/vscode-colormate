@@ -120,7 +120,7 @@ export const hslConfig = {
           'darkTheme.lighting'
         )
       ) as number
-      ?? 60
+      ?? 65
     ),
     getSaturation: () => (
       getConfiguration()
@@ -141,14 +141,14 @@ export const hslConfig = {
           'highContrastDarkTheme.lighting'
         )
       ) as number
-      ?? 100
+      ?? 90
     ),
     getSaturation: () => (
       getConfiguration()
       .get(
         'highContrastDarkTheme.saturation'
       ) as number
-      ?? 50
+      ?? 100
     ),
   },
   [
@@ -162,7 +162,7 @@ export const hslConfig = {
           'highContrastLightTheme.lighting'
         )
       ) as number
-      ?? 50
+      ?? 15
     ),
     getSaturation: () => (
       getConfiguration()
