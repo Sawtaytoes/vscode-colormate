@@ -28,7 +28,7 @@ export const getIgnoredLanguages: (
   )
 )
 
-export const getTokenKinds: (
+export const getSemanticTokenTypes: (
   () => (
     Set<
       string
@@ -39,7 +39,7 @@ export const getTokenKinds: (
     (
       getConfiguration()
       .get(
-        'tokenKinds'
+        'semanticTokenTypes'
       )
     )
     ?? [
@@ -63,6 +63,30 @@ export const getTokenKinds: (
       'variable.readonly.defaultLibrary',
       'variable.readonly',
       'variable',
+    ]
+  )
+)
+
+export const getTextMateTokenScopes: (
+  () => (
+    Set<
+      string
+    >
+  )
+) = () => (
+  new Set(
+    (
+      getConfiguration()
+      .get(
+        'textMateTokenScopes'
+      )
+    )
+    ?? [
+      'entity.name.tag.tsx',
+      'meta.tag.tsx',
+      'support.class.component.tsx',
+      'variable.other.readwrite.alias.ts',
+      'variable.other.readwrite.alias.tsx',
     ]
   )
 )

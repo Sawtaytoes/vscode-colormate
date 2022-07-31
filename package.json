@@ -103,6 +103,17 @@
             "variable"
           ],
           "markdownDescription": "The types of language tokens that should have a color applied. In addition to the [list of common types](https://code.visualstudio.com/api/language-extensions/semantic-highlight-guide#standard-token-types-and-modifiers), language authors may define their own."
+        },
+        "colormate.textMateTokenScopes": {
+          "type": "array",
+          "default": [
+            "entity.name.tag.tsx",
+            "meta.tag.tsx",
+            "support.class.component.tsx",
+            "variable.other.readwrite.alias.ts",
+            "variable.other.readwrite.alias.tsx"
+          ],
+          "markdownDescription": "The types of TextMate language tokens will be semantically highlighted."
         }
       }
     }

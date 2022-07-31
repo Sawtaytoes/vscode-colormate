@@ -108,22 +108,6 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@types/color-convert@npm:^2.0.0":
-  version: 2.0.0
-  resolution: "@types/color-convert@npm:2.0.0"
-  dependencies:
-    "@types/color-name": "*"
-  checksum: 027b68665dc2278cc2d83e796ada0a05a08aa5a11297e227c48c7f9f6eac518dec98578ab0072bd211963d3e4b431da70b20ea28d6c3136d0badfd3f9913baee
-  languageName: node
-  linkType: hard
-
-"@types/color-name@npm:*":
-  version: 1.1.1
-  resolution: "@types/color-name@npm:1.1.1"
-  checksum: b71fcad728cc68abcba1d405742134410c8f8eb3c2ef18113b047afca158ad23a4f2c229bcf71a38f4a818dead375c45b20db121d0e69259c2d81e97a740daa6
-  languageName: node
-  linkType: hard
-
 "@types/glob@npm:^7.2.0":
   version: 7.2.0
   resolution: "@types/glob@npm:7.2.0"
@@ -2372,22 +2356,29 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "vscode-colormate@workspace:."
   dependencies:
-    "@types/color-convert": ^2.0.0
     "@types/glob": ^7.2.0
     "@types/mocha": ^9.1.1
     "@types/node": ^18.6.2
     "@types/vscode": ^1.69.0
     "@typescript-eslint/eslint-plugin": ^5.31.0
     "@typescript-eslint/parser": ^5.31.0
-    color-convert: ^2.0.1
     eslint: ^8.20.0
     glob: ^8.0.3
     just-debounce: ^1.1.0
     mocha: ^10.0.0
     typescript: ^4.7.4
+    vscode-oniguruma: ^1.6.2
     vscode-test: ^1.6.1
+    vscode-textmate: ^7.0.1
   languageName: unknown
   linkType: soft
+
+"vscode-oniguruma@npm:^1.6.2":
+  version: 1.6.2
+  resolution: "vscode-oniguruma@npm:1.6.2"
+  checksum: 6b754acdafd5b68242ea5938bb00a32effc16c77f471d4f0f337d879d0e8e592622998e2441f42d9a7ff799c1593f31c11f26ca8d9bf9917e3ca881d3c1f3e19
+  languageName: node
+  linkType: hard
 
 "vscode-test@npm:^1.6.1":
   version: 1.6.1
@@ -2398,6 +2389,13 @@ __metadata:
     rimraf: ^3.0.2
     unzipper: ^0.10.11
   checksum: 37779441eaccfe7eb4c5ec53950441d2084b213010c6cb40855d4126f41140d021dbc12388da025df0f2ea1bfa85a4e5bcdd7c13bf78144dee18fa9b35c90793
+  languageName: node
+  linkType: hard
+
+"vscode-textmate@npm:^7.0.1":
+  version: 7.0.1
+  resolution: "vscode-textmate@npm:7.0.1"
+  checksum: 805eaf62e4748a2137d375d4626dc5fe69d062b8a3a666126097b277854f401ac5f17eea2d2800d8a9f4d65db311bae5c857be07a84b076fb7a18c7af4c84e06
   languageName: node
   linkType: hard
 

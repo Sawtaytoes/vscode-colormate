@@ -1,7 +1,15 @@
-import vscode, { TextEditorDecorationType } from 'vscode'
+import vscode, {
+  Position,
+  Range,
+  TextEditorDecorationType,
+} from 'vscode'
+import {
+  IToken,
+} from 'vscode-textmate'
 
 import {
   getIgnoredLanguages,
+  getTextMateTokenScopes,
   hslConfig,
 } from "./configuration"
 import {
@@ -13,6 +21,13 @@ import {
 import {
   rangesByName,
 } from './rangesByName'
+import {
+  getScopeName,
+} from './textMateGrammars'
+import {
+  getTextMateLineTokens,
+  getTextMateRegistry,
+} from './textMateRegistry'
 
 const textEditorDecorationMap = new Map<
   (
@@ -139,6 +154,7 @@ export async function colorize(
   const [
     legend,
     tokensData,
+    textMateLineTokens,
   ] = (
     await (
       Promise
@@ -171,23 +187,186 @@ export async function colorize(
             uri,
           )
         ),
+        (
+          Promise
+          .resolve(
+            getScopeName(
+              editor
+              .document
+              .languageId
+            )
+          )
+          .then((
+            scopeName,
+          ) => (
+            getTextMateLineTokens({
+              documentText: (
+                editor
+                .document
+                .getText()
+              ),
+              registry: (
+                getTextMateRegistry(
+                  scopeName
+                )
+              ),
+              scopeName,
+            })
+          ))
+        ),
       ])
     )
   )
 
+  // TODO: Update this to take advantage of `textMateLineTokens` when no semantic tokens are availabe.
   if (
-    legend == null
-    || tokensData == null
+    !legend
+    || !tokensData
   ) {
     return
   }
 
-  const rangesBySymbolName = (
+  const semanticTokenRangesBySymbolName = (
     rangesByName(
       tokensData,
       legend,
       editor,
     )
+  )
+
+  const textMateTokenRangesBySymbolName = (
+    Array
+    .from(
+      textMateLineTokens
+      .reduce(
+        (
+          {
+            deduplicatedTokenMap,
+            symbolLookup,
+          },
+          {
+            lineNumber,
+            symbol,
+            token,
+          },
+        ) => ({
+          deduplicatedTokenMap: (
+            (
+              symbolLookup
+              .has(
+                symbol
+              )
+            )
+            ? deduplicatedTokenMap
+            : (
+              deduplicatedTokenMap
+              .set(
+                symbol,
+                (
+                  (
+                    deduplicatedTokenMap
+                    .get(
+                      symbol
+                    )
+                    || []
+                  )
+                  .concat({
+                    lineNumber,
+                    token,
+                  })
+                ),
+              )
+            )
+          ),
+          symbolLookup,
+        }),
+        {
+          deduplicatedTokenMap: (
+            new Map<
+              string,
+              {
+                lineNumber: number,
+                token: IToken,
+              }[]
+            >()
+          ),
+          symbolLookup: (
+            new Set<
+              string
+            >()
+          ),
+        },
+      )
+      .deduplicatedTokenMap
+    )
+    .map(([
+      symbol,
+      tokens,
+    ]) => ({
+      scopes: (
+        new Set(
+          tokens
+          .map(({
+            token
+          }) => (
+            token
+            .scopes
+          ))
+          .flat()
+        )
+      ),
+      symbol,
+      tokens,
+    }))
+    .filter(({
+      scopes,
+    }) => (
+      Array
+      .from(
+        scopes
+      )
+      .some((
+        scope,
+      ) => (
+        getTextMateTokenScopes()
+        .has(
+          scope
+        )
+      ))
+    ))
+    .map<[
+      string,
+      Range[]
+    ]>(({
+      symbol,
+      tokens,
+    }) => ([
+      symbol,
+      (
+        tokens
+        .map(({
+          lineNumber,
+          token,
+        }) => (
+          new Range(
+            new Position(
+              lineNumber,
+              (
+                token
+                .startIndex
+              ),
+            ),
+            new Position(
+              lineNumber,
+              (
+                token
+                .endIndex
+              ),
+            )
+          )
+        ))
+      ),
+    ]))
   )
 
   removePreviousTextEditorDecorations(
@@ -208,7 +387,10 @@ export async function colorize(
 
   Object
   .entries(
-    rangesBySymbolName
+    semanticTokenRangesBySymbolName
+  )
+  .concat(
+    textMateTokenRangesBySymbolName
   )
   .forEach(([
     symbolName,
