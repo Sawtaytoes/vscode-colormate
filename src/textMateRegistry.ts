@@ -33,64 +33,45 @@ const vscodeOnigurumaLib = (
 )
 
 // Create a registry that can create a grammar from a scope name.
-export const getTextMateRegistry = (
-  scopeName: string,
-) => (
+export const getTextMateRegistry = () => (
   new Registry({
     loadGrammar: (
       gammarScopeName: string,
     ) => {
-      if (
-        gammarScopeName
-        === scopeName
-      ) {
-        const scopeFilePath = (
-          getScopeFilePath(
-            scopeName
-          )
+      const scopeFilePath = (
+        getScopeFilePath(
+          gammarScopeName
         )
-
-        return (
-          readFile(
-            scopeFilePath
-          )
-          .then((
-            data,
-          ) => (
-            data
-            .toString()
-          ))
-          .then((
-            data,
-          ) => (
-            parseRawGrammar(
-              data,
-              scopeFilePath,
-            )
-          ))
-          .catch((
-            error,
-          ) => {
-            console
-            .error(
-              error
-            )
-
-            return null
-          })
-        )
-      }
-
-      console.log(
-        'Unknown scope name:',
-        gammarScopeName,
       )
 
       return (
-        Promise
-        .resolve(
-          null
+        readFile(
+          scopeFilePath
         )
+        .then((
+          data,
+        ) => (
+          data
+          .toString()
+        ))
+        .then((
+          data,
+        ) => (
+          parseRawGrammar(
+            data,
+            scopeFilePath,
+          )
+        ))
+        .catch((
+          error,
+        ) => {
+          console
+          .error(
+            error
+          )
+
+          return null
+        })
       )
     },
     onigLib: vscodeOnigurumaLib,
