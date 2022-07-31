@@ -1,5 +1,8 @@
 # CHANGELOG
 
+## [2.1.0] - 2022-07-30
+- ✨ Semantic highlights now show when only TextMate tokens are available. Now you can even semantically highlight JSON!
+
 ## [2.0.0] - 2022-07-30
 - 💥 Renamed `colormate.tokenKinds` setting to `colormate.semanticTokenTypes`.
 - ✨ textMate tokens are now semantically highlighted when semantic tokens are unavailable. This is especially useful if you don't have any semantic tokens in your language of choice (JSX has none).
