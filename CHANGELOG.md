@@ -1,5 +1,8 @@
 # CHANGELOG
 
+## [3.1.1] - 2022-07-30
+- 🔧 Updated to use the correct Git location.
+
 ## [3.1.0] - 2022-07-30
 - 💄 Updated default lighting and saturation values to look better on all theme types.
 
