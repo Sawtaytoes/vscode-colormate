@@ -218,19 +218,28 @@ export async function colorize(
     )
   )
 
-  // TODO: Update this to take advantage of `textMateLineTokens` when no semantic tokens are availabe.
-  if (
-    !legend
-    || !tokensData
-  ) {
-    return
-  }
-
   const semanticTokenRangesBySymbolName = (
-    rangesByName(
-      tokensData,
-      legend,
-      editor,
+    (
+      legend
+      && tokensData
+    )
+    ? (
+      rangesByName(
+        tokensData,
+        legend,
+        editor,
+      )
+    )
+    : (
+      {} as (
+        Record<
+          string,
+          (
+            vscode
+            .Range[]
+          )
+        >
+      )
     )
   )
 

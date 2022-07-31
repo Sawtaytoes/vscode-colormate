@@ -85,6 +85,7 @@ export const getTextMateTokenScopes: (
       'entity.name.tag.tsx',
       'meta.tag.tsx',
       'support.class.component.tsx',
+      'support.type.property-name.json',
       'variable.other.readwrite.alias.ts',
       'variable.other.readwrite.alias.tsx',
     ]
