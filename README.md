@@ -1,4 +1,4 @@
-# CodeMate for Visual Studio Code
+# ColorMate for Visual Studio Code
 ![ColorMate logo by Noah Raskin](images/logo.png)
 
 ColorMate is a semantic highlighter (similar to a syntax highlighter) that colors all similarly named variables the same.
