@@ -78,7 +78,7 @@
           "default": 35,
           "markdownDescription": "This controls the `saturation` in a light color theme. This is used in an HSL function."
         },
-        "colormate.tokenKinds": {
+        "colormate.semanticTokenTypes": {
           "type": "array",
           "default": [
             "class.defaultLibrary",
