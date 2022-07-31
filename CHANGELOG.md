@@ -1,5 +1,9 @@
 # CHANGELOG
 
+## [3.0.0] - 2022-07-30
+- 💥 Changed how TextMate tokens are processed. Previously, they were 1:1, but now they're processed within the TextMate scope hierarchy. This change means existing scopes could be far more generic than intended.
+- ✨ Added a new feature to exclude TextMate scopes. Now that they're more generic, there's a need to exclude as well. Excluded scopes are also hierarchical and rely on specificity. If equal to or greater than the selected TextMate scopes, it will take precedence and exclude those scopes.
+
 ## [2.1.0] - 2022-07-30
 - ✨ Semantic highlights now show when only TextMate tokens are available. Now you can even semantically highlight JSON!
 
