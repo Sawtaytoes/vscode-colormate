@@ -1,5 +1,8 @@
 # CHANGELOG
 
+## [3.1.2] - 2022-07-30
+- 📝 Fixed README title.
+
 ## [3.1.1] - 2022-07-30
 - 🔧 Updated to use the correct Git location.
 
