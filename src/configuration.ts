@@ -67,7 +67,7 @@ export const getConfiguredSemanticTokenTypes: (
   )
 )
 
-export const getTextMateTokenScopes: (
+export const getConfiguredTextMateTokenScopes: (
   () => (
     Set<
       string
@@ -89,6 +89,24 @@ export const getTextMateTokenScopes: (
       'variable.other.readwrite.alias.ts',
       'variable.other.readwrite.alias.tsx',
     ]
+  )
+)
+
+export const getExcludedTextMateTokenScopes: (
+  () => (
+    Set<
+      string
+    >
+  )
+) = () => (
+  new Set(
+    (
+      getConfiguration()
+      .get(
+        'excludedTextMateTokenScopes'
+      )
+    )
+    ?? []
   )
 )
 

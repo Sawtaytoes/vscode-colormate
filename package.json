@@ -114,7 +114,12 @@
             "variable.other.readwrite.alias.ts",
             "variable.other.readwrite.alias.tsx"
           ],
-          "markdownDescription": "The types of TextMate language tokens will be semantically highlighted."
+          "markdownDescription": "The types of TextMate language tokens will be semantically highlighted.\n\nTextMate scopes are hierarchical; therefore, `source.tsx` will enable semantic coloring for all idnetifers whereas `support.class.component.tsx` is much more specific.\n\nYou can also optionally leave out the language scope (`.tsx`). This allows it to work on all languages, but be careful when doing this! You can never be sure what side-effects will occur when being too generic."
+        },
+        "colormate.excludedTextMateTokenScopes": {
+          "type": "array",
+          "default": [],
+          "markdownDescription": "Sometimes, TextMate tokens are too generic. To avoid having your own file semantically colored, you can instead use generic tokens (like `source.elixir` then exclude specific scopes with this setting.\n\nThese scopes are also hierarchical. So long as they're greater than or equal to the scope of the included scope, they will be excluded."
         }
       }
     }

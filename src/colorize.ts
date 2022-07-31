@@ -8,8 +8,9 @@ import {
 } from 'vscode-textmate'
 
 import {
+  getExcludedTextMateTokenScopes,
   getIgnoredLanguages,
-  getTextMateTokenScopes,
+  getConfiguredTextMateTokenScopes,
   hslConfig,
 } from "./configuration"
 import {
@@ -28,6 +29,9 @@ import {
   getTextMateLineTokens,
   getTextMateRegistry,
 } from './textMateRegistry'
+import {
+  createIsInTextMateScope,
+} from './textMateScopes'
 
 const textEditorDecorationMap = new Map<
   (
@@ -151,6 +155,20 @@ export async function colorize(
     return
   }
 
+  const scopeName = (
+    getScopeName(
+      editor
+      .document
+      .languageId
+    )
+  )
+
+  const isInTextMateScope = (
+    createIsInTextMateScope(
+      scopeName
+    )
+  )
+
   const [
     legend,
     tokensData,
@@ -163,11 +181,8 @@ export async function colorize(
           vscode
           .commands
           .executeCommand<
-            | (
-              vscode
-              .SemanticTokensLegend
-            )
-            | undefined
+            vscode
+            .SemanticTokensLegend
           >(
             'vscode.provideDocumentSemanticTokensLegend',
             uri,
@@ -177,42 +192,25 @@ export async function colorize(
           vscode
           .commands
           .executeCommand<
-            | (
-              vscode
-              .SemanticTokens
-            )
-            | undefined
+            vscode
+            .SemanticTokens
           >(
             'vscode.provideDocumentSemanticTokens',
             uri,
           )
         ),
         (
-          Promise
-          .resolve(
-            getScopeName(
+          getTextMateLineTokens({
+            documentText: (
               editor
               .document
-              .languageId
-            )
-          )
-          .then((
+              .getText()
+            ),
+            registry: (
+              getTextMateRegistry()
+            ),
             scopeName,
-          ) => (
-            getTextMateLineTokens({
-              documentText: (
-                editor
-                .document
-                .getText()
-              ),
-              registry: (
-                getTextMateRegistry(
-                  scopeName
-                )
-              ),
-              scopeName,
-            })
-          ))
+          })
         ),
       ])
     )
@@ -240,6 +238,22 @@ export async function colorize(
           )
         >
       )
+    )
+  )
+
+  // TODO: Convert these to search trees to make searching faster.
+  // TODO: Add function to make searching search trees easier.
+  const configuredTextMateTokenScopes = (
+    Array
+    .from(
+      getConfiguredTextMateTokenScopes()
+    )
+  )
+
+  const excludedTextMateTokenScopes = (
+    Array
+    .from(
+      getExcludedTextMateTokenScopes()
     )
   )
 
@@ -313,15 +327,18 @@ export async function colorize(
       tokens,
     ]) => ({
       scopes: (
-        new Set(
-          tokens
-          .map(({
-            token
-          }) => (
-            token
-            .scopes
-          ))
-          .flat()
+        Array
+        .from(
+          new Set(
+            tokens
+            .map(({
+              token
+            }) => (
+              token
+              .scopes
+            ))
+            .flat()
+          )
         )
       ),
       symbol,
@@ -329,20 +346,77 @@ export async function colorize(
     }))
     .filter(({
       scopes,
-    }) => (
-      Array
-      .from(
-        scopes
-      )
-      .some((
-        scope,
-      ) => (
-        getTextMateTokenScopes()
-        .has(
-          scope
+    }) => {
+      const highestScopeSpecificity = (
+        configuredTextMateTokenScopes
+        .filter((
+          tokenScope,
+        ) => (
+          scopes
+          .some((
+            scope,
+          ) => (
+            isInTextMateScope(
+              scope,
+              tokenScope,
+            )
+          ))
+        ))
+        .reduce(
+          (
+            highestScopeSpecificity,
+            scope,
+          ) => (
+            Math
+            .max(
+              highestScopeSpecificity,
+              (
+                scope
+                .split(
+                  '.'
+                )
+                .length
+              ),
+            )
+          ),
+          0,
         )
-      ))
-    ))
+      )
+
+      return (
+        highestScopeSpecificity
+        && (
+          !(
+            scopes
+            .some((
+              scope,
+            ) => (
+              excludedTextMateTokenScopes
+              .some((
+                excludedTokenScope,
+              ) => (
+                isInTextMateScope(
+                  scope,
+                  excludedTokenScope,
+                )
+                && (
+                  (
+                    excludedTokenScope
+                    .split(
+                      '.'
+                    )
+                    .length
+                  )
+                  >= (
+                    highestScopeSpecificity
+                  )
+                )
+              ))
+            ))
+          )
+        )
+      )
+    })
     .map<[
       string,
       Range[]
