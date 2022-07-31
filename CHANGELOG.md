@@ -1,5 +1,10 @@
 # CHANGELOG
 
+## [2.0.0] - 2022-07-30
+- 💥 Renamed `colormate.tokenKinds` setting to `colormate.semanticTokenTypes`.
+- ✨ textMate tokens are now semantically highlighted when semantic tokens are unavailable. This is especially useful if you don't have any semantic tokens in your language of choice (JSX has none).
+- 🔧 Added configuration for `colormate.textMateTokenScopes`. Now you can select textMate tokens to style as well as semantic tokens. This is especially useful if you don't have any semantic tokens in your language of choice (JSX has none).
+
 ## [1.3.2] - 2022-07-30
 - 🔧 Updated the VSCode displayName to fit.
 
