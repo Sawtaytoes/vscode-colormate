@@ -1,5 +1,8 @@
 # CHANGELOG
 
+## [3.1.3] - 2022-07-30
+- 🔧 Added more search keywords.
+
 ## [3.1.2] - 2022-07-30
 - 📝 Fixed README title.
 
