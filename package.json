@@ -33,11 +33,6 @@
     "configuration": {
       "title": "ColorMate Options",
       "properties": {
-        "colormate.ignoredLanguages": {
-          "type": "array",
-          "default": [],
-          "markdownDescription": "Don't colorize files in these [languages](https://code.visualstudio.com/docs/languages/identifiers#_known-language-identifiers)."
-        },
         "colormate.darkTheme.lighting": {
           "type": "number",
           "default": 60,
@@ -77,6 +72,11 @@
           "type": "number",
           "default": 35,
           "markdownDescription": "This controls the `saturation` in a light color theme. This is used in an HSL function."
+        },
+        "colormate.ignoredLanguages": {
+          "type": "array",
+          "default": [],
+          "markdownDescription": "Don't colorize files in these [languages](https://code.visualstudio.com/docs/languages/identifiers#_known-language-identifiers)."
         },
         "colormate.semanticTokenTypes": {
           "type": "array",
