@@ -5,7 +5,7 @@ export const createIsInTextMateScope = (
     (
       sourceScopeName
       .match(
-        /.+(\..+)/
+        /.+?(\..+)/
       )
       ?.slice(
         1
