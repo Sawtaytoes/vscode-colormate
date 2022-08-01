@@ -93,6 +93,7 @@ export const getConfiguredTextMateTokenScopes: (
           )
         )
         ? [
+          'entity.name.function',
           'entity.name.tag',
           'entity.other.attribute-name',
           'support.type.property-name.json',
