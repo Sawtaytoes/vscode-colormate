@@ -1,18 +1,23 @@
 # CHANGELOG
 
-## [3.1.3] - 2022-07-30
+## [3.1.4] - 2022-07-31
+- 🐛 Fixed an improper regex for root scopes with 2 roots (source.js.jsx)
+- 🐛 Fixed edge-case bug in matching TextMate scopes with a single category name
+- 🐛 Fixed incorrect defaults in package.json
+
+## [3.1.3] - 2022-07-31
 - 🔧 Added more search keywords.
 
-## [3.1.2] - 2022-07-30
+## [3.1.2] - 2022-07-31
 - 📝 Fixed README title.
 
-## [3.1.1] - 2022-07-30
+## [3.1.1] - 2022-07-31
 - 🔧 Updated to use the correct Git location.
 
-## [3.1.0] - 2022-07-30
+## [3.1.0] - 2022-07-31
 - 💄 Updated default lighting and saturation values to look better on all theme types.
 
-## [3.0.0] - 2022-07-30
+## [3.0.0] - 2022-07-31
 - 💥 Changed how TextMate tokens are processed. Previously, they were 1:1, but now they're processed within the TextMate scope hierarchy. This change means existing scopes could be far more generic than intended.
 - ✨ Added a new feature to exclude TextMate scopes. Now that they're more generic, there's a need to exclude as well. Excluded scopes are also hierarchical and rely on specificity. If equal to or greater than the selected TextMate scopes, it will take precedence and exclude those scopes.
 
