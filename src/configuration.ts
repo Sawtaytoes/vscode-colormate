@@ -75,18 +75,33 @@ export const getConfiguredTextMateTokenScopes: (
   )
 ) = () => (
   new Set(
-    (
-      getConfiguration()
-      .get(
-        'textMateTokenScopes'
-      )
-    )
-    ?? [
-      'entity.name.tag',
-      'entity.other.attribute-name',
-      'support.type.property-name.json',
-      'variable.other.readwrite.alias',
-    ]
+    [
+      ...(
+        (
+          getConfiguration()
+          .get(
+            'textMateTokenScopes'
+          )
+        ) as string[]
+        ?? []
+      ),
+      ...(
+        (
+          getConfiguration()
+          .get(
+            'hasDefaultTextMateTokenScopes'
+          )
+        )
+        ? [
+          'entity.name.tag',
+          'entity.other.attribute-name',
+          'support.type.property-name.json',
+          'variable.other.readwrite.alias',
+          'variable.other.property',
+        ]
+        : []
+      ),
+    ],
   )
 )
 

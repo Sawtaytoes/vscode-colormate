@@ -123,14 +123,14 @@
           ],
           "markdownDescription": "The types of language tokens that should have a color applied. In addition to the [list of common types](https://code.visualstudio.com/api/language-extensions/semantic-highlight-guide#standard-token-types-and-modifiers), language authors may define their own."
         },
+        "colormate.hasDefaultTextMateTokenScopes": {
+          "type": "boolean",
+          "default": true,
+          "markdownDescription": "ColorMate comes with its own TextMate token scopes for JavaScript, TypeScript, HTML, and JSON. If you'd like to disable those defaults, disable this setting.\n\nThese aren't the same as the semantic scopes. Those you can override with a separate setting. All this does is disable the special TextMate token scopes that were defined to make JS, TS, HTML, and JSON to fully render with semantic highlighting in areas not covered by semantic tokens."
+        },
         "colormate.textMateTokenScopes": {
           "type": "array",
-          "default": [
-            "entity.name.tag",
-            "entity.other.attribute-name",
-            "support.type.property-name.json",
-            "variable.other.readwrite.alias"
-          ],
+          "default": [],
           "markdownDescription": "The types of TextMate language tokens will be semantically highlighted.\n\nTextMate scopes are hierarchical; therefore, `source.tsx` will enable semantic coloring for all idnetifers whereas `support.class.component.tsx` is much more specific.\n\nYou can also optionally leave out the language scope (`.tsx`). This allows it to work on all languages, but be careful when doing this! You can never be sure what side-effects will occur when being too generic."
         },
         "colormate.excludedTextMateTokenScopes": {
