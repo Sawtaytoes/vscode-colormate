@@ -1,5 +1,8 @@
 # CHANGELOG
 
+## [3.2.1] - 2022-07-31
+- 🐛 Added missing default for entity.name.function in JS and TS.
+
 ## [3.2.0] - 2022-07-31
 - ✨ Added a new setting for default TextMate token scopes. Before, you were able to override these with the `textMateTokenScopes` setting, but if you wanted the defaults, it was possible to lose them completely. This new way makes them optional, but also able to be kept up-to-date by the user.
 
