@@ -126,12 +126,10 @@
         "colormate.textMateTokenScopes": {
           "type": "array",
           "default": [
-            "entity.name.tag.tsx",
-            "meta.tag.tsx",
-            "support.class.component.tsx",
+            "entity.name.tag",
+            "entity.other.attribute-name",
             "support.type.property-name.json",
-            "variable.other.readwrite.alias.ts",
-            "variable.other.readwrite.alias.tsx"
+            "variable.other.readwrite.alias"
           ],
           "markdownDescription": "The types of TextMate language tokens will be semantically highlighted.\n\nTextMate scopes are hierarchical; therefore, `source.tsx` will enable semantic coloring for all idnetifers whereas `support.class.component.tsx` is much more specific.\n\nYou can also optionally leave out the language scope (`.tsx`). This allows it to work on all languages, but be careful when doing this! You can never be sure what side-effects will occur when being too generic."
         },
