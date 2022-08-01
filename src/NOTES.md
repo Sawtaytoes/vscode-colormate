@@ -1,0 +1,3 @@
+- Track `document`s.
+- Listen for changes to the document's language.
+- Listen for when a document has closed (hopefully this is separate from the `editor`).
