@@ -140,7 +140,7 @@ export async function colorize(
   editor: vscode.TextEditor,
 ): Promise<void> {
   const uri = editor.document.uri
-  
+
   if (
     uri == null
     || (
@@ -379,12 +379,15 @@ export async function colorize(
               ),
             )
           ),
-          0,
+          -1,
         )
       )
 
       return (
-        highestScopeSpecificity
+        (
+          highestScopeSpecificity
+          >= 0
+        )
         && (
           !(
             scopes
