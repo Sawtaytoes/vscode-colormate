@@ -156,14 +156,14 @@ export const activate = (
     .activeTextEditor
   )
 
-  if (editor != null) {
+  if (editor) {
     colorizeIfNeeded(
       editor
     )
   }
-  else {
-    removePreviousTextEditorDecorations()
-  }
 }
 
-export const deactivate = () => {}
+export const deactivate = () => {
+  // TODO: Stop the Redux store and Redux-Observable listeners.
+  removePreviousTextEditorDecorations()
+}
