@@ -7,7 +7,10 @@
   "author": "Kevin Ghadyani",
   "publisher": "KevinGhadyani",
   "packageManager": "yarn@3.2.2",
-  "repository": "https://github.com/Sawtaytoes/vscode-colormate.git",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/Sawtaytoes/vscode-colormate.git"
+  },
   "icon": "images/icon.png",
   "engines": {
     "vscode": "^1.69.0"
