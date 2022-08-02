@@ -144,9 +144,8 @@
       }
     }
   },
-  "type": "module",
   "scripts": {
-    "clean": "node cleanCompiled.js",
+    "clean": "node cleanCompiled.mjs",
     "compile": "yarn clean && tsc -p ./",
     "lint": "eslint src --ext ts",
     "pretest": "yarn compile && yarn lint",
