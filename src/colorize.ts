@@ -42,7 +42,11 @@ import {
 export async function colorize(
   editor: TextEditor,
 ): Promise<void> {
-  const uri = editor.document.uri
+  const uri = (
+    editor
+    .document
+    .uri
+  )
 
   if (
     uri == null
@@ -101,9 +105,12 @@ export async function colorize(
         (
           getTextMateLineTokens({
             documentText: (
-              editor
-              .document
-              .getText()
+              (
+                editor
+                ?.document
+                .getText()
+              )
+              || ''
             ),
             registry: (
               getTextMateRegistry()
