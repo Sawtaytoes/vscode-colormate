@@ -2,14 +2,25 @@ import debounce from 'just-debounce'
 import vscode from 'vscode'
 
 import {
+  addEditor,
+  addExtensionContext,
+} from './reduxObservable/actions'
+import {
   colorize,
 } from './colorize'
+import {
+  createReduxStore,
+} from './reduxObservable/createReduxStore'
 import {
   removePreviousTextEditorDecorations,
 } from './removePreviousTextEditorDecorations'
 import {
   removeUnusedTextEditorDecorations,
 } from './removeUnusedTextEditorDecorations'
+
+const reduxStore = (
+  createReduxStore()
+)
 
 const colorizeIfNeeded = (
   debounce(
@@ -27,13 +38,18 @@ const onActiveEditorChange = (
     | undefined
   )
 ) => {
-  if (editor == null) {
-    return
-  }
+  if (editor) {
+    reduxStore
+    .dispatch(
+      addEditor(
+        editor
+      )
+    )
 
-  colorizeIfNeeded(
-    editor
-  )
+    colorizeIfNeeded(
+      editor
+    )
+  }
 }
 
 function onConfigChange() {
@@ -67,7 +83,10 @@ function onTextEditorListChange() {
 }
 
 function onTextDocumentChange(
-  event: vscode.TextDocumentChangeEvent,
+  event: (
+    vscode
+    .TextDocumentChangeEvent
+  ),
 ) {
   const editor = (
     vscode
@@ -76,7 +95,7 @@ function onTextDocumentChange(
   )
 
   if (
-    editor != null
+    editor
     && (
       (
         editor
@@ -88,6 +107,13 @@ function onTextDocumentChange(
       )
     )
   ) {
+    reduxStore
+    .dispatch(
+      addEditor(
+        editor
+      )
+    )
+
     colorizeIfNeeded(
       editor
     )
@@ -100,6 +126,13 @@ export const activate = (
     .ExtensionContext
   )
 ) => {
+  reduxStore
+  .dispatch(
+    addExtensionContext(
+      context
+    )
+  )
+
   context
   .subscriptions
   .push(
