@@ -1,5 +1,8 @@
 # CHANGELOG
 
+## [3.2.2] - 2022-08-02
+🐛 Fixed a bug where TextMate scopes would sometimes stop working forever. The easiest way to reproduce was deleting a file or closing a file that wasn't yet saved.
+
 ## [3.2.1] - 2022-07-31
 - 🐛 Added missing default for entity.name.function in JS and TS.
 
