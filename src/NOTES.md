@@ -1,3 +1,6 @@
 - Track `document`s.
 - Listen for changes to the document's language.
 - Listen for when a document has closed (hopefully this is separate from the `editor`).
+- Refactor `colorize`.
+  - Run TextMate and Semantic Tokens in parallel.
+  - Cache TextMate registries. Remove when those documents are gone.
