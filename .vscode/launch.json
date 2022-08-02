@@ -24,7 +24,8 @@
       "runtimeExecutable": "${execPath}",
       "args": [
         "--disable-extensions",
-        "--extensionDevelopmentPath=${workspaceFolder}",
+        // Hack to fix this enabling the extension in tests.
+        "--extensionDevelopmentPath=${workspaceFolder}/out",
         "--extensionTestsPath=${workspaceFolder}/out/setupMocha.js"
       ],
       "outFiles": ["${workspaceFolder}/out/**/*.js"],

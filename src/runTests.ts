@@ -28,6 +28,9 @@ async function main() {
       runTests({
         extensionDevelopmentPath,
         extensionTestsPath,
+        launchArgs: [
+          '--disable-extensions',
+        ],
       })
     )
 	} catch (error) {
