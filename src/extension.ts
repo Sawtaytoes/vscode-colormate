@@ -3,9 +3,13 @@ import vscode from 'vscode'
 
 import {
   colorize,
-  removePreviousTextEditorDecorations,
-  removeUnusedTextEditorDecorations,
 } from './colorize'
+import {
+  removePreviousTextEditorDecorations,
+} from './removePreviousTextEditorDecorations'
+import {
+  removeUnusedTextEditorDecorations,
+} from './removeUnusedTextEditorDecorations'
 
 const colorizeIfNeeded = (
   debounce(
@@ -53,7 +57,6 @@ function onConfigChange() {
     )
   })
 }
-
 
 function onTextEditorListChange() {
   removeUnusedTextEditorDecorations(

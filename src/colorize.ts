@@ -1,6 +1,10 @@
-import vscode, {
+import {
+  commands,
   Position,
   Range,
+  SemanticTokens,
+  SemanticTokensLegend,
+  TextEditor,
   TextEditorDecorationType,
 } from 'vscode'
 import {
@@ -8,20 +12,22 @@ import {
 } from 'vscode-textmate'
 
 import {
+  textEditorDecorationMap,
+} from './cache'
+import {
   getExcludedTextMateTokenScopes,
   getIgnoredLanguages,
   getConfiguredTextMateTokenScopes,
-  hslConfig,
-} from "./configuration"
+} from './configuration'
 import {
-  crc8Hash,
-} from './crc8Hash'
-import {
-  hslToHexColor,
-} from './hslToHexColor'
+  getTextEditorDecoration,
+} from './getTextEditorDecoration'
 import {
   rangesByName,
 } from './rangesByName'
+import {
+  removePreviousTextEditorDecorations,
+} from './removePreviousTextEditorDecorations'
 import {
   getScopeName,
 } from './textMateGrammars'
@@ -33,111 +39,8 @@ import {
   createIsInTextMateScope,
 } from './textMateScopes'
 
-const textEditorDecorationMap = new Map<
-  (
-    vscode
-    .TextEditor
-  ),
-  (
-    Set<
-      TextEditorDecorationType
-    >
-  )
->()
-
-export const removeUnusedTextEditorDecorations = (
-  editors: (
-    readonly (
-      vscode
-      .TextEditor
-    )[]
-  ),
-) => {
-  Array
-  .from(
-    textEditorDecorationMap
-    .keys()
-  )
-  .filter((
-    editor,
-  ) => (
-    !(
-      editors
-      .includes(
-        editor
-      )
-    )
-  ))
-  .forEach((
-    editor,
-  ) => {
-    textEditorDecorationMap
-    .delete(
-      editor
-    )
-  })
-}
-
-export const removePreviousTextEditorDecorations = (
-  editor?: (
-    vscode
-    .TextEditor
-  ),
-) => {
-  const textEditorDecorations = (
-    editor
-    ? (
-      (
-        textEditorDecorationMap
-        .get(
-          editor
-        )
-      )
-      || (
-        new Set<
-          TextEditorDecorationType
-        >()
-      )
-    )
-    : (
-      new Set(
-        Array
-        .from(
-          textEditorDecorationMap
-          .values()
-        )
-        .map((
-          textEditorDecorations,
-        ) => (
-          Array
-          .from(
-            textEditorDecorations
-          )
-        ))
-        .flat()
-      )
-    )
-  )
-
-  Array
-  .from(
-    textEditorDecorations
-  )
-  .forEach((
-    textEditorDecoration,
-  ) => {
-    textEditorDecoration
-    .dispose()
-
-    textEditorDecorations
-    .delete(
-      textEditorDecoration
-    )
-  })
-}
-
 export async function colorize(
-  editor: vscode.TextEditor,
+  editor: TextEditor,
 ): Promise<void> {
   const uri = editor.document.uri
 
@@ -178,22 +81,18 @@ export async function colorize(
       Promise
       .all([
         (
-          vscode
-          .commands
+          commands
           .executeCommand<
-            vscode
-            .SemanticTokensLegend
+            SemanticTokensLegend
           >(
             'vscode.provideDocumentSemanticTokensLegend',
             uri,
           )
         ),
         (
-          vscode
-          .commands
+          commands
           .executeCommand<
-            vscode
-            .SemanticTokens
+            SemanticTokens
           >(
             'vscode.provideDocumentSemanticTokens',
             uri,
@@ -232,10 +131,7 @@ export async function colorize(
       {} as (
         Record<
           string,
-          (
-            vscode
-            .Range[]
-          )
+          Range[]
         >
       )
     )
@@ -478,53 +374,21 @@ export async function colorize(
   .concat(
     textMateTokenRangesBySymbolName
   )
-  .forEach(([
-    symbolName,
+  .map(([
+    identifier,
     ranges,
-  ]) => {
-    const crcHex = (
-      crc8Hash(
-        symbolName
+  ]) => ({
+    ranges,
+    textEditorDecoration: (
+      getTextEditorDecoration(
+        identifier
       )
-    )
-
-    const colorThemeKind = (
-      vscode
-      .window
-      .activeColorTheme
-      .kind
-    )
-
-    const hexColor = (
-      hslToHexColor(
-        (
-          crcHex
-          * (
-            360
-            / 256
-          )
-        ),
-        (
-          hslConfig
-          [colorThemeKind]
-          .getSaturation()
-        ),
-        (
-          hslConfig
-          [colorThemeKind]
-          .getLighting()
-        ),
-      )
-    )
-
-    const textEditorDecoration = (
-      vscode
-      .window
-      .createTextEditorDecorationType({
-        color: hexColor,
-      })
-    )
-
+    ),
+  }))
+  .forEach(({
+    ranges,
+    textEditorDecoration,
+  }) => {
     textEditorDecorations
     .add(
       textEditorDecoration,
