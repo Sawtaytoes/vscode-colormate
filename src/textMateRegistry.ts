@@ -1,5 +1,4 @@
 // Modified from https://github.com/Microsoft/vscode-textmate#readme.
-import fs from 'fs'
 import {
   readFile,
 } from 'fs/promises'
@@ -20,16 +19,27 @@ import {
   getScopeFilePath,
 } from './textMateGrammars'
 
-const wasmBin = fs.readFileSync(path.join(__dirname, '../node_modules/vscode-oniguruma/release/onig.wasm')).buffer
-
 const vscodeOnigurumaLib = (
-  loadWASM(wasmBin)
-  .then(() => {
-    return {
-      createOnigScanner(patterns: string[]) { return new OnigScanner(patterns) },
-      createOnigString(s: string) { return new OnigString(s) }
-    }
-  })
+  readFile(
+    path
+    .join(
+      __dirname,
+      '../node_modules/vscode-oniguruma/release/onig.wasm'
+    )
+  )
+  .then(({
+    buffer,
+  }) => (
+    loadWASM(
+      buffer
+    )
+    .then(() => {
+      return {
+        createOnigScanner(patterns: string[]) { return new OnigScanner(patterns) },
+        createOnigString(s: string) { return new OnigString(s) }
+      }
+    })
+  ))
 )
 
 // Create a registry that can create a grammar from a scope name.
