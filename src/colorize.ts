@@ -105,9 +105,12 @@ export async function colorize(
         (
           getTextMateLineTokens({
             documentText: (
-              editor
-              .document
-              .getText()
+              (
+                editor
+                ?.document
+                .getText()
+              )
+              || ''
             ),
             registry: (
               getTextMateRegistry()
