@@ -39,9 +39,22 @@ import {
   createIsInTextMateScope,
 } from './textMateScopes'
 
-export async function colorize(
+export const colorize = async (
   editor: TextEditor,
-): Promise<void> {
+): (
+  Promise<
+    void
+  >
+) => {
+  if (
+    !(
+      editor
+      ?.document
+    )
+  ) {
+    return
+  }
+
   const uri = (
     editor
     .document
@@ -107,7 +120,7 @@ export async function colorize(
             documentText: (
               (
                 editor
-                ?.document
+                .document
                 .getText()
               )
               || ''

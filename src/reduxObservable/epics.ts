@@ -15,10 +15,18 @@ import {
 import {
   catchEpicError,
 } from './catchEpicError'
+import {
+  colorizeEpic,
+} from './colorizeEpic'
+import {
+  initializeEpic,
+} from './initializeEpic'
 
 export const epics = (
   [
     activeEditorChangeEpic,
+    colorizeEpic,
+    initializeEpic,
     testEpic,
   ]
   .map((

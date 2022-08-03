@@ -8,8 +8,7 @@ import {
 
 export const addEditor = (
   createAction<
-    | TextEditor
-    | undefined
+    TextEditor
   >(
     'addEditor'
   )
@@ -20,5 +19,11 @@ export const addExtensionContext = (
     ExtensionContext
   >(
     'addExtensionContext'
+  )
+)
+
+export const colorize = (
+  createAction(
+    'colorize'
   )
 )

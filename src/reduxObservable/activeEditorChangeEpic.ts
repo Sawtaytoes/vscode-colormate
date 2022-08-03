@@ -8,30 +8,48 @@ import {
 import {
   concatMap,
   filter,
+  map,
   tap,
 } from 'rxjs/operators'
 import {
+  TextEditor,
   window,
 } from 'vscode'
 
 import {
+  addEditor,
   addExtensionContext,
 } from './actions'
 
 export const activeEditorChangeEpic: (
-  Epic
+  Epic<
+    (
+      ReturnType<
+        typeof addExtensionContext
+      >
+    ),
+    any
+  >
 ) = (
   action$,
+  state$,
+  {
+    dispatch,
+  },
 ) => (
   action$
   .pipe(
     ofType(
       addExtensionContext
+      .type
     ),
     concatMap(({
       payload: context,
     }) => (
-      fromEventPattern((
+      fromEventPattern<
+        | TextEditor
+        | undefined
+      >((
         handler,
       ) => {
         context
@@ -47,7 +65,11 @@ export const activeEditorChangeEpic: (
     filter(
       Boolean
     ),
-    tap(() => console.log('hi')),
-    tap(console.log),
+    map(
+      addEditor
+    ),
+    tap(
+      dispatch
+    ),
   )
 )
