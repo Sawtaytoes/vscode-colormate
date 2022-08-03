@@ -94,11 +94,12 @@ export const getConfiguredTextMateTokenScopes: (
         )
         ? [
           'entity.name.function',
+          'entity.name.section.markdown',
           'entity.name.tag',
           'entity.other.attribute-name',
           'support.type.property-name.json',
-          'variable.other.readwrite.alias',
           'variable.other.property',
+          'variable.other.readwrite.alias',
         ]
         : []
       ),
