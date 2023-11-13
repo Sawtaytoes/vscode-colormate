@@ -18,6 +18,10 @@ import {
 import {
   getScopeFilePath,
 } from './textMateGrammars'
+import {
+  addTextMateGrammar,
+  textMateGrammarsState,
+} from './textMateGrammarsState'
 
 const vscodeOnigurumaLib = (
   readFile(
@@ -44,42 +48,72 @@ const vscodeOnigurumaLib = (
 export const getTextMateRegistry = () => (
   new Registry({
     loadGrammar: (
-      gammarScopeName: string,
+      grammarScopeName: string,
     ) => {
       const scopeFilePath = (
         getScopeFilePath(
-          gammarScopeName
+          grammarScopeName
         )
       )
 
-      return (
-        readFile(
-          scopeFilePath
-        )
-        .then((
-          data,
-        ) => (
-          data
-          .toString()
-        ))
-        .then((
-          data,
-        ) => (
-          parseRawGrammar(
-            data,
-            scopeFilePath,
-          )
-        ))
-        .catch((
-          error,
-        ) => {
-          console
-          .error(
-            error
-          )
+      const parsedGrammarData = (
+        textMateGrammarsState
+        .getState()
+        .entities
+        [grammarScopeName]
+        ?.parsedGrammarData
+      )
 
-          return null
-        })
+      return (
+        parsedGrammarData
+        ? (
+          Promise
+          .resolve(
+            parsedGrammarData
+          )
+        )
+        : (
+          readFile(
+            scopeFilePath
+          )
+          .then((
+            data,
+          ) => (
+            data
+            .toString()
+          ))
+          .then((
+            data,
+          ) => (
+            parseRawGrammar(
+              data,
+              scopeFilePath,
+            )
+          ))
+          .then((
+            parsedGrammarData
+          ) => {
+            textMateGrammarsState
+            .dispatch(
+              addTextMateGrammar({
+                id: grammarScopeName,
+                parsedGrammarData,
+              })
+            )
+
+            return parsedGrammarData
+          })
+          .catch((
+            error,
+          ) => {
+            console
+            .error(
+              error
+            )
+
+            return null
+          })
+        )
       )
     },
     onigLib: vscodeOnigurumaLib,
