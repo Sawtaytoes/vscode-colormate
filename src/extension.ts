@@ -1,6 +1,6 @@
-import debounce from "just-debounce"
 import vscode from "vscode"
 
+import { editorChangeEpic } from "./editorChangeEpic"
 import {
   colorize,
 } from "./colorize"
@@ -19,13 +19,8 @@ import {
   removeUnusedTextEditorDecorations,
 } from "./removeUnusedTextEditorDecorations"
 
-const colorizeIfNeeded = (
-  colorize
-  // debounce(
-  //   colorize,
-  //   200,
-  // )
-)
+editorChangeEpic()
+.subscribe()
 
 const onActiveEditorChange = (
   editor: (
@@ -44,7 +39,7 @@ const onActiveEditorChange = (
       )
     )
 
-    colorizeIfNeeded(
+    colorize(
       editor
     )
   }
@@ -66,7 +61,7 @@ function onConfigChange() {
   .forEach((
     editor,
   ) => {
-    colorizeIfNeeded(
+    colorize(
       editor
     )
   })
@@ -112,7 +107,7 @@ function onTextDocumentChange(
       )
     )
 
-    colorizeIfNeeded(
+    colorize(
       editor
     )
   }
@@ -141,15 +136,15 @@ export const activate = (
     )
   )
 
-  extensionContext
-  .subscriptions
-  .push(
-    vscode
-    .window
-    .onDidChangeActiveTextEditor(
-      onActiveEditorChange
-    )
-  )
+  // extensionContext
+  // .subscriptions
+  // .push(
+  //   vscode
+  //   .window
+  //   .onDidChangeActiveTextEditor(
+  //     onActiveEditorChange
+  //   )
+  // )
 
   extensionContext
   .subscriptions
@@ -161,15 +156,15 @@ export const activate = (
     )
   )
 
-  extensionContext
-  .subscriptions
-  .push(
-    vscode
-    .workspace
-    .onDidChangeTextDocument(
-      onTextDocumentChange
-    )
-  )
+  // extensionContext
+  // .subscriptions
+  // .push(
+  //   vscode
+  //   .workspace
+  //   .onDidChangeTextDocument(
+  //     onTextDocumentChange
+  //   )
+  // )
 
   extensionContext
   .subscriptions
@@ -188,7 +183,7 @@ export const activate = (
   )
 
   if (editor) {
-    colorizeIfNeeded(
+    colorize(
       editor
     )
   }

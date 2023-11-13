@@ -44,7 +44,6 @@
   },
   "dependencies": {
     "@reduxjs/toolkit": "^1.9.7",
-    "just-debounce": "^1.1.0",
     "redux": "^4.2.1",
     "redux-observable": "^2.0.0",
     "rxjs": "^7.8.1",

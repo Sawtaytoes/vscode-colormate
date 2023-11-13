@@ -1963,13 +1963,6 @@ __metadata:
   languageName: node
   linkType: hard
 
-"just-debounce@npm:^1.1.0":
-  version: 1.1.0
-  resolution: "just-debounce@npm:1.1.0"
-  checksum: 6f43d4d9b25ad45d8c2970f839d378b4d161f6da7e5fecfa3bab478d2567ea07d8992ca957009820704dc1accd211f816ffb15ace7e3a0a7254f1830b4914265
-  languageName: node
-  linkType: hard
-
 "levn@npm:^0.4.1":
   version: 0.4.1
   resolution: "levn@npm:0.4.1"
@@ -3066,7 +3059,6 @@ __metadata:
     eslint: ^8.53.0
     expect: ^29.7.0
     glob: ^10.3.10
-    just-debounce: ^1.1.0
     mocha: ^10.2.0
     redux: ^4.2.1
     redux-observable: ^2.0.0

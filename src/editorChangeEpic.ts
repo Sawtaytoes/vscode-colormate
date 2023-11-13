@@ -1,10 +1,12 @@
 import {
   concatMap,
+  debounceTime,
   exhaustMap,
   filter,
   fromEventPattern,
   groupBy,
   merge,
+  switchMap,
   tap,
 } from "rxjs"
 import {
@@ -14,24 +16,13 @@ import {
 } from "vscode"
 
 import { catchEpicError } from "./catchEpicError"
-import { EpicAction$ } from "./createSliceState"
-import { extensionContextsSlice } from "./extensionContextsState"
+import { extensionContextsSlice, extensionContextsState } from "./extensionContextsState"
 import { colorize } from "./colorize"
 
-export const editorChangeEpic = ({
-  action$,
-}: {
-  action$: (
-    EpicAction$<
-      typeof extensionContextsSlice
-    >
-  ),
-}) => (
-  action$
+export const editorChangeEpic = () => (
+  extensionContextsState
+  .action$
   .pipe(
-    tap((t) => {
-      console.log(t)
-    }),
     filter(
       extensionContextsSlice
       .actions
@@ -125,13 +116,16 @@ export const editorChangeEpic = ({
     ) => (
       group$
       .pipe(
-        exhaustMap((
+        debounceTime(
+          200
+        ),
+        concatMap((
           textEditor,
         ) => (
           colorize(
             textEditor
           )
-        ))
+        )),
       )
     )),
     catchEpicError(

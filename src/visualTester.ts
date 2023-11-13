@@ -22,7 +22,7 @@ const returnValue = (
   })
 )
 
-someFunction() // This is the wrong color in Sublime Text
+someFunction() // This is the wrong color in Sublime Text because it colors the parens too.
 someFunction2({})
 
 console.log(

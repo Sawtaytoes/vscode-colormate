@@ -33,12 +33,10 @@ const vscodeOnigurumaLib = (
     loadWASM(
       buffer
     )
-    .then(() => {
-      return {
-        createOnigScanner(patterns: string[]) { return new OnigScanner(patterns) },
-        createOnigString(s: string) { return new OnigString(s) }
-      }
-    })
+    .then(() => ({
+      createOnigScanner(patterns: string[]) { return new OnigScanner(patterns) },
+      createOnigString(s: string) { return new OnigString(s) }
+    }))
   ))
 )
 
