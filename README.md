@@ -1,6 +1,6 @@
 # ColorMate for Visual Studio Code
 
-![ColorMate logo by Noah Raskin](images/logo.png)
+![ColorMate logo made by Noah Raskin](images/logo.png)
 
 ColorMate is a semantic highlighter (similar to a syntax highlighter) that colors all similarly named variables the same.
 
@@ -54,9 +54,11 @@ Or manually add this to your preferences JSON:
 
 ## Fun Facts
 
+Made by [Kevin Ghadyani](https://twitter.com/Sawtaytoes).
+
 ### Why Semantic Highlighting?
 
-Hi! I'm [Kevin Ghadyani](https://twitter.com/Sawtaytoes), and I was stuck on Sublime Text for years until I created this **semantic highlighting** extension for VSCode.
+I was stuck on Sublime Text for years until I created this **semantic highlighting** extension for VSCode.
 
 - **Article:** [Why I don't use VSCode](https://medium.com/@Sawtaytoes/why-i-dont-use-visual-studio-code-f5ac7274fb96)
 - **Video:** [Why I still don't use VSCode](https://www.youtube.com/watch?v=1OIVjK8-jA8)

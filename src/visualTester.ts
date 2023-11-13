@@ -1,3 +1,7 @@
+import { importTest } from "./visualTester-import"
+
+importTest()
+
 const someFunction = ({} = {}) => {}
 const someFunction2 = ({}) => {}
 const someFunction3 = ({}) => {}
