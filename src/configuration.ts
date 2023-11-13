@@ -1,12 +1,12 @@
 import vscode, {
   ColorThemeKind,
-} from 'vscode'
+} from "vscode"
 
 const getConfiguration = () => (
   vscode
   .workspace
   .getConfiguration(
-    'colormate'
+    "colormate"
   )
 )
 
@@ -21,7 +21,7 @@ export const getIgnoredLanguages: (
     (
       getConfiguration()
       .get(
-        'ignoredLanguages'
+        "ignoredLanguages"
       )
     )
     ?? []
@@ -39,30 +39,30 @@ export const getConfiguredSemanticTokenTypes: (
     (
       getConfiguration()
       .get(
-        'semanticTokenTypes'
+        "semanticTokenTypes"
       )
     )
     ?? [
-      'class.defaultLibrary',
-      'class',
-      'enum',
-      'enumMember',
-      'event',
-      'function.defaultLibrary',
-      'function',
-      'interface',
-      'macro',
-      'method',
-      'namespace',
-      'parameter',
-      'property.readonly',
-      'property',
-      'struct',
-      'type.defaultLibrary',
-      'type',
-      'variable.readonly.defaultLibrary',
-      'variable.readonly',
-      'variable',
+      "class.defaultLibrary",
+      "class",
+      "enum",
+      "enumMember",
+      "event",
+      "function.defaultLibrary",
+      "function",
+      "interface",
+      "macro",
+      "method",
+      "namespace",
+      "parameter",
+      "property.readonly",
+      "property",
+      "struct",
+      "type.defaultLibrary",
+      "type",
+      "variable.readonly.defaultLibrary",
+      "variable.readonly",
+      "variable",
     ]
   )
 )
@@ -80,7 +80,7 @@ export const getConfiguredTextMateTokenScopes: (
         (
           getConfiguration()
           .get(
-            'textMateTokenScopes'
+            "textMateTokenScopes"
           )
         ) as string[]
         ?? []
@@ -89,17 +89,17 @@ export const getConfiguredTextMateTokenScopes: (
         (
           getConfiguration()
           .get(
-            'hasDefaultTextMateTokenScopes'
+            "hasDefaultTextMateTokenScopes"
           )
         )
         ? [
-          'entity.name.function',
-          'entity.name.section.markdown',
-          'entity.name.tag',
-          'entity.other.attribute-name',
-          'support.type.property-name.json',
-          'variable.other.property',
-          'variable.other.readwrite.alias',
+          "entity.name.function",
+          "entity.name.section.markdown",
+          "entity.name.tag",
+          "entity.other.attribute-name",
+          "support.type.property-name.json",
+          "variable.other.property",
+          "variable.other.readwrite.alias",
         ]
         : []
       ),
@@ -118,7 +118,7 @@ export const getExcludedTextMateTokenScopes: (
     (
       getConfiguration()
       .get(
-        'excludedTextMateTokenScopes'
+        "excludedTextMateTokenScopes"
       )
     )
     ?? []
@@ -134,7 +134,7 @@ export const hslConfig = {
       (
         getConfiguration()
         .get(
-          'darkTheme.lighting'
+          "darkTheme.lighting"
         )
       ) as number
       ?? 65
@@ -142,7 +142,7 @@ export const hslConfig = {
     getSaturation: () => (
       getConfiguration()
       .get(
-        'darkTheme.saturation'
+        "darkTheme.saturation"
       ) as number
       ?? 65
     ),
@@ -155,7 +155,7 @@ export const hslConfig = {
       (
         getConfiguration()
         .get(
-          'highContrastDarkTheme.lighting'
+          "highContrastDarkTheme.lighting"
         )
       ) as number
       ?? 90
@@ -163,7 +163,7 @@ export const hslConfig = {
     getSaturation: () => (
       getConfiguration()
       .get(
-        'highContrastDarkTheme.saturation'
+        "highContrastDarkTheme.saturation"
       ) as number
       ?? 100
     ),
@@ -176,7 +176,7 @@ export const hslConfig = {
       (
         getConfiguration()
         .get(
-          'highContrastLightTheme.lighting'
+          "highContrastLightTheme.lighting"
         )
       ) as number
       ?? 15
@@ -184,7 +184,7 @@ export const hslConfig = {
     getSaturation: () => (
       getConfiguration()
       .get(
-        'highContrastLightTheme.saturation'
+        "highContrastLightTheme.saturation"
       ) as number
       ?? 100
     ),
@@ -197,7 +197,7 @@ export const hslConfig = {
       (
         getConfiguration()
         .get(
-          'lightTheme.lighting'
+          "lightTheme.lighting"
         )
       ) as number
       ?? 100
@@ -205,7 +205,7 @@ export const hslConfig = {
     getSaturation: () => (
       getConfiguration()
       .get(
-        'lightTheme.saturation'
+        "lightTheme.saturation"
       ) as number
       ?? 35
     ),

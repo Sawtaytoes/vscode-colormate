@@ -9,7 +9,6 @@ import {
   map,
   merge,
   mergeMap,
-  tap,
 } from "rxjs"
 import {
   TextEditor,
