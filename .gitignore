@@ -1,5 +1,6 @@
-out
+.vscode-test/
+.yarn/install-state.gz
+*.vsix
 dist
 node_modules
-.vscode-test/
-*.vsix
+out
