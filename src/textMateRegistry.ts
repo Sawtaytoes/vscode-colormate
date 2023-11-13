@@ -38,8 +38,12 @@ const vscodeOnigurumaLib = (
       buffer
     )
     .then(() => ({
-      createOnigScanner(patterns: string[]) { return new OnigScanner(patterns) },
-      createOnigString(s: string) { return new OnigString(s) }
+      createOnigScanner(patterns: string[]) {
+        return new OnigScanner(patterns)
+      },
+      createOnigString(string: string) {
+        return new OnigString(string)
+      },
     }))
   ))
 )
