@@ -1,3 +1,6 @@
+import type {
+  Slice
+} from '@reduxjs/toolkit'
 import {
   BehaviorSubject,
   merge,
@@ -6,10 +9,6 @@ import {
   type Observable,
 } from 'rxjs'
 
-import type {
-  EntityState,
-  Slice
-} from '@reduxjs/toolkit'
 import { catchEpicError } from './reduxObservable/catchEpicError'
 
 export type EpicAction<
