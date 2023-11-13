@@ -24,58 +24,25 @@ import {
 } from './removeUnusedTextEditorDecorations'
 import {
   addEditor,
-  editorsReducer,
   editorsSlice,
   removeEditor,
 } from './editorsSlice'
+import { createState } from './createState'
 
 // const reduxStore = (
 //   createReduxStore()
 // )
 
-const editorsAction$ = (
-  new Subject<
+const editorsState = (
+  createState<
     ReturnType<
-      typeof editorsSlice.actions[
-        keyof typeof editorsSlice.actions
+      typeof editorsSlice[
+        "getInitialState"
       ]
     >
-  >()
-)
-
-
-const editorsState$ = (
-  new BehaviorSubject(
-    {} as (
-      ReturnType<
-        typeof editorsReducer
-      >
-    )
-  )
-)
-
-const editorsReducer$ = (
-  editorsAction$
-  .pipe(
-    scan((
-      state,
-      action,
-    ) => (
-      editorsReducer(
-        state,
-        action,
-      )
-    ),
-    (
-      editorsSlice
-      .getInitialState()
-    ))
-  )
-)
-
-editorsReducer$
-.subscribe(
-  editorsState$
+  >({
+    slice: editorsSlice,
+  })
 )
 
 const colorizeIfNeeded = (
@@ -95,8 +62,8 @@ const onActiveEditorChange = (
   )
 ) => {
   if (editor) {
-    editorsAction$
-    .next(
+    editorsState
+    .dispatch(
       addEditor(
         editor
       )

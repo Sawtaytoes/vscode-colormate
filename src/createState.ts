@@ -12,17 +12,11 @@ import type {
 } from '@reduxjs/toolkit'
 import { catchEpicError } from './reduxObservable/catchEpicError'
 
-export type UnknownEpicActions = (
-  Slice<
-    EntityState<
-      unknown
-    >
-  >["actions"]
-)
-
 export type EpicAction<
   ActionCreators extends (
-    UnknownEpicActions
+    Slice<
+      unknown
+    >["actions"]
   )
 > = (
   ReturnType<
@@ -43,32 +37,35 @@ export type MiddlewareEpic<
   state$: State$
 }) => (
   Observable<
-    never
+    any
   >
 )
 
 export const createState = <
-  Data,
+  State,
   EpicSlice extends (
     Slice<
-      Data
+      State
+    >
+  ) = (
+    Slice<
+      State
     >
   ),
   Action extends (
     EpicAction<
       EpicSlice["actions"]
     >
-  ),
-  State extends (
-    EntityState<
-      Data
+  ) = (
+    EpicAction<
+      EpicSlice["actions"]
     >
   ),
 >({
   middlewareEpics,
   slice,
 }: {
-  middlewareEpics: (
+  middlewareEpics?: (
     Array<
       MiddlewareEpic<
         (
@@ -84,7 +81,9 @@ export const createState = <
       >
     >
   )
-  slice: Slice
+  slice: (
+    EpicSlice
+  )
 }) => {
   const action$ = (
     new Subject<
@@ -114,14 +113,8 @@ export const createState = <
 
   const state$ = (
     new BehaviorSubject(
-      (
-        slice
-        .getInitialState()
-      ) as (
-        ReturnType<
-          typeof slice.reducer
-        >
-      )
+      slice
+      .getInitialState()
     )
   )
 
@@ -142,7 +135,10 @@ export const createState = <
   )
 
   const middlewareEpics$ = (
-    middlewareEpics
+    (
+      middlewareEpics
+      || []
+    )
     .map((
       middlewareEpic,
     ) => (
@@ -185,6 +181,12 @@ export const createState = <
 
         reducerSubscription
         .unsubscribe()
+
+        action$
+        .complete()
+
+        state$
+        .complete()
       }
     },
   }

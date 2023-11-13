@@ -1,7 +1,7 @@
 import {
-  PayloadAction,
   createEntityAdapter,
   createSlice,
+  type PayloadAction,
 } from '@reduxjs/toolkit'
 import {
   TextEditor,
@@ -68,6 +68,14 @@ export const editorsSlice = (
   })
 )
 
+export type EditorsState = (
+  ReturnType<
+    typeof editorsSlice[
+      "getInitialState"
+    ]
+  >
+)
+
 export const {
   addEditor,
   removeEditor,
@@ -83,10 +91,11 @@ export const editorsReducer = (
 
 export const editorsSelectors = (
   editorsAdapter
-  .getSelectors((
-    state: any,
+  .getSelectors<
+    EditorsState
+  >((
+    state,
   ) => (
     state
-    .editors
   ))
 )
