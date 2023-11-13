@@ -1,4 +1,5 @@
 # ColorMate for Visual Studio Code
+
 ![ColorMate logo by Noah Raskin](images/logo.png)
 
 ColorMate is a semantic highlighter (similar to a syntax highlighter) that colors all similarly named variables the same.
@@ -8,15 +9,19 @@ This allows you to quickly and easily skim your code by reading colors instead o
 > _**NOTE:** Your color theme needs to support semantic highlighting. See Troubleshooting below for how to **force it always on**._
 
 ## Examples
+
 ### Electron
+
 ![Electron -> Before](images/theme-electron-before.png)
 ![Electron -> After](images/theme-electron-after.png)
 
 ### VSCode Dark
+
 ![Dark -> Before](images/theme-dark-before.png)
 ![Dark -> After](images/theme-dark-after.png)
 
 ### VSCode Light
+
 ![Light -> Before](images/theme-light-before.png)
 ![Light -> After](images/theme-light-after.png)
 
@@ -29,15 +34,18 @@ It changes saturation and lighting settings based on the use of a light or dark 
 ## Extension Settings
 
 By going to the extension settings, you can view and change:
+
 - Lightness and saturation of highlights.
 - Customize the highlighted token types.
 - Ignore highlighting on languages you specify.
 
 ## Troubleshooting
+
 It's possible semantic highlighting doesn't work for you. By default, VSCode only turns on semantic highlighting when the color scheme supports it. If you want it always turned on, change this setting to `true`:
 ![Always enable Semantic Highlighting VSCode](images/semantic-highlighting-enable-always.png)
 
 Or manually add this to your preferences JSON:
+
 ```json
 {
   "editor.semanticHighlighting.enabled": true,
@@ -47,6 +55,7 @@ Or manually add this to your preferences JSON:
 ## Fun Facts
 
 ### Why Semantic Highlighting?
+
 Hi! I'm [Kevin Ghadyani](https://twitter.com/Sawtaytoes), and I was stuck on Sublime Text for years until I created this **semantic highlighting** extension for VSCode.
 
 - **Article:** [Why I don't use VSCode](https://medium.com/@Sawtaytoes/why-i-dont-use-visual-studio-code-f5ac7274fb96)
@@ -57,10 +66,13 @@ To me, semantic highlighting is an accessibility feature. It's tough to read cod
 Not only that, but by having each variable defined with a certain color, you'll always know exactly what "looks right" in your code.
 
 ### Originally Forked
+
 This package was originally forked from [Color Identifiers](https://marketplace.visualstudio.com/items?itemName=MatthewNespor.vscode-color-identifiers-mode) by Matthew Nespor.
 
 ### Hashing Algorithm
+
 The hashing algorithm is modeled after the same amazing CRC8 hasher used by [Colorcoder for Sublime Text](https://packagecontrol.io/packages/Colorcoder).
 
 ## Special Thanks
+
 Beautiful logo curtesy of [Noah Raskin](https://twitter.com/NoahRaskin_).
