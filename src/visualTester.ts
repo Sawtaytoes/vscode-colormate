@@ -17,8 +17,8 @@ someFunction4
 
 const returnValue = (
   someFunction({
-    username: 'admin',
-    password: 'password',
+    username: "admin",
+    password: "password",
   })
 )
 

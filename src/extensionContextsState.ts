@@ -18,7 +18,7 @@ const extensionContextsAdapter = (
     ) => (
       extensionContext
       .extensionUri
-      .fsPath
+      .toString()
     )
   })
 )
