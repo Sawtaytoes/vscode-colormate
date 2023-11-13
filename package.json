@@ -2,11 +2,11 @@
   "name": "vscode-colormate",
   "displayName": "ColorMate: Semantic Highlighter",
   "description": "ColorMate colors all similarly named variables the same, so you can quickly and easily skim your code by reading colors instead of text. The hashing algorithm is modeled after the same amazing CRC8 hasher used by Colorcoder for Sublime Text.",
-  "version": "3.2.2",
+  "version": "3.3.0",
   "license": "MIT",
   "author": "Kevin Ghadyani",
   "publisher": "KevinGhadyani",
-  "packageManager": "yarn@3.2.2",
+  "packageManager": "yarn@4.0.1",
   "repository": {
     "type": "git",
     "url": "https://github.com/Sawtaytoes/vscode-colormate.git"
