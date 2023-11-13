@@ -27,13 +27,17 @@ async function main() {
 		await (
       runTests({
         extensionDevelopmentPath,
+        extensionTestsEnv: {
+          DISABLE_WSL: 'true',
+        },
         extensionTestsPath,
         launchArgs: [
           '--disable-extensions',
         ],
       })
     )
-	} catch (error) {
+	}
+  catch (error) {
 		console
     .error(
       'Failed to run tests',

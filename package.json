@@ -11,10 +11,45 @@
     "type": "git",
     "url": "https://github.com/Sawtaytoes/vscode-colormate.git"
   },
-  "type": "module",
   "icon": "images/icon.png",
   "engines": {
     "vscode": "^1.69.0"
+  },
+  "scripts": {
+    "clean": "node cleanCompiled.mjs",
+    "compile": "yarn clean && tsc",
+    "lint": "eslint src --ext ts",
+    "pretest": "yarn compile && yarn lint",
+    "publishPackage": "vsce package --no-yarn && vsce publish --no-yarn",
+    "start": "yarn watch",
+    "test": "yarn compile; node ./out/runTests.js",
+    "vscode:prepublish": "yarn compile",
+    "watch": "yarn clean && tsc -watch"
+  },
+  "devDependencies": {
+    "@types/expect": "^24.3.0",
+    "@types/glob": "^8.1.0",
+    "@types/mocha": "^10.0.4",
+    "@types/node": "^20.9.0",
+    "@types/vscode": "^1.84.1",
+    "@typescript-eslint/eslint-plugin": "^6.10.0",
+    "@typescript-eslint/parser": "^6.10.0",
+    "@vscode/test-electron": "^2.3.6",
+    "eslint": "^8.53.0",
+    "expect": "^29.7.0",
+    "glob": "^10.3.10",
+    "mocha": "^10.2.0",
+    "source-map-support": "^0.5.21",
+    "typescript": "^5.2.2"
+  },
+  "dependencies": {
+    "@reduxjs/toolkit": "^1.9.7",
+    "just-debounce": "^1.1.0",
+    "redux": "^4.2.1",
+    "redux-observable": "^2.0.0",
+    "rxjs": "^7.8.1",
+    "vscode-oniguruma": "^2.0.1",
+    "vscode-textmate": "^9.0.0"
   },
   "categories": [
     "Programming Languages"
@@ -144,42 +179,6 @@
         }
       }
     }
-  },
-  "scripts": {
-    "clean": "node cleanCompiled.mjs",
-    "compile": "yarn clean && tsc",
-    "lint": "eslint src --ext ts",
-    "pretest": "yarn compile && yarn lint",
-    "publishPackage": "vsce package --no-yarn && vsce publish --no-yarn",
-    "start": "yarn watch",
-    "test": "node ./out/runTests.js",
-    "vscode:prepublish": "yarn compile",
-    "watch": "yarn clean && tsc -watch"
-  },
-  "devDependencies": {
-    "@types/expect": "^24.3.0",
-    "@types/glob": "^8.1.0",
-    "@types/mocha": "^10.0.4",
-    "@types/node": "^20.9.0",
-    "@types/vscode": "^1.84.1",
-    "@typescript-eslint/eslint-plugin": "^6.10.0",
-    "@typescript-eslint/parser": "^6.10.0",
-    "@vscode/test-electron": "^2.3.6",
-    "eslint": "^8.53.0",
-    "expect": "^29.7.0",
-    "glob": "^10.3.10",
-    "mocha": "^10.2.0",
-    "source-map-support": "^0.5.21",
-    "typescript": "^5.2.2"
-  },
-  "dependencies": {
-    "@reduxjs/toolkit": "^1.9.7",
-    "just-debounce": "^1.1.0",
-    "redux": "^4.2.1",
-    "redux-observable": "^2.0.0",
-    "rxjs": "^7.8.1",
-    "vscode-oniguruma": "^2.0.1",
-    "vscode-textmate": "^9.0.0"
   },
   "__metadata": {
     "id": "64bc7756-6dbb-4712-872e-027686d631a2",
