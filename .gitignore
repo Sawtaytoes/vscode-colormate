@@ -1,3 +1,4 @@
+.tsbuildinfo
 .vscode-test/
 .yarn/install-state.gz
 *.vsix
