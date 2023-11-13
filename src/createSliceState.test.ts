@@ -6,9 +6,9 @@ import {
 import expect from "expect"
 
 import {
-  createStateSlice,
+  createSliceState,
   type EpicAction,
-} from "./createStateSlice"
+} from "./createSliceState"
 import { tap } from 'rxjs'
 
 type TestStateValue = {
@@ -77,7 +77,7 @@ export type TestState = (
 )
 
 
-suite.only(
+suite(
   "createState",
   () => {
     test(
@@ -86,15 +86,11 @@ suite.only(
         const {
           dispatch,
           getState,
-          subscribe,
+          unsubscribe,
         } = (
-          createStateSlice({
+          createSliceState({
             slice,
           })
-        )
-
-        const unsubscribe = (
-          subscribe()
         )
 
         dispatch(
@@ -110,13 +106,13 @@ suite.only(
           getState()
         )
         .toStrictEqual({
-          "entities": {
-            "1": {
-              "id": "1",
-              "value": "one",
+          entities: {
+            1: {
+              id: "1",
+              value: "one",
             },
           },
-          "ids": [
+          ids: [
             "1",
           ],
         })
@@ -134,17 +130,17 @@ suite.only(
           getState()
         )
         .toStrictEqual({
-          "entities": {
-            "1": {
-              "id": "1",
-              "value": "one",
+          entities: {
+            1: {
+              id: "1",
+              value: "one",
             },
-            "2": {
-              "id": "2",
-              "value": "two",
+            2: {
+              id: "2",
+              value: "two",
             },
           },
-          "ids": [
+          ids: [
             "1",
             "2",
           ],
@@ -162,13 +158,13 @@ suite.only(
           getState()
         )
         .toStrictEqual({
-          "entities": {
-            "2": {
-              "id": "2",
-              "value": "two",
+          entities: {
+            2: {
+              id: "2",
+              value: "two",
             },
           },
-          "ids": [
+          ids: [
             "2",
           ],
         })
@@ -199,15 +195,11 @@ suite.only(
         const {
           dispatch,
           getState,
-          subscribe,
+          unsubscribe,
         } = (
-          createStateSlice({
+          createSliceState({
             slice,
           })
-        )
-
-        const unsubscribe = (
-          subscribe()
         )
 
         dispatch(
@@ -223,13 +215,13 @@ suite.only(
           getState()
         )
         .toStrictEqual({
-          "entities": {
-            "1": {
-              "id": "1",
-              "value": "one",
+          entities: {
+            1: {
+              id: "1",
+              value: "one",
             },
           },
-          "ids": [
+          ids: [
             "1",
           ],
         })
@@ -249,13 +241,13 @@ suite.only(
           getState()
         )
         .toStrictEqual({
-          "entities": {
-            "1": {
-              "id": "1",
-              "value": "one",
+          entities: {
+            1: {
+              id: "1",
+              value: "one",
             },
           },
-          "ids": [
+          ids: [
             "1",
           ],
         })
@@ -268,16 +260,11 @@ suite.only(
         const {
           action$,
           dispatch,
-          getState,
-          subscribe,
+          unsubscribe,
         } = (
-          createStateSlice({
+          createSliceState({
             slice,
           })
-        )
-
-        const unsubscribe = (
-          subscribe()
         )
 
         let dispatchedAction: (
@@ -334,17 +321,12 @@ suite.only(
       () => {
         const {
           dispatch,
-          getState,
           state$,
-          subscribe,
+          unsubscribe,
         } = (
-          createStateSlice({
+          createSliceState({
             slice,
           })
-        )
-
-        const unsubscribe = (
-          subscribe()
         )
 
         let currentState: (
@@ -352,8 +334,8 @@ suite.only(
             typeof slice["reducer"]
           >
         ) = {
-          "entities": {},
-          "ids": [],
+          entities: {},
+          ids: [],
         }
 
         const epicSubscription = (
@@ -386,13 +368,13 @@ suite.only(
           currentState
         )
         .toStrictEqual({
-          "entities": {
-            "1": {
-              "id": "1",
-              "value": "one",
+          entities: {
+            1: {
+              id: "1",
+              value: "one",
             },
           },
-          "ids": [
+          ids: [
             "1",
           ],
         })

@@ -8,8 +8,6 @@ import {
   Subject,
 } from 'rxjs'
 
-import { catchEpicError } from './reduxObservable/catchEpicError'
-
 export type EpicAction<
   ActionCreators extends (
     Slice<
@@ -24,7 +22,28 @@ export type EpicAction<
   >
 )
 
-export const createStateSlice = <
+export type EpicAction$<
+  EpicSlice extends (
+    Slice
+  )
+> = (
+  Subject<
+    EpicAction<
+      EpicSlice["actions"]
+    >
+  >
+)
+
+export type EpicState$<
+  State
+> = (
+  BehaviorSubject<
+    State
+  >
+)
+
+
+export const createSliceState = <
   EpicSlice extends (
     Slice
   ),
@@ -80,7 +99,9 @@ export const createStateSlice = <
   )
 
   const state$ = (
-    new BehaviorSubject(
+    new BehaviorSubject<
+      State
+    >(
       slice
       .getInitialState()
     )
@@ -102,40 +123,40 @@ export const createStateSlice = <
     .value
   )
 
+  const actionStateSubscription = (
+    merge(
+      action$,
+      state$,
+    )
+    .subscribe()
+  )
+
+  const reducerSubscription = (
+    reducer$
+    .subscribe(
+      state$
+    )
+  )
+
+  const unsubscribe = () => {
+    actionStateSubscription
+    .unsubscribe()
+
+    reducerSubscription
+    .unsubscribe()
+
+    action$
+    .complete()
+
+    state$
+    .complete()
+  }
+
   return {
     action$,
     dispatch,
     getState,
     state$,
-    subscribe: () => {
-      const actionStateSubscription = (
-        merge(
-          action$,
-          state$,
-        )
-        .subscribe()
-      )
-
-      const reducerSubscription = (
-        reducer$
-        .subscribe(
-          state$
-        )
-      )
-
-      return () => {
-        actionStateSubscription
-        .unsubscribe()
-
-        reducerSubscription
-        .unsubscribe()
-
-        action$
-        .complete()
-
-        state$
-        .complete()
-      }
-    },
+    unsubscribe,
   }
 }

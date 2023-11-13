@@ -5,29 +5,26 @@ import {
   colorize,
 } from "./colorize"
 import {
+  addEditor,
+  editorsState,
+} from "./editorsState"
+import {
+  addExtensionContext,
+  extensionContextsState,
+} from "./extensionContextsState"
+import {
   removePreviousTextEditorDecorations,
 } from "./removePreviousTextEditorDecorations"
 import {
   removeUnusedTextEditorDecorations,
 } from "./removeUnusedTextEditorDecorations"
-import {
-  addEditor,
-  editorsSlice,
-  removeEditor,
-} from "./editorsSlice"
-import { createStateSlice } from "./createStateSlice"
-
-const editorsState = (
-  createStateSlice({
-    slice: editorsSlice,
-  })
-)
 
 const colorizeIfNeeded = (
-  debounce(
-    colorize,
-    200,
-  )
+  colorize
+  // debounce(
+  //   colorize,
+  //   200,
+  // )
 )
 
 const onActiveEditorChange = (
@@ -108,12 +105,12 @@ function onTextDocumentChange(
       )
     )
   ) {
-    // reduxStore
-    // .dispatch(
-    //   addEditor(
-    //     editor
-    //   )
-    // )
+    editorsState
+    .dispatch(
+      addEditor(
+        editor
+      )
+    )
 
     colorizeIfNeeded(
       editor
@@ -122,19 +119,19 @@ function onTextDocumentChange(
 }
 
 export const activate = (
-  context: (
+  extensionContext: (
     vscode
     .ExtensionContext
   )
 ) => {
-  // reduxStore
-  // .dispatch(
-  //   addExtensionContext(
-  //     context
-  //   )
-  // )
+  extensionContextsState
+  .dispatch(
+    addExtensionContext(
+      extensionContext
+    )
+  )
 
-  context
+  extensionContext
   .subscriptions
   .push(
     vscode
@@ -144,7 +141,7 @@ export const activate = (
     )
   )
 
-  context
+  extensionContext
   .subscriptions
   .push(
     vscode
@@ -154,7 +151,7 @@ export const activate = (
     )
   )
 
-  context
+  extensionContext
   .subscriptions
   .push(
     vscode
@@ -164,7 +161,7 @@ export const activate = (
     )
   )
 
-  context
+  extensionContext
   .subscriptions
   .push(
     vscode
@@ -174,7 +171,7 @@ export const activate = (
     )
   )
 
-  context
+  extensionContext
   .subscriptions
   .push(
     vscode

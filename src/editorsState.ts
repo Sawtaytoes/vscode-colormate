@@ -7,6 +7,8 @@ import {
   TextEditor,
 } from 'vscode'
 
+import { createSliceState } from './createSliceState'
+
 const editorsAdapter = (
   createEntityAdapter<
     TextEditor
@@ -71,9 +73,15 @@ export const editorsSlice = (
 export type EditorsState = (
   ReturnType<
     typeof editorsSlice[
-      "getInitialState"
+      "reducer"
     ]
   >
+)
+
+export const editorsState = (
+  createSliceState({
+    slice: editorsSlice,
+  })
 )
 
 export const {
