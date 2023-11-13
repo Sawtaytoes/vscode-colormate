@@ -6,7 +6,6 @@ import {
   merge,
   scan,
   Subject,
-  type Observable,
 } from 'rxjs'
 
 import { catchEpicError } from './reduxObservable/catchEpicError'
@@ -22,21 +21,6 @@ export type EpicAction<
     ActionCreators[
       keyof ActionCreators
     ]
-  >
-)
-
-export type MiddlewareEpic<
-  Action$,
-  State$
-> = ({
-  action$,
-  state$,
-}: {
-  action$: Action$
-  state$: State$
-}) => (
-  Observable<
-    any
   >
 )
 
@@ -63,25 +47,8 @@ export const createStateSlice = <
     >
   )
 >({
-  middlewareEpics,
   slice,
 }: {
-  middlewareEpics?: (
-    Array<
-      MiddlewareEpic<
-        (
-          Subject<
-            Action
-          >
-        ),
-        (
-          BehaviorSubject<
-            State
-          >
-        )
-      >
-    >
-  )
   slice: (
     EpicSlice
   )
@@ -135,36 +102,16 @@ export const createStateSlice = <
     .value
   )
 
-  const middlewareEpics$ = (
-    (
-      middlewareEpics
-      || []
-    )
-    .map((
-      middlewareEpic,
-    ) => (
-      middlewareEpic({
-        action$,
-        state$,
-      })
-      .pipe(
-        catchEpicError(
-          middlewareEpic
-          .name
-        )
-      )
-    ))
-  )
-
   return {
+    action$,
     dispatch,
     getState,
+    state$,
     subscribe: () => {
       const actionStateSubscription = (
         merge(
           action$,
           state$,
-          ...middlewareEpics$
         )
         .subscribe()
       )

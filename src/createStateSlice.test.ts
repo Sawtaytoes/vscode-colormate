@@ -263,40 +263,109 @@ suite.only(
     )
 
     test(
-      "Middleware subscribes to new actions.",
+      "Can subscribe to action$.",
       () => {
-        let dispatchedAction: (
-          EpicAction<
-            typeof slice["actions"]
-          >
-        )
-
         const {
+          action$,
           dispatch,
           getState,
           subscribe,
         } = (
           createStateSlice({
-            middlewareEpics: [
-              ({
-                action$
-              }) => (
-                action$
-                .pipe(
-                  tap((
-                    action,
-                  ) => {
-                    dispatchedAction = action
-                  })
-                )
-              )
-            ],
             slice,
           })
         )
 
         const unsubscribe = (
           subscribe()
+        )
+
+        let dispatchedAction: (
+          EpicAction<
+            typeof slice["actions"]
+          >
+        ) = {
+          payload: "1",
+          type: "testState/removeTestValue",
+        }
+
+        const epicSubscription = (
+          action$
+          .pipe(
+            tap((
+              action,
+            ) => {
+              dispatchedAction = action
+            })
+          )
+          .subscribe()
+        )
+
+        const payload = {
+          id: "1",
+          value: "one",
+        }
+
+        dispatch(
+          slice
+          .actions
+          .addTestValue(
+            payload
+          )
+        )
+
+        unsubscribe()
+
+        epicSubscription
+        .unsubscribe()
+
+        expect(
+          dispatchedAction
+        )
+        .toStrictEqual({
+          payload,
+          type: "testState/addTestValue"
+        })
+      },
+    )
+
+    test(
+      "Can subscribe to state$.",
+      () => {
+        const {
+          dispatch,
+          getState,
+          state$,
+          subscribe,
+        } = (
+          createStateSlice({
+            slice,
+          })
+        )
+
+        const unsubscribe = (
+          subscribe()
+        )
+
+        let currentState: (
+          ReturnType<
+            typeof slice["reducer"]
+          >
+        ) = {
+          "entities": {},
+          "ids": [],
+        }
+
+        const epicSubscription = (
+          state$
+          .pipe(
+            tap((
+              state,
+            ) => {
+              currentState = state
+            })
+          )
+          .subscribe()
         )
 
         dispatch(
@@ -308,34 +377,13 @@ suite.only(
           })
         )
 
-        expect(
-          getState()
-        )
-        .toStrictEqual({
-          "entities": {
-            "1": {
-              "id": "1",
-              "value": "one",
-            },
-          },
-          "ids": [
-            "1",
-          ],
-        })
-
         unsubscribe()
 
-        dispatch(
-          slice
-          .actions
-          .addTestValue({
-            id: "2",
-            value: "two",
-          })
-        )
+        epicSubscription
+        .unsubscribe()
 
         expect(
-          getState()
+          currentState
         )
         .toStrictEqual({
           "entities": {
