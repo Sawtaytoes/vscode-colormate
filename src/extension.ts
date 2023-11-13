@@ -1,37 +1,21 @@
-import {
-  BehaviorSubject,
-  Subject,
-  scan,
-} from 'rxjs'
-import debounce from 'just-debounce'
-import vscode, { TextEditor } from 'vscode'
+import debounce from "just-debounce"
+import vscode from "vscode"
 
-// import {
-//   addEditor,
-//   addExtensionContext,
-// } from './reduxObservable/actions'
 import {
   colorize,
-} from './colorize'
-// import {
-//   createReduxStore,
-// } from './reduxObservable/createReduxStore'
+} from "./colorize"
 import {
   removePreviousTextEditorDecorations,
-} from './removePreviousTextEditorDecorations'
+} from "./removePreviousTextEditorDecorations"
 import {
   removeUnusedTextEditorDecorations,
-} from './removeUnusedTextEditorDecorations'
+} from "./removeUnusedTextEditorDecorations"
 import {
   addEditor,
   editorsSlice,
   removeEditor,
-} from './editorsSlice'
-import { createStateSlice } f./createStateSliceState'
-
-// const reduxStore = (
-//   createReduxStore()
-// )
+} from "./editorsSlice"
+import { createStateSlice } from "./createStateSlice"
 
 const editorsState = (
   createStateSlice({
