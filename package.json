@@ -11,6 +11,7 @@
     "type": "git",
     "url": "https://github.com/Sawtaytoes/vscode-colormate.git"
   },
+  "type": "module",
   "icon": "images/icon.png",
   "engines": {
     "vscode": "^1.69.0"
