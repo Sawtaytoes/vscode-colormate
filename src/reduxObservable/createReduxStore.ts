@@ -1,18 +1,20 @@
 import {
   AnyAction,
   Dispatch,
-} from 'redux'
+} from "redux"
 import {
   configureStore,
-} from '@reduxjs/toolkit'
+} from "@reduxjs/toolkit"
 import {
   combineEpics,
+} from "./combineEpics"
+import {
   createEpicMiddleware,
-} from 'redux-observable'
+} from "./createEpicMiddleware"
 
 import {
   epics,
-} from './epics'
+} from "./epics"
 
 export const createReduxStore = () => {
   let reduxStoreDispatch: (
