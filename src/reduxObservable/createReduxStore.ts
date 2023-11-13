@@ -6,15 +6,8 @@ import {
   configureStore,
 } from "@reduxjs/toolkit"
 import {
-  combineEpics,
-} from "./combineEpics"
-import {
   createEpicMiddleware,
 } from "./createEpicMiddleware"
-
-import {
-  epics,
-} from "./epics"
 
 export const createReduxStore = () => {
   let reduxStoreDispatch: (
@@ -62,13 +55,6 @@ export const createReduxStore = () => {
   reduxStoreDispatch = (
     reduxStore
     .dispatch
-  )
-
-  epicMiddleware
-  .run(
-    combineEpics(
-      ...epics
-    )
   )
 
   return reduxStore
