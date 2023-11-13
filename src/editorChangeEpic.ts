@@ -1,12 +1,14 @@
 import {
+  concatAll,
   concatMap,
   debounceTime,
-  exhaustMap,
   filter,
+  from,
   fromEventPattern,
   groupBy,
+  map,
   merge,
-  switchMap,
+  mergeMap,
   tap,
 } from "rxjs"
 import {
@@ -16,8 +18,8 @@ import {
 } from "vscode"
 
 import { catchEpicError } from "./catchEpicError"
-import { extensionContextsSlice, extensionContextsState } from "./extensionContextsState"
 import { colorize } from "./colorize"
+import { extensionContextsSlice, extensionContextsState } from "./extensionContextsState"
 
 export const editorChangeEpic = () => (
   extensionContextsState
@@ -33,6 +35,10 @@ export const editorChangeEpic = () => (
       payload: extensionContext,
     }) => (
       merge(
+        from(
+          window
+          .visibleTextEditors
+        ),
         (
           fromEventPattern<
             | TextEditor
@@ -44,17 +50,9 @@ export const editorChangeEpic = () => (
             .subscriptions
             .push(
               window
-              .onDidChangeActiveTextEditor((
-                textEditor,
-              ) => {
-                if (
-                  textEditor
-                ) {
-                  handler(
-                    textEditor
-                  )
-                }
-              })
+              .onDidChangeActiveTextEditor(
+                handler
+              )
             )
           })
         ),
@@ -69,34 +67,89 @@ export const editorChangeEpic = () => (
             .subscriptions
             .push(
               workspace
-              .onDidChangeTextDocument((
-                textDocumentChangeEvent,
-              ) => {
-                const editor = (
-                  window
-                  .activeTextEditor
-                )
-
-                if (
-                  editor
-                  && (
-                    (
-                      editor
-                      .document
-                    )
-                    === (
-                      textDocumentChangeEvent
-                      .document
-                    )
-                  )
-                ) {
-                  handler(
-                    editor
-                  )
-                }
-              })
+              .onDidChangeTextDocument(
+                handler
+              )
             )
           })
+          .pipe(
+            map((
+              textDocumentChangeEvent,
+            ) => (
+              textDocumentChangeEvent
+              ?.document
+              .uri
+              .toString()
+            )),
+            concatMap((
+              textDocumentUri,
+            ) => (
+              from(
+                window
+                .visibleTextEditors
+              )
+              .pipe(
+                filter((
+                  textEditor
+                ) => (
+                  (
+                    textEditor
+                    ?.document
+                    .uri
+                    .toString()
+                  )
+                  === textDocumentUri
+                ))
+              )
+            )),
+          )
+        ),
+        (
+          (
+            merge(
+              (
+                fromEventPattern<
+                  | TextEditor
+                  | undefined
+                >((
+                  handler,
+                ) => {
+                  extensionContext
+                  .subscriptions
+                  .push(
+                    window
+                    .onDidChangeActiveColorTheme(
+                      handler
+                    )
+                  )
+                })
+              ),
+              (
+                fromEventPattern<
+                  | TextEditor
+                  | undefined
+                >((
+                  handler,
+                ) => {
+                  extensionContext
+                  .subscriptions
+                  .push(
+                    workspace
+                    .onDidChangeConfiguration(
+                      handler
+                    )
+                  )
+                })
+              ),
+            )
+          )
+          .pipe(
+            map(() => (
+              window
+              .visibleTextEditors
+            )),
+            concatAll(),
+          )
         ),
       )
     )),
@@ -107,17 +160,14 @@ export const editorChangeEpic = () => (
       textEditor,
     ) => (
       textEditor
-      .document
-      .uri
-      .toString()
     )),
-    concatMap((
+    mergeMap((
       group$,
     ) => (
       group$
       .pipe(
         debounceTime(
-          200
+          100
         ),
         concatMap((
           textEditor,
