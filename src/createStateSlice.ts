@@ -40,7 +40,7 @@ export type MiddlewareEpic<
   >
 )
 
-export const createState = <
+export const createStateSlice = <
   EpicSlice extends (
     Slice
   ),

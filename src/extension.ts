@@ -27,20 +27,14 @@ import {
   editorsSlice,
   removeEditor,
 } from './editorsSlice'
-import { createState } from './createState'
+import { createStateSlice } f./createStateSliceState'
 
 // const reduxStore = (
 //   createReduxStore()
 // )
 
 const editorsState = (
-  createState<
-    ReturnType<
-      typeof editorsSlice[
-        "getInitialState"
-      ]
-    >
-  >({
+  createStateSlice({
     slice: editorsSlice,
   })
 )
@@ -68,12 +62,6 @@ const onActiveEditorChange = (
         editor
       )
     )
-    // reduxStore
-    // .dispatch(
-    //   addEditor(
-    //     editor
-    //   )
-    // )
 
     colorizeIfNeeded(
       editor

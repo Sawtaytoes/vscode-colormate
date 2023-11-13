@@ -6,9 +6,9 @@ import {
 import expect from "expect"
 
 import {
-  createState,
+  createStateSlice,
   type EpicAction,
-} from "./createState"
+} from "./createStateSlice"
 import { tap } from 'rxjs'
 
 type TestStateValue = {
@@ -88,7 +88,7 @@ suite.only(
           getState,
           subscribe,
         } = (
-          createState({
+          createStateSlice({
             slice,
           })
         )
@@ -201,7 +201,7 @@ suite.only(
           getState,
           subscribe,
         } = (
-          createState({
+          createStateSlice({
             slice,
           })
         )
@@ -276,7 +276,7 @@ suite.only(
           getState,
           subscribe,
         } = (
-          createState({
+          createStateSlice({
             middlewareEpics: [
               ({
                 action$
