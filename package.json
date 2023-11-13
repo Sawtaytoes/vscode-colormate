@@ -164,7 +164,7 @@
         "colormate.hasDefaultTextMateTokenScopes": {
           "type": "boolean",
           "default": true,
-          "markdownDescription": "ColorMate comes with its own TextMate token scopes for JavaScript, TypeScript, HTML, and JSON. If you'd like to disable those defaults, disable this setting.\n\nThese aren't the same as the semantic scopes. Those you can override with a separate setting. All this does is disable the special TextMate token scopes that were defined to make JS, TS, HTML, and JSON to fully render with semantic highlighting in areas not covered by semantic tokens."
+          "markdownDescription": "ColorMate comes with its own TextMate token scopes for JavaScript, TypeScript, HTML, and JSON. If you'd like to disable those defaults, disable this setting.\n\nThese aren't the same as the semantic scopes. Those you can override with a separate setting. All this does is disable the special TextMate token scopes that were defined to make JS, TS, HTML, and JSON fully render with semantic highlighting in areas not covered by semantic tokens."
         },
         "colormate.textMateTokenScopes": {
           "type": "array",
