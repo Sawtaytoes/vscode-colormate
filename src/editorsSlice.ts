@@ -1,4 +1,5 @@
 import {
+  PayloadAction,
   createEntityAdapter,
   createSlice,
 } from '@reduxjs/toolkit'
@@ -8,11 +9,20 @@ import {
 
 const editorsAdapter = (
   createEntityAdapter<
-    boolean
-  >()
+    TextEditor
+  >({
+    selectId: (
+      textEditor,
+    ) => (
+      textEditor
+      .document
+      .uri
+      .toString()
+    )
+  })
 )
 
-const editorsSlice = (
+export const editorsSlice = (
   createSlice({
     initialState: (
       editorsAdapter
@@ -22,7 +32,11 @@ const editorsSlice = (
     reducers: {
       addEditor: (
         state,
-        action,
+        action: (
+          PayloadAction<
+            TextEditor
+          >
+        ),
       ) => {
         editorsAdapter
         .addOne(
@@ -35,7 +49,11 @@ const editorsSlice = (
       },
       removeEditor: (
         state,
-        action,
+        action: (
+          PayloadAction<
+            string
+          >
+        ),
       ) => {
         editorsAdapter
         .removeOne(

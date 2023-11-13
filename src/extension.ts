@@ -1,25 +1,81 @@
-import debounce from 'just-debounce'
-import vscode from 'vscode'
-
 import {
-  addEditor,
-  addExtensionContext,
-} from './reduxObservable/actions'
+  BehaviorSubject,
+  Subject,
+  scan,
+} from 'rxjs'
+import debounce from 'just-debounce'
+import vscode, { TextEditor } from 'vscode'
+
+// import {
+//   addEditor,
+//   addExtensionContext,
+// } from './reduxObservable/actions'
 import {
   colorize,
 } from './colorize'
-import {
-  createReduxStore,
-} from './reduxObservable/createReduxStore'
+// import {
+//   createReduxStore,
+// } from './reduxObservable/createReduxStore'
 import {
   removePreviousTextEditorDecorations,
 } from './removePreviousTextEditorDecorations'
 import {
   removeUnusedTextEditorDecorations,
 } from './removeUnusedTextEditorDecorations'
+import {
+  addEditor,
+  editorsReducer,
+  editorsSlice,
+  removeEditor,
+} from './editorsSlice'
 
-const reduxStore = (
-  createReduxStore()
+// const reduxStore = (
+//   createReduxStore()
+// )
+
+const editorsAction$ = (
+  new Subject<
+    ReturnType<
+      typeof editorsSlice.actions[
+        keyof typeof editorsSlice.actions
+      ]
+    >
+  >()
+)
+
+
+const editorsState$ = (
+  new BehaviorSubject(
+    {} as (
+      ReturnType<
+        typeof editorsReducer
+      >
+    )
+  )
+)
+
+const editorsReducer$ = (
+  editorsAction$
+  .pipe(
+    scan((
+      state,
+      action,
+    ) => (
+      editorsReducer(
+        state,
+        action,
+      )
+    ),
+    (
+      editorsSlice
+      .getInitialState()
+    ))
+  )
+)
+
+editorsReducer$
+.subscribe(
+  editorsState$
 )
 
 const colorizeIfNeeded = (
@@ -39,12 +95,18 @@ const onActiveEditorChange = (
   )
 ) => {
   if (editor) {
-    reduxStore
-    .dispatch(
+    editorsAction$
+    .next(
       addEditor(
         editor
       )
     )
+    // reduxStore
+    // .dispatch(
+    //   addEditor(
+    //     editor
+    //   )
+    // )
 
     colorizeIfNeeded(
       editor
@@ -107,12 +169,12 @@ function onTextDocumentChange(
       )
     )
   ) {
-    reduxStore
-    .dispatch(
-      addEditor(
-        editor
-      )
-    )
+    // reduxStore
+    // .dispatch(
+    //   addEditor(
+    //     editor
+    //   )
+    // )
 
     colorizeIfNeeded(
       editor
@@ -126,12 +188,12 @@ export const activate = (
     .ExtensionContext
   )
 ) => {
-  reduxStore
-  .dispatch(
-    addExtensionContext(
-      context
-    )
-  )
+  // reduxStore
+  // .dispatch(
+  //   addExtensionContext(
+  //     context
+  //   )
+  // )
 
   context
   .subscriptions

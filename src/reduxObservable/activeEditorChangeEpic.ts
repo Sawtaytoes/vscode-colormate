@@ -43,6 +43,7 @@ export const activeEditorChangeEpic: (
       addExtensionContext
       .type
     ),
+    // @ts-ignore TEMPORARY
     concatMap(({
       payload: context,
     }) => (
