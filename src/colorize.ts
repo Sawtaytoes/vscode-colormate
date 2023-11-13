@@ -191,21 +191,53 @@ export const colorize = async (
         ) => ({
           deduplicatedTokenMap: (
             (
-              symbolLookup
-              .has(
-                symbol
+              (
+                symbolLookup
+                .has(
+                  symbol
+                )
+              )
+              // TEMP: This is hack-fix for keywords being variable names that also happen to have TextMate scopes.
+              && (
+                !(
+                  token
+                  .scopes
+                  .includes(
+                    "keyword.control.from.ts"
+                  )
+                )
               )
             )
             ? deduplicatedTokenMap
             : (
               deduplicatedTokenMap
               .set(
-                symbol,
+                (
+                  // TEMP: This is hack-fix for keywords being variable names that also happen to have TextMate scopes.
+                  (
+                    token
+                    .scopes
+                    .includes(
+                      "keyword.control.from.ts"
+                    )
+                  )
+                  ? "keyword.control.from.ts"
+                  : symbol
+                ),
                 (
                   (
                     deduplicatedTokenMap
                     .get(
-                      symbol
+                      // TEMP: This is hack-fix for keywords being variable names that also happen to have TextMate scopes.
+                      (
+                        token
+                        .scopes
+                        .includes(
+                          "keyword.control.from.ts"
+                        )
+                      )
+                      ? "keyword.control.from.ts"
+                      : symbol
                     )
                     || []
                   )
