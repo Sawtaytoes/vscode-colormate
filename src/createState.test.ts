@@ -88,9 +88,7 @@ suite.only(
           getState,
           subscribe,
         } = (
-          createState<
-            TestState
-          >({
+          createState({
             slice,
           })
         )
@@ -203,9 +201,7 @@ suite.only(
           getState,
           subscribe,
         } = (
-          createState<
-            TestState
-          >({
+          createState({
             slice,
           })
         )
@@ -280,9 +276,7 @@ suite.only(
           getState,
           subscribe,
         } = (
-          createState<
-            TestState
-          >({
+          createState({
             middlewareEpics: [
               ({
                 action$

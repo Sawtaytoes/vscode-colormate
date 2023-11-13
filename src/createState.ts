@@ -41,15 +41,8 @@ export type MiddlewareEpic<
 )
 
 export const createState = <
-  State,
   EpicSlice extends (
-    Slice<
-      State
-    >
-  ) = (
-    Slice<
-      State
-    >
+    Slice
   ),
   Action extends (
     EpicAction<
@@ -60,6 +53,15 @@ export const createState = <
       EpicSlice["actions"]
     >
   ),
+  State extends (
+    ReturnType<
+      EpicSlice["reducer"]
+    >
+  ) = (
+    ReturnType<
+      EpicSlice["reducer"]
+    >
+  )
 >({
   middlewareEpics,
   slice,
