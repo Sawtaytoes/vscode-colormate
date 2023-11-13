@@ -3,7 +3,6 @@ import {
   ofType
 } from 'redux-observable'
 import {
-  ignoreElements,
   tap,
 } from 'rxjs/operators'
 
@@ -25,6 +24,5 @@ export const testEpic: (
     tap((t) => {
       console.log(t)
     }),
-    ignoreElements(),
   )
 )

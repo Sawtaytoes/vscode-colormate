@@ -1,8 +1,9 @@
 // Copied and modified from: https://github.com/redux-observable/redux-observable/blob/master/src/combineEpics.ts
 
 import { Action } from "redux"
-import { merge } from "rxjs"
+import { Observable, ignoreElements, merge } from "rxjs"
 import { Epic } from "./epic"
+import { catchEpicError } from "./catchEpicError"
 
 /**
   Merges all epics into a single one.
@@ -14,7 +15,25 @@ export function combineEpics<T extends Action, O extends T = T, S = void, D = an
       if (!output$) {
         throw new TypeError(`combineEpics: one of the provided Epics "${epic.name || '<anonymous>'}" does not return a stream. Double check you\'re not missing a return statement!`)
       }
-      return output$
+      return (
+        output$
+        .pipe(
+          epic(
+            ...args
+          )
+          .pipe(
+            ignoreElements(),
+            catchEpicError(
+              epic
+              .name
+            ),
+          ) as (
+            Observable<
+              never
+            >
+          )
+        ))
+      )
     })
   )
 

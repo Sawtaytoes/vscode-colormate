@@ -7,10 +7,8 @@ import {
 } from "@reduxjs/toolkit"
 import {
   combineEpics,
-} from "./combineEpics"
-import {
-  createEpicMiddleware,
-} from "./createEpicMiddleware"
+  createEpicMiddleware
+} from "redux-observable"
 
 import {
   epics,
