@@ -146,13 +146,14 @@
   },
   "scripts": {
     "clean": "node cleanCompiled.mjs",
-    "compile": "yarn clean && tsc -p ./",
+    "compile": "yarn clean && tsc",
     "lint": "eslint src --ext ts",
     "pretest": "yarn compile && yarn lint",
     "publishPackage": "vsce package --no-yarn && vsce publish --no-yarn",
+    "start": "yarn watch",
     "test": "node ./out/runTests.js",
     "vscode:prepublish": "yarn compile",
-    "watch": "yarn clean && tsc -watch -p ./"
+    "watch": "yarn clean && tsc -watch"
   },
   "devDependencies": {
     "@types/expect": "^24.3.0",
