@@ -1,19 +1,27 @@
 import {
   textEditorDecorationMap,
 } from './cache'
-import { removePreviousTextEditorDecorations } from './removePreviousTextEditorDecorations'
+import {
+  removeTextEditorDecorations,
+} from './removeTextEditorDecorations'
 
 export const removeAllTextEditorDecorations = () => {
   Array
   .from(
     textEditorDecorationMap
-    .keys()
+    .entries()
   )
-  .forEach((
-    editor,
-  ) => {
-    removePreviousTextEditorDecorations(
-      editor
+  .forEach(([
+    textEditor,
+    textEditorDecorations,
+  ]) => {
+    removeTextEditorDecorations(
+      textEditorDecorations
+    )
+
+    textEditorDecorationMap
+    .delete(
+      textEditor
     )
   })
 }

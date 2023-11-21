@@ -26,8 +26,8 @@ import {
   rangesByName,
 } from './rangesByName'
 import {
-  removePreviousTextEditorDecorations,
-} from './removePreviousTextEditorDecorations'
+  removeTextEditorDecorations,
+} from './removeTextEditorDecorations'
 import {
   getScopeName,
 } from './textMateGrammars'
@@ -403,8 +403,11 @@ export const colorize = async (
     ]))
   )
 
-  removePreviousTextEditorDecorations(
-    editor
+  const previousTextEditorDecorations = (
+    textEditorDecorationMap
+    .get(
+      editor
+    )
   )
 
   const textEditorDecorations = (
@@ -452,4 +455,13 @@ export const colorize = async (
       ranges,
     )
   })
+
+  removeTextEditorDecorations(
+    previousTextEditorDecorations
+    || (
+      new Set<
+        TextEditorDecorationType
+      >()
+    )
+  )
 }
