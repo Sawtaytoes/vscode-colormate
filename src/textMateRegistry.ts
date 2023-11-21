@@ -20,12 +20,9 @@ import {
   textMateGrammarsState,
 } from './textMateGrammarsState'
 
-const vscodeOnigurumaLib = (
-  createVscodeOnigurmaLibrary()
-)
-
 // Create a registry that can create a grammar from a scope name.
 export const getTextMateRegistry = () => (
+  // TODO: Only create a new `Registry` if one doesn't already exist in state.
   new Registry({
     loadGrammar: (
       grammarScopeName: string,
@@ -96,7 +93,7 @@ export const getTextMateRegistry = () => (
         )
       )
     },
-    onigLib: vscodeOnigurumaLib,
+    onigLib: createVscodeOnigurmaLibrary(),
   })
 )
 

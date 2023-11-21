@@ -48,14 +48,4 @@ export const createVscodeOnigurmaLibrary = (): (
       ),
     }))
   ))
-  .catch((
-    error,
-  ) => {
-    console
-    .error(
-      error
-    )
-
-    return createVscodeOnigurmaLibrary()
-  })
 )
