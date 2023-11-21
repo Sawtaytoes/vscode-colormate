@@ -5,12 +5,8 @@ import {
   addExtensionContext,
   extensionContextsState,
 } from "./extensionContextsState"
-import {
-  removePreviousTextEditorDecorations,
-} from "./removePreviousTextEditorDecorations"
-import {
-  removeUnusedTextEditorDecorations,
-} from "./removeUnusedTextEditorDecorations"
+import { removeAllTextEditorDecorations } from "./removeAllTextEditorDecorations"
+import { removeUnusedTextEditorDecorations } from "./removeUnusedTextEditorDecorations"
 
 editorChangeEpic()
 .subscribe()
@@ -49,5 +45,5 @@ export const activate = (
 
 export const deactivate = () => {
   // TODO: Stop the Redux store and Redux-Observable listeners.
-  removePreviousTextEditorDecorations()
+  removeAllTextEditorDecorations()
 }
