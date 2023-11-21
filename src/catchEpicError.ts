@@ -2,6 +2,7 @@ import {
   catchError,
 } from 'rxjs/operators'
 import {
+  EMPTY,
   of,
 } from 'rxjs'
 
@@ -38,13 +39,7 @@ export const catchEpicError = (
     )
 
     return (
-      of({
-        payload: {
-          epicName,
-          error,
-        },
-        type: 'caughtError',
-      })
+      EMPTY
     )
   })
 )
