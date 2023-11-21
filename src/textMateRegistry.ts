@@ -3,18 +3,15 @@ import {
   readFile,
 } from 'fs/promises'
 import {
-  loadWASM,
-  OnigScanner,
-  OnigString,
-} from 'vscode-oniguruma'
-import path from 'path'
-import {
   INITIAL,
   IToken,
   parseRawGrammar,
   Registry,
 } from 'vscode-textmate'
 
+import {
+  createVscodeOnigurmaLibrary,
+} from './createVscodeOnigurmaLibrary'
 import {
   getScopeFilePath,
 } from './textMateGrammars'
@@ -24,28 +21,7 @@ import {
 } from './textMateGrammarsState'
 
 const vscodeOnigurumaLib = (
-  readFile(
-    path
-    .join(
-      __dirname,
-      '../node_modules/vscode-oniguruma/release/onig.wasm'
-    )
-  )
-  .then(({
-    buffer,
-  }) => (
-    loadWASM(
-      buffer
-    )
-    .then(() => ({
-      createOnigScanner(patterns: string[]) {
-        return new OnigScanner(patterns)
-      },
-      createOnigString(string: string) {
-        return new OnigString(string)
-      },
-    }))
-  ))
+  createVscodeOnigurmaLibrary()
 )
 
 // Create a registry that can create a grammar from a scope name.
@@ -141,11 +117,16 @@ export const getTextMateLineTokens = ({
   .then((
     grammar,
   ) => {
-    const lineTokens: {
-      lineNumber: number;
-      symbol: string;
-      token: IToken;
-    }[][] = []
+    const lineTokens: (
+      Array<
+        Array<{
+          lineNumber: number;
+          symbol: string;
+          token: IToken;
+        }>
+      >
+    ) = []
+
     let ruleStack = INITIAL
 
     const documentLines = (
@@ -231,10 +212,12 @@ export const getTextMateLineTokens = ({
       error
     )
 
-    return [] as {
-      lineNumber: number;
-      symbol: string;
-      token: IToken;
-    }[]
+    return [] as (
+      Array<{
+        lineNumber: number;
+        symbol: string;
+        token: IToken;
+      }>
+    )
   })
 )
