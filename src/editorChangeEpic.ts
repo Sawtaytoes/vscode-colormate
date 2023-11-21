@@ -18,7 +18,10 @@ import {
 
 import { catchEpicError } from "./catchEpicError"
 import { colorize } from "./colorize"
-import { extensionContextsSlice, extensionContextsState } from "./extensionContextsState"
+import {
+  extensionContextsSlice,
+  extensionContextsState,
+} from "./extensionContextsState"
 
 export const editorChangeEpic = () => (
   extensionContextsState
