@@ -456,12 +456,9 @@ export const colorize = async (
     )
   })
 
-  removeTextEditorDecorations(
-    previousTextEditorDecorations
-    || (
-      new Set<
-        TextEditorDecorationType
-      >()
+  if (previousTextEditorDecorations) {
+    removeTextEditorDecorations(
+      previousTextEditorDecorations
     )
-  )
+  }
 }
