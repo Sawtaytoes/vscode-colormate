@@ -166,7 +166,7 @@ export const editorChangeEpic = () => (
       group$
       .pipe(
         debounceTime(
-          100
+          250
         ),
         concatMap((
           textEditor,
