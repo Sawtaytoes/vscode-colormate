@@ -1,4 +1,5 @@
 import {
+  DecorationRangeBehavior,
   window,
 } from 'vscode'
 
@@ -53,6 +54,11 @@ export const getTextEditorDecoration = (
     window
     .createTextEditorDecorationType({
       color: hexColor,
+      rangeBehavior: (
+        DecorationRangeBehavior
+        .ClosedClosed
+      ),
+      isWholeLine: false,
     })
   )
 }
