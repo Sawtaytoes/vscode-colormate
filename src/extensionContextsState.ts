@@ -10,11 +10,9 @@ import {
 import { createSliceState } from './createSliceState'
 
 const extensionContextsAdapter = (
-  createEntityAdapter<
-    ExtensionContext
-  >({
+  createEntityAdapter({
     selectId: (
-      extensionContext,
+      extensionContext: ExtensionContext,
     ) => (
       extensionContext
       .extensionUri

@@ -8,7 +8,7 @@
     ],
     "esModuleInterop": true,
     // "incremental": true,
-    "rootDir": "src",
+    // "rootDir": "src",
     "sourceMap": true,
     "strict": true, /* enable all strict type-checking options */
     // "tsBuildInfoFile": "./.tsbuildinfo", // Specify the path for the build info file

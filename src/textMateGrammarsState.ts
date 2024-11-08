@@ -15,13 +15,7 @@ type GrammarDataEntity = {
 const textMateGrammarsAdapter = (
   createEntityAdapter<
     GrammarDataEntity
-  >({
-    selectId: ({
-      id,
-    }) => (
-      id
-    ),
-  })
+  >()
 )
 
 export const textMateGrammarsSlice = (

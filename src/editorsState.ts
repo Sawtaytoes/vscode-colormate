@@ -10,11 +10,9 @@ import {
 import { createSliceState } from './createSliceState'
 
 const editorsAdapter = (
-  createEntityAdapter<
-    TextEditor
-  >({
+  createEntityAdapter({
     selectId: (
-      textEditor,
+      textEditor: TextEditor,
     ) => (
       textEditor
       .document
