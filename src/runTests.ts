@@ -1,8 +1,5 @@
-import path from 'path'
-
-import {
-  runTests,
-} from '@vscode/test-electron'
+import { runTests } from '@vscode/test-electron'
+import { resolve } from 'node:path'
 
 async function main() {
 	try {

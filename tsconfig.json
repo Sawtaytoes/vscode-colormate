@@ -1,8 +1,5 @@
 {
   "compilerOptions": {
-    "module": "commonjs",
-    "target": "es2022",
-    "outDir": "out",
     "lib": [
       "es2022"
     ],
@@ -10,14 +7,11 @@
     // "module": "CommonJS",
     "module": "NodeNext",
     "outDir": "out",
-    "skipLibCheck": true,
     "sourceMap": true,
     "strict": true,
     "target": "es2022",
     // "incremental": true,
     // "rootDir": "src",
-    "sourceMap": true,
-    "strict": true, /* enable all strict type-checking options */
     // "tsBuildInfoFile": "./.tsbuildinfo", // Specify the path for the build info file
     /* Additional Checks */
     // "noImplicitReturns": true, /* Report error when not all code paths in function return a value. */

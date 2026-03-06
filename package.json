@@ -6,7 +6,7 @@
   "license": "MIT",
   "author": "Kevin Ghadyani",
   "publisher": "KevinGhadyani",
-  "packageManager": "yarn@4.5.1",
+  "packageManager": "yarn@4.13.0",
   "repository": {
     "type": "git",
     "url": "https://github.com/Sawtaytoes/vscode-colormate.git"
@@ -37,15 +37,13 @@
     "@types/vscode": "^1.95.0",
     "@typescript-eslint/eslint-plugin": "^8.12.2",
     "@typescript-eslint/parser": "^8.12.2",
-    "@vitest/ui": "^2.1.4",
     "@vscode/test-electron": "^2.4.1",
     "eslint": "^9.14.0",
     "expect": "^29.7.0",
     "glob": "^11.0.0",
     "mocha": "^10.8.2",
     "source-map-support": "^0.5.21",
-    "typescript": "^5.6.3",
-    "vitest": "^2.1.4"
+    "typescript": "^5.6.3"
   },
   "dependencies": {
     "@reduxjs/toolkit": "^2.3.0",
@@ -90,7 +88,7 @@
   "activationEvents": [
     "onStartupFinished"
   ],
-  "main": "./out/extension.js",
+  "main": "./out/src/extension.js",
   "contributes": {
     "configuration": {
       "title": "ColorMate Options",

@@ -1,9 +1,5 @@
 import expect from 'expect'
 import {
-  unlink,
-  writeFile,
-} from 'fs/promises'
-import {
   before,
 } from 'mocha'
 import path from 'path'
@@ -54,13 +50,35 @@ const performanceTest = async () => {
     )
   )
 
-  await (
-    writeFile(
-      filePath,
-      fileContents,
-      'utf-8',
+  vol
+  .fromJSON({
+    [filePath]: fileContents,
+  })
+
+  // await (
+  //   vol
+  //   .promises
+  //   .writeFile(
+  //     filePath,
+  //     fileContents,
+  //     {
+  //       encoding: "utf-8",
+  //     },
+  //   )
+  // )
+  console.log('hi!')
+
+  const realFilePath = (
+    await(
+      vol
+      .promises
+      .realpath(
+        filePath
+      )
     )
   )
+
+  console.log({realFilePath})
 
   await (
     vscode
@@ -69,7 +87,8 @@ const performanceTest = async () => {
       vscode
       .Uri
       .file(
-        filePath
+        realFilePath
+        .toString()
       )
     )
     .then((
@@ -126,12 +145,6 @@ const performanceTest = async () => {
     .commands
     .executeCommand(
       'workbench.action.closeActiveEditor'
-    )
-  )
-
-  await(
-    unlink(
-      filePath
     )
   )
 
