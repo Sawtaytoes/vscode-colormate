@@ -14,7 +14,7 @@ import vscode from 'vscode'
 
 import {
   colorize,
-} from './colorize'
+} from "./colorize.js"
 
 const fileContents = `
 const someFunction = ({} = {}) => {}

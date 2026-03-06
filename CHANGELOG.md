@@ -10,7 +10,7 @@
 - ✨ Added a new setting for default TextMate token scopes. Before, you were able to override these with the `textMateTokenScopes` setting, but if you wanted the defaults, it was possible to lose them completely. This new way makes them optional, but also able to be kept up-to-date by the user.
 
 ## [3.1.4] - 2022-07-31
-- 🐛 Fixed an improper regex for root scopes with 2 roots (source.js.jsx)
+- 🐛 Fixed an improper regex for root scopes with 2 roots (source.jsx)
 - 🐛 Fixed edge-case bug in matching TextMate scopes with a single category name
 - 🐛 Fixed incorrect defaults in package.json
 

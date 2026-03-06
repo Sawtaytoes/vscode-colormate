@@ -6,38 +6,38 @@ import {
   SemanticTokensLegend,
   TextEditor,
   TextEditorDecorationType,
-} from 'vscode'
+} from "vscode"
 import {
   IToken,
-} from 'vscode-textmate'
+} from "vscode-textmate"
 
 import {
   textEditorDecorationMap,
-} from './cache'
+} from "./cache.js"
 import {
   getExcludedTextMateTokenScopes,
   getIgnoredLanguages,
   getConfiguredTextMateTokenScopes,
-} from './configuration'
+} from "./configuration.js"
 import {
   getTextEditorDecoration,
-} from './getTextEditorDecoration'
+} from "./getTextEditorDecoration.js"
 import {
   rangesByName,
-} from './rangesByName'
+} from "./rangesByName.js"
 import {
   removeTextEditorDecorations,
-} from './removeTextEditorDecorations'
+} from "./removeTextEditorDecorations.js"
 import {
   getScopeName,
-} from './textMateGrammars'
+} from "./textMateGrammars.js"
 import {
   getTextMateLineTokens,
   getTextMateRegistry,
-} from './textMateRegistry'
+} from "./textMateRegistry.js"
 import {
   createIsInTextMateScope,
-} from './textMateScopes'
+} from "./textMateScopes.js"
 
 export const colorize = async (
   editor: TextEditor,
@@ -102,7 +102,7 @@ export const colorize = async (
           .executeCommand<
             SemanticTokensLegend
           >(
-            'vscode.provideDocumentSemanticTokensLegend',
+            "vscode.provideDocumentSemanticTokensLegend",
             uri,
           )
         ),
@@ -111,7 +111,7 @@ export const colorize = async (
           .executeCommand<
             SemanticTokens
           >(
-            'vscode.provideDocumentSemanticTokens',
+            "vscode.provideDocumentSemanticTokens",
             uri,
           )
         ),
@@ -123,7 +123,7 @@ export const colorize = async (
                 .document
                 .getText()
               )
-              || ''
+              || ""
             ),
             registry: (
               getTextMateRegistry()
@@ -321,7 +321,7 @@ export const colorize = async (
               (
                 scope
                 .split(
-                  '.'
+                  "."
                 )
                 .length
               ),
@@ -354,7 +354,7 @@ export const colorize = async (
                   (
                     excludedTokenScope
                     .split(
-                      '.'
+                      "."
                     )
                     .length
                   )

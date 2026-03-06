@@ -5,13 +5,13 @@ import {
 
 import {
   hslConfig,
-} from './configuration'
+} from './configuration.js'
 import {
   crc8Hash,
-} from './crc8Hash'
+} from './crc8Hash.js'
 import {
   hslToHexColor,
-} from './hslToHexColor'
+} from './hslToHexColor.js'
 
 export const getTextEditorDecoration = (
   identifier: string,

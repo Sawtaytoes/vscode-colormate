@@ -1,9 +1,9 @@
 import {
   textEditorDecorationMap,
-} from './cache'
+} from './cache.js'
 import {
   removeTextEditorDecorations,
-} from './removeTextEditorDecorations'
+} from './removeTextEditorDecorations.js'
 
 export const removeAllTextEditorDecorations = () => {
   Array

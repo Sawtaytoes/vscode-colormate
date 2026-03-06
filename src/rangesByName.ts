@@ -3,10 +3,10 @@ import * as vscode from 'vscode'
 
 import {
   getConfiguredSemanticTokenTypes,
-} from './configuration'
+} from './configuration.js'
 import {
   pushValue,
-} from './pushValue'
+} from './pushValue.js'
 
 /**
  * Tokens in a file are represented as an array of integers. The position of each token is expressed relative to

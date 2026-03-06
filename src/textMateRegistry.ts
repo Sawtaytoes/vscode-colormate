@@ -11,14 +11,14 @@ import {
 
 import {
   createVscodeOnigurmaLibrary,
-} from './createVscodeOnigurmaLibrary'
+} from './createVscodeOnigurmaLibrary.js'
 import {
   getScopeFilePath,
-} from './textMateGrammars'
+} from './textMateGrammars.js'
 import {
   addTextMateGrammar,
   textMateGrammarsState,
-} from './textMateGrammarsState'
+} from './textMateGrammarsState.js'
 
 // Create a registry that can create a grammar from a scope name.
 export const getTextMateRegistry = () => (

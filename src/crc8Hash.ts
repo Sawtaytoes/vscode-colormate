@@ -1,6 +1,6 @@
 import {
   crc8HashTable,
-} from "./crc8HashTable"
+} from "./crc8HashTable.js"
 
 export const crc8Hash = (
   word: string,

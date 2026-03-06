@@ -4,7 +4,7 @@ import {
 
 import {
   textEditorDecorationMap,
-} from './cache'
+} from './cache.js'
 
 export const removeUnusedTextEditorDecorations = (
   editors: (

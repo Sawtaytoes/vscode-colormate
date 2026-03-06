@@ -1,4 +1,4 @@
-import { importTest } from "./visualTester-import"
+import { importTest } from "./visualTester-import.js"
 
 importTest()
 

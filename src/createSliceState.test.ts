@@ -8,7 +8,7 @@ import expect from "expect"
 import {
   createSliceState,
   type EpicAction,
-} from "./createSliceState"
+} from "./createSliceState.js"
 import { tap } from 'rxjs'
 
 type TestStateValue = {

@@ -16,12 +16,12 @@ import {
   workspace,
 } from "vscode"
 
-import { catchEpicError } from "./catchEpicError"
-import { colorize } from "./colorize"
+import { catchEpicError } from "./catchEpicError.js"
+import { colorize } from "./colorize.js"
 import {
   extensionContextsSlice,
   extensionContextsState,
-} from "./extensionContextsState"
+} from "./extensionContextsState.js"
 
 export const editorChangeEpic = () => (
   extensionContextsState

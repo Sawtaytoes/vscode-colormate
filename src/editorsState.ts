@@ -7,7 +7,7 @@ import {
   TextEditor,
 } from 'vscode'
 
-import { createSliceState } from './createSliceState'
+import { createSliceState } from './createSliceState.js'
 
 const editorsAdapter = (
   createEntityAdapter({

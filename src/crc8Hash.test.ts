@@ -2,7 +2,7 @@ import expect from 'expect'
 
 import {
   crc8Hash,
-} from './crc8Hash'
+} from './crc8Hash.js'
 
 suite(
   'crc8Hash',
