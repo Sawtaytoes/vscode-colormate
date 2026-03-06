@@ -31,7 +31,13 @@ yarn test
 Then run this command to do a cleanup of the build directory and a new compilation before triggering the publish step.
 
 ```sh
-yarn publishPackage
+yarn publish:package
+```
+
+If publishing doesn't work, first login with a new PAT (Personal Access Token):
+
+```sh
+yarn publish:updateLogin
 ```
 
 ## Repo layout
