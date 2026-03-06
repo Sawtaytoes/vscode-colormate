@@ -1,5 +1,9 @@
 # CHANGELOG
 
+## [4.0.1] - 2026-03-06
+
+- Adds missing Oniguruma WASM file when publishing.
+
 ## [4.0.0] - 2026-03-06
 
 - Upgrades all packages to the latest.
