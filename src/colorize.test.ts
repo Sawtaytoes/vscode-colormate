@@ -1,8 +1,9 @@
-import expect from 'expect'
+import { expect } from 'expect'
 import {
   before,
 } from 'mocha'
 import path from 'path'
+import { vol } from 'memfs'
 import {
   performance,
 } from 'perf_hooks'

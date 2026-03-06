@@ -3,7 +3,7 @@ import {
   createSlice,
   type PayloadAction,
 } from '@reduxjs/toolkit'
-import expect from "expect"
+import { expect } from "expect"
 
 import {
   createSliceState,

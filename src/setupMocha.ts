@@ -1,6 +1,10 @@
 import { glob } from "glob"
 import Mocha from "mocha"
-import path from "path"
+import path, { dirname } from "path"
+import { fileURLToPath } from "url"
+
+// __dirname isn't available in ESM modules, replicate its value
+const __dirname = dirname(fileURLToPath(import.meta.url))
 
 export function run(): (
   Promise<
@@ -28,6 +32,8 @@ export function run(): (
       // Add files to the test suite
       files.forEach(filePath => mocha.addFile(path.resolve(testsRoot, filePath)))
     })
+    // Use async loader so ESM files are imported correctly
+    .then(() => mocha.loadFilesAsync())
     .then(() => (
       new Promise<
         void
