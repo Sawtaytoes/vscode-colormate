@@ -26,5 +26,5 @@ someFunction() // This is the wrong color in Sublime Text because it colors the 
 someFunction2({})
 
 console.log(
-  returnValue
+  returnValue,
 )

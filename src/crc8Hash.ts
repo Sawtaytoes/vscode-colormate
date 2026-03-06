@@ -1,20 +1,20 @@
 import {
   crc8HashTable,
-} from "./crc8HashTable"
+} from "./crc8HashTable.js"
 
 export const crc8Hash = (
   word: string,
 ) => (
   Array
   .from(
-    word
+    word,
   )
   .map((
     character,
   ) => (
     character
     .charCodeAt(
-      0
+      0,
     )
   ))
   .map((
@@ -29,8 +29,8 @@ export const crc8Hash = (
       eightBitCharacterCode,
     ) => (
       crc8HashTable[
-        crcHash
-        ^ eightBitCharacterCode
+      crcHash
+      ^ eightBitCharacterCode
       ]
     ),
     0,

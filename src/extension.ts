@@ -4,32 +4,31 @@ import { editorChangeEpic } from "./editorChangeEpic"
 import {
   addExtensionContext,
   extensionContextsState,
-} from "./extensionContextsState"
+} from "./extensionContextsState.js"
 import { removeAllTextEditorDecorations } from "./removeAllTextEditorDecorations"
 import { removeUnusedTextEditorDecorations } from "./removeUnusedTextEditorDecorations"
-
-editorChangeEpic()
-.subscribe()
 
 function onTextEditorListChange() {
   removeUnusedTextEditorDecorations(
     vscode
     .window
-    .visibleTextEditors
+    .visibleTextEditors,
   )
 }
 
 export const activate = (
   extensionContext: (
-    vscode
-    .ExtensionContext
-  )
+    vscode.ExtensionContext
+  ),
 ) => {
+  editorChangeEpic()
+  .subscribe()
+
   extensionContextsState
   .dispatch(
     addExtensionContext(
-      extensionContext
-    )
+      extensionContext,
+    ),
   )
 
   extensionContext
@@ -38,8 +37,8 @@ export const activate = (
     vscode
     .window
     .onDidChangeVisibleTextEditors(
-      onTextEditorListChange
-    )
+      onTextEditorListChange,
+    ),
   )
 }
 

@@ -1,24 +1,24 @@
 import {
   DecorationRangeBehavior,
   window,
-} from 'vscode'
+} from "vscode"
 
 import {
   hslConfig,
-} from './configuration'
+} from "./configuration.js"
 import {
   crc8Hash,
-} from './crc8Hash'
+} from "./crc8Hash.js"
 import {
   hslToHexColor,
-} from './hslToHexColor'
+} from "./hslToHexColor.js"
 
 export const getTextEditorDecoration = (
   identifier: string,
 ) => {
   const crcHex = (
     crc8Hash(
-      identifier
+      identifier,
     )
   )
 

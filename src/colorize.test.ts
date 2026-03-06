@@ -1,20 +1,20 @@
-import expect from 'expect'
+import expect from "expect"
 import {
   unlink,
   writeFile,
-} from 'fs/promises'
+} from "fs/promises"
 import {
   before,
-} from 'mocha'
-import path from 'path'
+} from "mocha"
+import path from "path"
 import {
   performance,
-} from 'perf_hooks'
-import vscode from 'vscode'
+} from "perf_hooks"
+import vscode from "vscode"
 
 import {
   colorize,
-} from './colorize'
+} from "./colorize"
 
 const fileContents = `
 const someFunction = ({} = {}) => {}
@@ -58,7 +58,7 @@ const performanceTest = async () => {
     writeFile(
       filePath,
       fileContents,
-      'utf-8',
+      "utf-8",
     )
   )
 
@@ -69,8 +69,8 @@ const performanceTest = async () => {
       vscode
       .Uri
       .file(
-        filePath
-      )
+        filePath,
+      ),
     )
     .then((
       doc,
@@ -78,7 +78,7 @@ const performanceTest = async () => {
       vscode
       .window
       .showTextDocument(
-        doc
+        doc,
       )
     ))
   )
@@ -88,16 +88,15 @@ const performanceTest = async () => {
     .now()
   )
 
-  await(
+  await (
     colorize(
       (
         vscode
         .window
         .activeTextEditor
       ) as (
-        vscode
-        .TextEditor
-      )
+        vscode.TextEditor
+      ),
     )
   )
 
@@ -111,96 +110,96 @@ const performanceTest = async () => {
 
   console
   .info(
-    '`colorize` took',
+    "`colorize` took",
     (
       endTime
       .toFixed(
-        2
+        2,
       )
     ),
-    'milliseconds.',
+    "milliseconds.",
   )
 
   await (
     vscode
     .commands
     .executeCommand(
-      'workbench.action.closeActiveEditor'
+      "workbench.action.closeActiveEditor",
     )
   )
 
-  await(
+  await (
     unlink(
-      filePath
+      filePath,
     )
   )
 
   expect(
-    endTime
+    endTime,
   )
   .toBeLessThan(
-    2000
+    2000,
   )
 }
 
 suite(
-  'colorize',
+  "colorize",
   () => {
     before(() => (
       vscode
       .commands
       .executeCommand(
-        'workbench.action.closeActiveEditor'
+        "workbench.action.closeActiveEditor",
       )
     ))
 
     test(
-      'Runs within a given timeframe - try 1',
+      "Runs within a given timeframe - try 1",
       performanceTest,
     )
 
     test(
-      'Runs within a given timeframe - try 2',
+      "Runs within a given timeframe - try 2",
       performanceTest,
     )
 
     test(
-      'Runs within a given timeframe - try 3',
+      "Runs within a given timeframe - try 3",
       performanceTest,
     )
 
     test(
-      'Runs within a given timeframe - try 4',
+      "Runs within a given timeframe - try 4",
       performanceTest,
     )
 
     test(
-      'Runs within a given timeframe - try 5',
+      "Runs within a given timeframe - try 5",
       performanceTest,
     )
 
     test(
-      'Runs within a given timeframe - try 6',
+      "Runs within a given timeframe - try 6",
       performanceTest,
     )
 
     test(
-      'Runs within a given timeframe - try 7',
+      "Runs within a given timeframe - try 7",
       performanceTest,
     )
 
     test(
-      'Runs within a given timeframe - try 8',
+      "Runs within a given timeframe - try 8",
       performanceTest,
     )
 
     test(
-      'Runs within a given timeframe - try 9',
+      "Runs within a given timeframe - try 9",
       performanceTest,
     )
 
     test(
-      'Runs within a given timeframe - try 10',
+      "Runs within a given timeframe - try 10",
       performanceTest,
     )
   },

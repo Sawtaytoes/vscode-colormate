@@ -1,7 +1,7 @@
 import {
   TextEditor,
   TextEditorDecorationType,
-} from 'vscode'
+} from "vscode"
 
 export const textEditorDecorationMap = (
   new Map<

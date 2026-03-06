@@ -1,10 +1,9 @@
 import {
   catchError,
-} from 'rxjs/operators'
+} from "rxjs/operators"
 import {
   EMPTY,
-  of,
-} from 'rxjs'
+} from "rxjs"
 
 export const catchEpicError = (
   epicName: string,
@@ -18,7 +17,7 @@ export const catchEpicError = (
         epicName
       ),
       (
-        '\n'
+        "\n"
       ),
       (
         (
@@ -27,7 +26,7 @@ export const catchEpicError = (
             .constructor
             .name
           )
-          === 'ErrorEvent'
+          === "ErrorEvent"
         )
         ? (
           error

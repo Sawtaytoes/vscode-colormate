@@ -2,14 +2,14 @@ import {
   createEntityAdapter,
   createSlice,
   type PayloadAction,
-} from '@reduxjs/toolkit'
-import expect from "expect"
+} from "@reduxjs/toolkit"
+import { expect } from "expect"
 
 import {
   createSliceState,
   type EpicAction,
-} from "./createSliceState"
-import { tap } from 'rxjs'
+} from "./createSliceState.js"
+import { tap } from "rxjs"
 
 type TestStateValue = {
   id: string
@@ -28,7 +28,7 @@ export const slice = (
       entityAdapter
       .getInitialState()
     ),
-    name: 'testState',
+    name: "testState",
     reducers: {
       addTestValue: (
         state,
@@ -61,7 +61,7 @@ export const slice = (
           (
             action
             .payload
-          )
+          ),
         )
       },
     },
@@ -75,7 +75,6 @@ export type TestState = (
     ]
   >
 )
-
 
 suite(
   "createState",
@@ -99,11 +98,11 @@ suite(
           .addTestValue({
             id: "1",
             value: "one",
-          })
+          }),
         )
 
         expect(
-          getState()
+          getState(),
         )
         .toStrictEqual({
           entities: {
@@ -123,11 +122,11 @@ suite(
           .addTestValue({
             id: "2",
             value: "two",
-          })
+          }),
         )
 
         expect(
-          getState()
+          getState(),
         )
         .toStrictEqual({
           entities: {
@@ -150,12 +149,12 @@ suite(
           slice
           .actions
           .removeTestValue(
-            "1"
-          )
+            "1",
+          ),
         )
 
         expect(
-          getState()
+          getState(),
         )
         .toStrictEqual({
           entities: {
@@ -173,16 +172,16 @@ suite(
           slice
           .actions
           .removeTestValue(
-            "2"
-          )
+            "2",
+          ),
         )
 
         expect(
-          getState()
+          getState(),
         )
         .toStrictEqual({
-          "entities": {},
-          "ids": [],
+          entities: {},
+          ids: [],
         })
 
         unsubscribe()
@@ -208,11 +207,11 @@ suite(
           .addTestValue({
             id: "1",
             value: "one",
-          })
+          }),
         )
 
         expect(
-          getState()
+          getState(),
         )
         .toStrictEqual({
           entities: {
@@ -234,11 +233,11 @@ suite(
           .addTestValue({
             id: "2",
             value: "two",
-          })
+          }),
         )
 
         expect(
-          getState()
+          getState(),
         )
         .toStrictEqual({
           entities: {
@@ -283,7 +282,7 @@ suite(
               action,
             ) => {
               dispatchedAction = action
-            })
+            }),
           )
           .subscribe()
         )
@@ -297,8 +296,8 @@ suite(
           slice
           .actions
           .addTestValue(
-            payload
-          )
+            payload,
+          ),
         )
 
         unsubscribe()
@@ -307,11 +306,11 @@ suite(
         .unsubscribe()
 
         expect(
-          dispatchedAction
+          dispatchedAction,
         )
         .toStrictEqual({
           payload,
-          type: "testState/addTestValue"
+          type: "testState/addTestValue",
         })
       },
     )
@@ -345,7 +344,7 @@ suite(
               state,
             ) => {
               currentState = state
-            })
+            }),
           )
           .subscribe()
         )
@@ -356,7 +355,7 @@ suite(
           .addTestValue({
             id: "1",
             value: "one",
-          })
+          }),
         )
 
         unsubscribe()
@@ -365,7 +364,7 @@ suite(
         .unsubscribe()
 
         expect(
-          currentState
+          currentState,
         )
         .toStrictEqual({
           entities: {

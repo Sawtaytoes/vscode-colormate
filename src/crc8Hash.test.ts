@@ -1,78 +1,78 @@
-import expect from 'expect'
+import { expect } from "expect"
 
 import {
   crc8Hash,
-} from './crc8Hash'
+} from "./crc8Hash.js"
 
 suite(
-  'crc8Hash',
+  "crc8Hash",
   () => {
     test(
-      'Has the correct hash when no identifier',
+      "Has the correct hash when no identifier",
       () => {
         expect(
           crc8Hash(
-            ''
-          )
+            "",
+          ),
         )
         .toBe(
-          0
+          0,
         )
       },
     )
 
     test(
-      'Has the correct hash for "hello"',
+      "Has the correct hash for \"hello\"",
       () => {
         expect(
           crc8Hash(
-            'hello'
-          )
+            "hello",
+          ),
         )
         .toBe(
-          0x92
+          0x92,
         )
       },
     )
 
     test(
-      'Has the correct hash for "world"',
+      "Has the correct hash for \"world\"",
       () => {
         expect(
           crc8Hash(
-            'world'
-          )
+            "world",
+          ),
         )
         .toBe(
-          0xB3
+          0xB3,
         )
       },
     )
 
     test(
-      'Has the correct hash for "someFunction"',
+      "Has the correct hash for \"someFunction\"",
       () => {
         expect(
           crc8Hash(
-            'someFunction'
-          )
+            "someFunction",
+          ),
         )
         .toBe(
-          0x14
+          0x14,
         )
       },
     )
 
     test(
-      'Has the correct hash for "someFunction2"',
+      "Has the correct hash for \"someFunction2\"",
       () => {
         expect(
           crc8Hash(
-            'someFunction2'
-          )
+            "someFunction2",
+          ),
         )
         .toBe(
-          0xF2
+          0xF2,
         )
       },
     )

@@ -1,6 +1,6 @@
 import {
   TextEditorDecorationType,
-} from 'vscode'
+} from "vscode"
 
 export const removeTextEditorDecorations = (
   textEditorDecorations: (
@@ -11,7 +11,7 @@ export const removeTextEditorDecorations = (
 ) => {
   Array
   .from(
-    textEditorDecorations
+    textEditorDecorations,
   )
   .forEach((
     textEditorDecoration,

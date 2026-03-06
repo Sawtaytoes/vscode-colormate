@@ -2,12 +2,12 @@ import {
   createEntityAdapter,
   createSlice,
   type PayloadAction,
-} from '@reduxjs/toolkit'
+} from "@reduxjs/toolkit"
 import {
   TextEditor,
-} from 'vscode'
+} from "vscode"
 
-import { createSliceState } from './createSliceState'
+import { createSliceState } from "./createSliceState"
 
 const editorsAdapter = (
   createEntityAdapter({
@@ -18,7 +18,7 @@ const editorsAdapter = (
       .document
       .uri
       .toString()
-    )
+    ),
   })
 )
 
@@ -28,7 +28,7 @@ export const editorsSlice = (
       editorsAdapter
       .getInitialState()
     ),
-    name: 'editors',
+    name: "editors",
     reducers: {
       addEditor: (
         state,
@@ -61,7 +61,7 @@ export const editorsSlice = (
           (
             action
             .payload
-          )
+          ),
         )
       },
     },

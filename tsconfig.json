@@ -1,25 +1,22 @@
 {
   "compilerOptions": {
-    "module": "commonjs",
-    "target": "es2022",
-    "outDir": "out",
-    "lib": [
-      "es2022"
-    ],
     "esModuleInterop": true,
-    // "incremental": true,
-    // "rootDir": "src",
-    "sourceMap": true,
-    "strict": true, /* enable all strict type-checking options */
-    // "tsBuildInfoFile": "./.tsbuildinfo", // Specify the path for the build info file
-    /* Additional Checks */
-    // "noImplicitReturns": true, /* Report error when not all code paths in function return a value. */
-    // "noFallthroughCasesInSwitch": true, /* Report errors for fallthrough cases in switch statement. */
-    // "noUnusedParameters": true,  /* Report errors on unused parameters. */
+    "module": "Node16",
+    "lib": [
+      "ES2022"
+    ],
+		"noFallthroughCasesInSwitch": true,
+		"noImplicitReturns": true,
+		"noUnusedParameters": true,
+    "rootDir": "src",
     "skipLibCheck": true, // TEMP: This is breaking because of bad types in `vscode-oniguruma`.
+    "sourceMap": true,
+    "strict": true,
+    "target": "ES2022",
+    "tsBuildInfoFile": "./.tsbuildinfo", // Specify the path for the build info file
   },
   "exclude": [
     ".vscode-test",
     "node_modules"
-  ]
+  ],
 }

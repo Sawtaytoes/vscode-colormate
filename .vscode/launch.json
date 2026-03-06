@@ -10,26 +10,41 @@
       "type": "extensionHost",
       "request": "launch",
       "args": [
+        "--disable-extensions",
         "--extensionDevelopmentPath=${workspaceFolder}"
       ],
       "outFiles": [
-        "${workspaceFolder}/out/**/*.js"
+        "${workspaceFolder}/dist/**/*.js"
       ],
-      "preLaunchTask": "npm: compile"
+      "preLaunchTask": "${defaultBuildTask}",
     },
     {
       "name": "Run Tests",
       "type": "extensionHost",
       "request": "launch",
-      "runtimeExecutable": "${execPath}",
       "args": [
         "--disable-extensions",
-        // Hack to fix this enabling the extension in tests.
-        "--extensionDevelopmentPath=${workspaceFolder}/out",
-        "--extensionTestsPath=${workspaceFolder}/out/setupMocha.js"
+        "--extensionDevelopmentPath=${workspaceFolder}"
       ],
-      "outFiles": ["${workspaceFolder}/out/**/*.js"],
-      "preLaunchTask": "npm: compile"
-    }
+      "outFiles": [
+        "${workspaceFolder}/dist/**/*.js"
+      ],
+      "preLaunchTask": "${defaultBuildTask}",
+      "testConfiguration": "${workspaceFolder}/.vscode-test.mjs",
+    },
+    // {
+    //   "name": "Run Tests",
+    //   "type": "extensionHost",
+    //   "request": "launch",
+    //   "runtimeExecutable": "${execPath}",
+    //   "args": [
+    //     "--disable-extensions",
+    //     // Hack to fix this enabling the extension in tests.
+    //     "--extensionDevelopmentPath=${workspaceFolder}/out",
+    //     "--extensionTestsPath=${workspaceFolder}/out/setupMocha.js"
+    //   ],
+    //   "outFiles": ["${workspaceFolder}/out/**/*.js"],
+    //   "preLaunchTask": "npm: compile"
+    // },
   ]
 }

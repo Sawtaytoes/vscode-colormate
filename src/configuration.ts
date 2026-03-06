@@ -6,7 +6,7 @@ const getConfiguration = () => (
   vscode
   .workspace
   .getConfiguration(
-    "colormate"
+    "colormate",
   )
 )
 
@@ -21,10 +21,10 @@ export const getIgnoredLanguages: (
     (
       getConfiguration()
       .get(
-        "ignoredLanguages"
+        "ignoredLanguages",
       )
     )
-    ?? []
+    ?? [],
   )
 )
 
@@ -39,7 +39,7 @@ export const getConfiguredSemanticTokenTypes: (
     (
       getConfiguration()
       .get(
-        "semanticTokenTypes"
+        "semanticTokenTypes",
       )
     )
     ?? [
@@ -63,7 +63,7 @@ export const getConfiguredSemanticTokenTypes: (
       "variable.readonly.defaultLibrary",
       "variable.readonly",
       "variable",
-    ]
+    ],
   )
 )
 
@@ -80,7 +80,7 @@ export const getConfiguredTextMateTokenScopes: (
         (
           getConfiguration()
           .get(
-            "textMateTokenScopes"
+            "textMateTokenScopes",
           )
         ) as string[]
         ?? []
@@ -89,7 +89,7 @@ export const getConfiguredTextMateTokenScopes: (
         (
           getConfiguration()
           .get(
-            "hasDefaultTextMateTokenScopes"
+            "hasDefaultTextMateTokenScopes",
           )
         )
         ? [
@@ -118,23 +118,23 @@ export const getExcludedTextMateTokenScopes: (
     (
       getConfiguration()
       .get(
-        "excludedTextMateTokenScopes"
+        "excludedTextMateTokenScopes",
       )
     )
-    ?? []
+    ?? [],
   )
 )
 
 export const hslConfig = {
   [
-    ColorThemeKind
-    .Dark
+  ColorThemeKind
+  .Dark
   ]: {
     getLighting: () => (
       (
         getConfiguration()
         .get(
-          "darkTheme.lighting"
+          "darkTheme.lighting",
         )
       ) as number
       ?? 65
@@ -142,20 +142,20 @@ export const hslConfig = {
     getSaturation: () => (
       getConfiguration()
       .get(
-        "darkTheme.saturation"
+        "darkTheme.saturation",
       ) as number
       ?? 65
     ),
   },
   [
-    ColorThemeKind
-    .HighContrast
+  ColorThemeKind
+  .HighContrast
   ]: {
     getLighting: () => (
       (
         getConfiguration()
         .get(
-          "highContrastDarkTheme.lighting"
+          "highContrastDarkTheme.lighting",
         )
       ) as number
       ?? 90
@@ -163,20 +163,20 @@ export const hslConfig = {
     getSaturation: () => (
       getConfiguration()
       .get(
-        "highContrastDarkTheme.saturation"
+        "highContrastDarkTheme.saturation",
       ) as number
       ?? 100
     ),
   },
   [
-    ColorThemeKind
-    .HighContrastLight
+  ColorThemeKind
+  .HighContrastLight
   ]: {
     getLighting: () => (
       (
         getConfiguration()
         .get(
-          "highContrastLightTheme.lighting"
+          "highContrastLightTheme.lighting",
         )
       ) as number
       ?? 15
@@ -184,20 +184,20 @@ export const hslConfig = {
     getSaturation: () => (
       getConfiguration()
       .get(
-        "highContrastLightTheme.saturation"
+        "highContrastLightTheme.saturation",
       ) as number
       ?? 100
     ),
   },
   [
-    ColorThemeKind
-    .Light
+  ColorThemeKind
+  .Light
   ]: {
     getLighting: () => (
       (
         getConfiguration()
         .get(
-          "lightTheme.lighting"
+          "lightTheme.lighting",
         )
       ) as number
       ?? 100
@@ -205,7 +205,7 @@ export const hslConfig = {
     getSaturation: () => (
       getConfiguration()
       .get(
-        "lightTheme.saturation"
+        "lightTheme.saturation",
       ) as number
       ?? 35
     ),

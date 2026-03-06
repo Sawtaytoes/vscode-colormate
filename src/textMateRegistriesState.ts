@@ -2,14 +2,14 @@ import {
   createEntityAdapter,
   createSlice,
   type PayloadAction,
-} from '@reduxjs/toolkit'
-import { Registry } from 'vscode-textmate'
+} from "@reduxjs/toolkit"
+import { Registry } from "vscode-textmate"
 
-import { createSliceState } from './createSliceState'
+import { createSliceState } from "./createSliceState"
 
 type RegistryDataEntity = {
-  id: string,
-  registry: Registry,
+  id: string
+  registry: Registry
 }
 
 const textMateRegistriesAdapter = (
@@ -24,7 +24,7 @@ export const textMateRegistriesSlice = (
       textMateRegistriesAdapter
       .getInitialState()
     ),
-    name: 'textMateRegistries',
+    name: "textMateRegistries",
     reducers: {
       addTextMateRegistry: (
         state,
@@ -57,7 +57,7 @@ export const textMateRegistriesSlice = (
           (
             action
             .payload
-          )
+          ),
         )
       },
     },

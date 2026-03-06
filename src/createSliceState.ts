@@ -1,19 +1,19 @@
 import type {
-  Slice
-} from '@reduxjs/toolkit'
+  Slice,
+} from "@reduxjs/toolkit"
 import {
   BehaviorSubject,
   merge,
   scan,
   Subject,
-} from 'rxjs'
+} from "rxjs"
 
 export type EpicAction<
   ActionCreators extends (
     Slice<
       unknown
     >["actions"]
-  )
+  ),
 > = (
   ReturnType<
     ActionCreators[
@@ -25,7 +25,7 @@ export type EpicAction<
 export type EpicAction$<
   EpicSlice extends (
     Slice
-  )
+  ),
 > = (
   Subject<
     EpicAction<
@@ -35,13 +35,12 @@ export type EpicAction$<
 )
 
 export type EpicState$<
-  State
+  State,
 > = (
   BehaviorSubject<
     State
   >
 )
-
 
 export const createSliceState = <
   EpicSlice extends (
@@ -64,7 +63,7 @@ export const createSliceState = <
     ReturnType<
       EpicSlice["reducer"]
     >
-  )
+  ),
 >({
   slice,
 }: {
@@ -94,7 +93,7 @@ export const createSliceState = <
       (
         slice
         .getInitialState()
-      ))
+      )),
     )
   )
 
@@ -103,7 +102,7 @@ export const createSliceState = <
       State
     >(
       slice
-      .getInitialState()
+      .getInitialState(),
     )
   )
 
@@ -112,7 +111,7 @@ export const createSliceState = <
   ) => {
     action$
     .next(
-      action
+      action,
     )
 
     return action
@@ -134,7 +133,7 @@ export const createSliceState = <
   const reducerSubscription = (
     reducer$
     .subscribe(
-      state$
+      state$,
     )
   )
 

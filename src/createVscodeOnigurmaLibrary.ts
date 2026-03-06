@@ -1,18 +1,18 @@
 // Modified from https://github.com/Microsoft/vscode-textmate#readme.
 import {
   readFile,
-} from 'fs/promises'
+} from "fs/promises"
 import {
   join,
-} from 'path'
+} from "path"
 import {
   loadWASM,
   OnigScanner,
   OnigString,
-} from 'vscode-oniguruma'
+} from "vscode-oniguruma"
 import {
   IOnigLib,
-} from 'vscode-textmate'
+} from "vscode-textmate"
 
 export const createVscodeOnigurmaLibrary = (): (
   Promise<
@@ -22,28 +22,28 @@ export const createVscodeOnigurmaLibrary = (): (
   readFile(
     join(
       __dirname,
-      '../node_modules/vscode-oniguruma/release/onig.wasm'
-    )
+      "../node_modules/vscode-oniguruma/release/onig.wasm",
+    ),
   )
   .then(({
     buffer,
   }) => (
     loadWASM(
-      buffer
+      buffer,
     )
     .then(() => ({
       createOnigScanner: (
-        patterns: string[]
+        patterns: string[],
       ) => (
         new OnigScanner(
-          patterns
+          patterns,
         )
       ),
       createOnigString: (
-        string: string
+        string: string,
       ) => (
         new OnigString(
-          string
+          string,
         )
       ),
     }))
