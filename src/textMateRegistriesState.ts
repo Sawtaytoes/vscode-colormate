@@ -5,7 +5,7 @@ import {
 } from "@reduxjs/toolkit"
 import { Registry } from "vscode-textmate"
 
-import { createSliceState } from "./createSliceState.js"
+import { createSliceState } from "./createSliceState"
 
 type RegistryDataEntity = {
   id: string

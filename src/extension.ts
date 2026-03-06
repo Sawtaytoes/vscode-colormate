@@ -1,12 +1,12 @@
 import vscode from "vscode"
 
-import { editorChangeEpic } from "./editorChangeEpic.js"
+import { editorChangeEpic } from "./editorChangeEpic"
 import {
   addExtensionContext,
   extensionContextsState,
 } from "./extensionContextsState.js"
-import { removeAllTextEditorDecorations } from "./removeAllTextEditorDecorations.js"
-import { removeUnusedTextEditorDecorations } from "./removeUnusedTextEditorDecorations.js"
+import { removeAllTextEditorDecorations } from "./removeAllTextEditorDecorations"
+import { removeUnusedTextEditorDecorations } from "./removeUnusedTextEditorDecorations"
 
 function onTextEditorListChange() {
   removeUnusedTextEditorDecorations(

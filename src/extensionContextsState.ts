@@ -7,7 +7,7 @@ import {
   ExtensionContext,
 } from "vscode"
 
-import { createSliceState } from "./createSliceState.js"
+import { createSliceState } from "./createSliceState"
 
 const extensionContextsAdapter = (
   createEntityAdapter({

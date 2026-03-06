@@ -16,8 +16,8 @@ import {
   workspace,
 } from "vscode"
 
-import { catchEpicError } from "./catchEpicError.js"
-import { colorize } from "./colorize.js"
+import { catchEpicError } from "./catchEpicError"
+import { colorize } from "./colorize"
 import {
   extensionContextsSlice,
   extensionContextsState,

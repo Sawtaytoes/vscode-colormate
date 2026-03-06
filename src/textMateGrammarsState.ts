@@ -5,7 +5,7 @@ import {
 } from "@reduxjs/toolkit"
 import { IRawGrammar } from "vscode-textmate"
 
-import { createSliceState } from "./createSliceState.js"
+import { createSliceState } from "./createSliceState"
 
 type GrammarDataEntity = {
   id: string

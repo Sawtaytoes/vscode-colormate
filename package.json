@@ -15,7 +15,6 @@
   "engines": {
     "vscode": "^1.109.0"
   },
-  "type": "module",
   "sideEffects": false,
   "scripts": {
     "check-types": "tsc --noEmit",
@@ -37,6 +36,7 @@
   },
   "devDependencies": {
     "@stylistic/eslint-plugin": "^5.9.0",
+    "@types/expect": "^24.3.2",
     "@types/mocha": "^10.0.10",
     "@types/node": "22.x",
     "@types/vscode": "^1.109.0",
@@ -44,6 +44,7 @@
     "@vscode/test-electron": "^2.5.2",
     "esbuild": "^0.27.3",
     "eslint": "^10.0.2",
+    "expect": "^30.2.0",
     "memfs": "^4.56.11",
     "npm-run-all": "^4.1.5",
     "rimraf": "^6.1.3",
@@ -177,7 +178,7 @@
         "colormate.textMateTokenScopes": {
           "type": "array",
           "default": [],
-          "markdownDescription": "The types of TextMate language tokens will be semantically highlighted.\n\nTextMate scopes are hierarchical; therefore, `source.tsx` will enable semantic coloring for all identifers whereas `support.class.component.tsx` is much more specific.\n\nYou can also optionally leave out the language scope (`.tsx`). This allows it to work on all languages, but be careful when doing this! You can never be sure what side-effects will occur when being too generic."
+          "markdownDescription": "The types of TextMate language tokens will be semantically highlighted.\n\nTextMate scopes are hierarchical; therefore, `source.tsx` will enable semantic coloring for all identifiers whereas `support.class.component.tsx` is much more specific.\n\nYou can also optionally leave out the language scope (`.tsx`). This allows it to work on all languages, but be careful when doing this! You can never be sure what side-effects will occur when being too generic."
         },
         "colormate.excludedTextMateTokenScopes": {
           "type": "array",
