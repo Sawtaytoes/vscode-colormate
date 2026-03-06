@@ -1,9 +1,12 @@
-import { expect } from "expect"
+import expect from "expect"
+import {
+  unlink,
+  writeFile,
+} from "fs/promises"
 import {
   before,
 } from "mocha"
 import path from "path"
-import { vol } from "memfs"
 import {
   performance,
 } from "perf_hooks"
@@ -11,7 +14,7 @@ import vscode from "vscode"
 
 import {
   colorize,
-} from "./colorize.js"
+} from "./colorize"
 
 const fileContents = `
 const someFunction = ({} = {}) => {}
@@ -51,35 +54,13 @@ const performanceTest = async () => {
     )
   )
 
-  vol
-  .fromJSON({
-    [filePath]: fileContents,
-  })
-
-  // await (
-  //   vol
-  //   .promises
-  //   .writeFile(
-  //     filePath,
-  //     fileContents,
-  //     {
-  //       encoding: "utf-8",
-  //     },
-  //   )
-  // )
-  console.log("hi!")
-
-  const realFilePath = (
-    await (
-      vol
-      .promises
-      .realpath(
-        filePath,
-      )
+  await (
+    writeFile(
+      filePath,
+      fileContents,
+      "utf-8",
     )
   )
-
-  console.log({ realFilePath })
 
   await (
     vscode
@@ -88,8 +69,7 @@ const performanceTest = async () => {
       vscode
       .Uri
       .file(
-        realFilePath
-        .toString(),
+        filePath,
       ),
     )
     .then((
@@ -145,6 +125,12 @@ const performanceTest = async () => {
     .commands
     .executeCommand(
       "workbench.action.closeActiveEditor",
+    )
+  )
+
+  await (
+    unlink(
+      filePath,
     )
   )
 
