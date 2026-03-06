@@ -12,6 +12,8 @@
   "typescript.tsc.autoDetect": "off",
   "cSpell.words": [
     "Colorcoder",
-    "colormate"
+    "colormate",
+    "onig",
+    "Onigurma"
   ]
 }
