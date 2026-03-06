@@ -1,5 +1,9 @@
 # CHANGELOG
 
+## [4.0.2] - 2026-03-06
+
+- Adds TextMate scope for `variable.other.readwrite.ts`. This allows coloring an import being aliased. Previously, only the aliased value was colored.
+
 ## [4.0.1] - 2026-03-06
 
 - Adds missing Oniguruma WASM file when publishing.

@@ -30,6 +30,8 @@ yarn test
 
 Then run this command to do a cleanup of the build directory and a new compilation before triggering the publish step.
 
+Before doing so, make sure to change the version in `package.json`:
+
 ```sh
 yarn publish:package
 ```

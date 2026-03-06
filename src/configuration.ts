@@ -99,6 +99,7 @@ export const getConfiguredTextMateTokenScopes: (
           "entity.other.attribute-name",
           "support.type.property-name.json",
           "variable.other.property",
+          "variable.other.readwrite.ts",
           "variable.other.readwrite.alias",
         ]
         : []
