@@ -8,28 +8,27 @@ import {
 import { removeAllTextEditorDecorations } from "./removeAllTextEditorDecorations.js"
 import { removeUnusedTextEditorDecorations } from "./removeUnusedTextEditorDecorations.js"
 
-editorChangeEpic()
-.subscribe()
-
 function onTextEditorListChange() {
   removeUnusedTextEditorDecorations(
     vscode
     .window
-    .visibleTextEditors
+    .visibleTextEditors,
   )
 }
 
 export const activate = (
   extensionContext: (
-    vscode
-    .ExtensionContext
-  )
+    vscode.ExtensionContext
+  ),
 ) => {
+  editorChangeEpic()
+  .subscribe()
+
   extensionContextsState
   .dispatch(
     addExtensionContext(
-      extensionContext
-    )
+      extensionContext,
+    ),
   )
 
   extensionContext
@@ -38,8 +37,8 @@ export const activate = (
     vscode
     .window
     .onDidChangeVisibleTextEditors(
-      onTextEditorListChange
-    )
+      onTextEditorListChange,
+    ),
   )
 }
 

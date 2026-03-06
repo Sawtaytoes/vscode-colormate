@@ -4,13 +4,13 @@ const isLocalDevelopmentMode = (
     .env
     .NODE_ENV
   )
-  === 'development'
+  === "development"
 )
 
 if (isLocalDevelopmentMode) {
   console
   .info(
-    '[COLORMATE] LOCAL DEVELOPMENT MODE'
+    "[COLORMATE] LOCAL DEVELOPMENT MODE",
   )
 }
 

@@ -2,14 +2,14 @@ import {
   createEntityAdapter,
   createSlice,
   type PayloadAction,
-} from '@reduxjs/toolkit'
-import { IRawGrammar } from 'vscode-textmate'
+} from "@reduxjs/toolkit"
+import { IRawGrammar } from "vscode-textmate"
 
-import { createSliceState } from './createSliceState.js'
+import { createSliceState } from "./createSliceState.js"
 
 type GrammarDataEntity = {
-  id: string,
-  parsedGrammarData: IRawGrammar,
+  id: string
+  parsedGrammarData: IRawGrammar
 }
 
 const textMateGrammarsAdapter = (
@@ -24,7 +24,7 @@ export const textMateGrammarsSlice = (
       textMateGrammarsAdapter
       .getInitialState()
     ),
-    name: 'textMateGrammars',
+    name: "textMateGrammars",
     reducers: {
       addTextMateGrammar: (
         state,
@@ -57,7 +57,7 @@ export const textMateGrammarsSlice = (
           (
             action
             .payload
-          )
+          ),
         )
       },
     },

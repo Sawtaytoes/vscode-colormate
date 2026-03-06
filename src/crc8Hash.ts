@@ -7,14 +7,14 @@ export const crc8Hash = (
 ) => (
   Array
   .from(
-    word
+    word,
   )
   .map((
     character,
   ) => (
     character
     .charCodeAt(
-      0
+      0,
     )
   ))
   .map((
@@ -29,8 +29,8 @@ export const crc8Hash = (
       eightBitCharacterCode,
     ) => (
       crc8HashTable[
-        crcHash
-        ^ eightBitCharacterCode
+      crcHash
+      ^ eightBitCharacterCode
       ]
     ),
     0,

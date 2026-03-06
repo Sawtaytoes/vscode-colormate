@@ -1,6 +1,6 @@
-import { runTests } from '@vscode/test-electron'
-import { resolve, dirname } from 'node:path'
-import { fileURLToPath } from 'node:url'
+import { runTests } from "@vscode/test-electron"
+import { resolve, dirname } from "node:path"
+import { fileURLToPath } from "node:url"
 
 const __dirname = dirname(fileURLToPath(import.meta.url))
 
@@ -14,22 +14,23 @@ async function main() {
     // Passed to --extensionTestsPath
     const extensionTestsPath = resolve(
       __dirname,
-      './setupMocha.js',
+      "./setupMocha.js",
     )
 
     // Download VS Code, unzip it and run the integration test
     await runTests({
       extensionDevelopmentPath,
       extensionTestsEnv: {
-        DISABLE_WSL: 'true',
+        DISABLE_WSL: "true",
       },
       extensionTestsPath,
       launchArgs: [
-        '--disable-extensions',
+        "--disable-extensions",
       ],
     })
-  } catch (error) {
-    console.error('Failed to run tests', error)
+  }
+  catch (error) {
+    console.error("Failed to run tests", error)
     process.exit(1)
   }
 }

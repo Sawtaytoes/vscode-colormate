@@ -5,16 +5,16 @@ export const createIsInTextMateScope = (
     (
       sourceScopeName
       .match(
-        /.+?(\..+)/
+        /.+?(\..+)/,
       )
       ?.slice(
-        1
+        1,
       )
       .find(
-        Boolean
+        Boolean,
       )
     )
-    || ''
+    || ""
   )
 
   return (
@@ -26,7 +26,7 @@ export const createIsInTextMateScope = (
       (
         childTextMateScope
         .endsWith(
-          rootScopeName
+          rootScopeName,
         )
       )
       ? (
@@ -39,7 +39,7 @@ export const createIsInTextMateScope = (
           ),
         )
       )
-      : childTextMateScope
+      : childTextMateScope,
     )
   )
 }

@@ -2,12 +2,12 @@ import {
   createEntityAdapter,
   createSlice,
   type PayloadAction,
-} from '@reduxjs/toolkit'
+} from "@reduxjs/toolkit"
 import {
   ExtensionContext,
-} from 'vscode'
+} from "vscode"
 
-import { createSliceState } from './createSliceState.js'
+import { createSliceState } from "./createSliceState.js"
 
 const extensionContextsAdapter = (
   createEntityAdapter({
@@ -17,7 +17,7 @@ const extensionContextsAdapter = (
       extensionContext
       .extensionUri
       .toString()
-    )
+    ),
   })
 )
 
@@ -27,7 +27,7 @@ export const extensionContextsSlice = (
       extensionContextsAdapter
       .getInitialState()
     ),
-    name: 'extentionContexts',
+    name: "extentionContexts",
     reducers: {
       addExtensionContext: (
         state,
@@ -60,7 +60,7 @@ export const extensionContextsSlice = (
           (
             action
             .payload
-          )
+          ),
         )
       },
     },

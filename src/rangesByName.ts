@@ -1,12 +1,12 @@
 // Originally sourced from https://github.com/mnespor/vscode-color-identifiers-mode/blob/a2fbd18e64c200dfe29f391addff6bca327ac414/src/rangesByName.ts
-import * as vscode from 'vscode'
+import * as vscode from "vscode"
 
 import {
   getConfiguredSemanticTokenTypes,
-} from './configuration.js'
+} from "./configuration.js"
 import {
   pushValue,
-} from './pushValue.js'
+} from "./pushValue.js"
 
 /**
  * Tokens in a file are represented as an array of integers. The position of each token is expressed relative to
@@ -68,40 +68,40 @@ import {
  * *NOTE*: If the provider cannot temporarily compute semantic tokens, it can indicate this by throwing an error with the message 'Busy'.
  */
 export function rangesByName(
-	data: vscode.SemanticTokens,
-	legend: vscode.SemanticTokensLegend,
-	editor: vscode.TextEditor,
+  data: vscode.SemanticTokens,
+  legend: vscode.SemanticTokensLegend,
+  editor: vscode.TextEditor,
 ): Record<string, vscode.Range[]> {
-	const accumulator: Record<string, vscode.Range[]> = {}
-	const recordSize = 5
+  const accumulator: Record<string, vscode.Range[]> = {}
+  const recordSize = 5
 
-	let line = 0
-	let column = 0
+  let line = 0
+  let column = 0
 
-	for (let i = 0; i < data.data.length; i += recordSize) {
-		const [deltaLine, deltaColumn, length, kindIndex, _] = data.data.slice(i, i + recordSize)
+  for (let i = 0; i < data.data.length; i += recordSize) {
+    const [deltaLine, deltaColumn, length, kindIndex] = data.data.slice(i, i + recordSize)
 
-		column = deltaLine === 0 ? column : 0
-		line += deltaLine
-		column += deltaColumn
+    column = deltaLine === 0 ? column : 0
+    line += deltaLine
+    column += deltaColumn
 
-		const range = new vscode.Range(line, column, line, column + length)
-		const name = editor.document.getText(range)
-		const kind = legend.tokenTypes[kindIndex]
+    const range = new vscode.Range(line, column, line, column + length)
+    const name = editor.document.getText(range)
+    const kind = legend.tokenTypes[kindIndex]
 
-		if (
+    if (
       getConfiguredSemanticTokenTypes()
       .has(
-        kind
+        kind,
       )
     ) {
-			pushValue(
+      pushValue(
         accumulator,
         name,
         range,
       )
-		}
-	}
+    }
+  }
 
-	return accumulator
+  return accumulator
 }

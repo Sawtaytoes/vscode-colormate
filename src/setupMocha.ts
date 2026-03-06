@@ -14,23 +14,23 @@ export function run(): (
   // Create the mocha test
   const mocha = new Mocha({
     color: true,
-    ui: "tdd"
+    ui: "tdd",
   })
 
   const testsRoot = __dirname
 
-  console.log('testsRoot', testsRoot)
+  console.log("testsRoot", testsRoot)
 
   return (
     glob(
-      "**/**.test.js",
+      "**/*.test.js",
       {
         cwd: testsRoot,
       },
     )
     .then((files) => {
       // Add files to the test suite
-      files.forEach(filePath => mocha.addFile(path.resolve(testsRoot, filePath)))
+      files.forEach((filePath) => mocha.addFile(path.resolve(testsRoot, filePath)))
     })
     // Use async loader so ESM files are imported correctly
     .then(() => mocha.loadFilesAsync())
@@ -42,10 +42,10 @@ export function run(): (
         reject,
       ) => {
         mocha
-        .run(failures => {
+        .run((failures) => {
           if (failures > 0) {
             reject(
-              new Error(`${failures} tests failed.`)
+              new Error(`${failures} tests failed.`),
             )
           }
           else {
@@ -58,7 +58,7 @@ export function run(): (
       error,
     ) => {
       console.error(
-        error
+        error,
       )
 
       throw error

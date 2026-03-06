@@ -68,7 +68,7 @@ export const colorize = async (
       .has(
         editor
         .document
-        .languageId
+        .languageId,
       )
     )
   ) {
@@ -79,13 +79,13 @@ export const colorize = async (
     getScopeName(
       editor
       .document
-      .languageId
+      .languageId,
     )
   )
 
   const isInTextMateScope = (
     createIsInTextMateScope(
-      scopeName
+      scopeName,
     )
   )
 
@@ -162,14 +162,14 @@ export const colorize = async (
   const configuredTextMateTokenScopes = (
     Array
     .from(
-      getConfiguredTextMateTokenScopes()
+      getConfiguredTextMateTokenScopes(),
     )
   )
 
   const excludedTextMateTokenScopes = (
     Array
     .from(
-      getExcludedTextMateTokenScopes()
+      getExcludedTextMateTokenScopes(),
     )
   )
 
@@ -194,7 +194,7 @@ export const colorize = async (
               (
                 symbolLookup
                 .has(
-                  symbol
+                  symbol,
                 )
               )
               // TEMP: This is hack-fix for keywords being variable names that also happen to have TextMate scopes.
@@ -203,7 +203,7 @@ export const colorize = async (
                   token
                   .scopes
                   .includes(
-                    "keyword.control.from.ts"
+                    "keyword.control.from.ts",
                   )
                 )
               )
@@ -218,7 +218,7 @@ export const colorize = async (
                     token
                     .scopes
                     .includes(
-                      "keyword.control.from.ts"
+                      "keyword.control.from.ts",
                     )
                   )
                   ? "keyword.control.from.ts"
@@ -233,11 +233,11 @@ export const colorize = async (
                         token
                         .scopes
                         .includes(
-                          "keyword.control.from.ts"
+                          "keyword.control.from.ts",
                         )
                       )
                       ? "keyword.control.from.ts"
-                      : symbol
+                      : symbol,
                     )
                     || []
                   )
@@ -256,8 +256,8 @@ export const colorize = async (
             new Map<
               string,
               {
-                lineNumber: number,
-                token: IToken,
+                lineNumber: number
+                token: IToken
               }[]
             >()
           ),
@@ -268,7 +268,7 @@ export const colorize = async (
           ),
         },
       )
-      .deduplicatedTokenMap
+      .deduplicatedTokenMap,
     )
     .map(([
       symbol,
@@ -280,13 +280,13 @@ export const colorize = async (
           new Set(
             tokens
             .map(({
-              token
+              token,
             }) => (
               token
               .scopes
             ))
-            .flat()
-          )
+            .flat(),
+          ),
         )
       ),
       symbol,
@@ -321,7 +321,7 @@ export const colorize = async (
               (
                 scope
                 .split(
-                  "."
+                  ".",
                 )
                 .length
               ),
@@ -354,7 +354,7 @@ export const colorize = async (
                   (
                     excludedTokenScope
                     .split(
-                      "."
+                      ".",
                     )
                     .length
                   )
@@ -370,7 +370,7 @@ export const colorize = async (
     })
     .map<[
       string,
-      Range[]
+      Range[],
     ]>(({
       symbol,
       tokens,
@@ -396,7 +396,7 @@ export const colorize = async (
                 token
                 .endIndex
               ),
-            )
+            ),
           )
         ))
       ),
@@ -406,7 +406,7 @@ export const colorize = async (
   const previousTextEditorDecorations = (
     textEditorDecorationMap
     .get(
-      editor
+      editor,
     )
   )
 
@@ -424,10 +424,10 @@ export const colorize = async (
 
   Object
   .entries(
-    semanticTokenRangesBySymbolName
+    semanticTokenRangesBySymbolName,
   )
   .concat(
-    textMateTokenRangesBySymbolName
+    textMateTokenRangesBySymbolName,
   )
   .map(([
     identifier,
@@ -436,7 +436,7 @@ export const colorize = async (
     ranges,
     textEditorDecoration: (
       getTextEditorDecoration(
-        identifier
+        identifier,
       )
     ),
   }))
@@ -458,7 +458,7 @@ export const colorize = async (
 
   if (previousTextEditorDecorations) {
     removeTextEditorDecorations(
-      previousTextEditorDecorations
+      previousTextEditorDecorations,
     )
   }
 }

@@ -13,23 +13,23 @@
         "--extensionDevelopmentPath=${workspaceFolder}"
       ],
       "outFiles": [
-        "${workspaceFolder}/out/**/*.js"
+        "${workspaceFolder}/dist/**/*.js"
       ],
-      "preLaunchTask": "npm: compile"
+      "preLaunchTask": "${defaultBuildTask}"
     },
-    {
-      "name": "Run Tests",
-      "type": "extensionHost",
-      "request": "launch",
-      "runtimeExecutable": "${execPath}",
-      "args": [
-        "--disable-extensions",
-        // Hack to fix this enabling the extension in tests.
-        "--extensionDevelopmentPath=${workspaceFolder}/out",
-        "--extensionTestsPath=${workspaceFolder}/out/setupMocha.js"
-      ],
-      "outFiles": ["${workspaceFolder}/out/**/*.js"],
-      "preLaunchTask": "npm: compile"
-    }
+    // {
+    //   "name": "Run Tests",
+    //   "type": "extensionHost",
+    //   "request": "launch",
+    //   "runtimeExecutable": "${execPath}",
+    //   "args": [
+    //     "--disable-extensions",
+    //     // Hack to fix this enabling the extension in tests.
+    //     "--extensionDevelopmentPath=${workspaceFolder}/out",
+    //     "--extensionTestsPath=${workspaceFolder}/out/setupMocha.js"
+    //   ],
+    //   "outFiles": ["${workspaceFolder}/out/**/*.js"],
+    //   "preLaunchTask": "npm: compile"
+    // },
   ]
 }

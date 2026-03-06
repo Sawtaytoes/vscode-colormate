@@ -1,24 +1,24 @@
 // Modified from https://github.com/Microsoft/vscode-textmate#readme.
 import {
   readFile,
-} from 'fs/promises'
+} from "fs/promises"
 import {
   INITIAL,
   IToken,
   parseRawGrammar,
   Registry,
-} from 'vscode-textmate'
+} from "vscode-textmate"
 
 import {
   createVscodeOnigurmaLibrary,
-} from './createVscodeOnigurmaLibrary.js'
+} from "./createVscodeOnigurmaLibrary.js"
 import {
   getScopeFilePath,
-} from './textMateGrammars.js'
+} from "./textMateGrammars.js"
 import {
   addTextMateGrammar,
   textMateGrammarsState,
-} from './textMateGrammarsState.js'
+} from "./textMateGrammarsState.js"
 
 // Create a registry that can create a grammar from a scope name.
 export const getTextMateRegistry = () => (
@@ -29,7 +29,7 @@ export const getTextMateRegistry = () => (
     ) => {
       const scopeFilePath = (
         getScopeFilePath(
-          grammarScopeName
+          grammarScopeName,
         )
       )
 
@@ -46,12 +46,12 @@ export const getTextMateRegistry = () => (
         ? (
           Promise
           .resolve(
-            parsedGrammarData
+            parsedGrammarData,
           )
         )
         : (
           readFile(
-            scopeFilePath
+            scopeFilePath,
           )
           .then((
             data,
@@ -68,14 +68,14 @@ export const getTextMateRegistry = () => (
             )
           ))
           .then((
-            parsedGrammarData
+            parsedGrammarData,
           ) => {
             textMateGrammarsState
             .dispatch(
               addTextMateGrammar({
                 id: grammarScopeName,
                 parsedGrammarData,
-              })
+              }),
             )
 
             return parsedGrammarData
@@ -85,7 +85,7 @@ export const getTextMateRegistry = () => (
           ) => {
             console
             .error(
-              error
+              error,
             )
 
             return null
@@ -103,13 +103,13 @@ export const getTextMateLineTokens = ({
   registry,
   scopeName,
 }: {
-  documentText: string,
-  registry: Registry,
-  scopeName: string,
+  documentText: string
+  registry: Registry
+  scopeName: string
 }) => (
   registry
   .loadGrammar(
-    scopeName
+    scopeName,
   )
   .then((
     grammar,
@@ -117,9 +117,9 @@ export const getTextMateLineTokens = ({
     const lineTokens: (
       Array<
         Array<{
-          lineNumber: number;
-          symbol: string;
-          token: IToken;
+          lineNumber: number
+          symbol: string
+          token: IToken
         }>
       >
     ) = []
@@ -129,7 +129,7 @@ export const getTextMateLineTokens = ({
     const documentLines = (
       documentText
       .split(
-        /\r\n|\r|\n/
+        /\r\n|\r|\n/,
       )
     )
 
@@ -163,7 +163,7 @@ export const getTextMateLineTokens = ({
                 token
                 .endIndex
               ),
-            )
+            ),
           )
 
           // console.log(` - token from ${token.startIndex} to ${token.endIndex} ` +
@@ -186,7 +186,7 @@ export const getTextMateLineTokens = ({
               [index]
             ),
             token,
-          }))
+          })),
         )
 
         ruleStack = tokenizedLine.ruleStack
@@ -206,14 +206,14 @@ export const getTextMateLineTokens = ({
   ) => {
     console
     .error(
-      error
+      error,
     )
 
     return [] as (
       Array<{
-        lineNumber: number;
-        symbol: string;
-        token: IToken;
+        lineNumber: number
+        symbol: string
+        token: IToken
       }>
     )
   })

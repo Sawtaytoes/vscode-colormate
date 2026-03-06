@@ -31,7 +31,7 @@ export const editorChangeEpic = () => (
       extensionContextsSlice
       .actions
       .addExtensionContext
-      .match
+      .match,
     ),
     concatMap(({
       payload: extensionContext,
@@ -39,7 +39,7 @@ export const editorChangeEpic = () => (
       merge(
         from(
           window
-          .visibleTextEditors
+          .visibleTextEditors,
         ),
         (
           fromEventPattern<
@@ -53,8 +53,8 @@ export const editorChangeEpic = () => (
             .push(
               window
               .onDidChangeActiveTextEditor(
-                handler
-              )
+                handler,
+              ),
             )
           })
         ),
@@ -70,8 +70,8 @@ export const editorChangeEpic = () => (
             .push(
               workspace
               .onDidChangeTextDocument(
-                handler
-              )
+                handler,
+              ),
             )
           })
           .pipe(
@@ -88,11 +88,11 @@ export const editorChangeEpic = () => (
             ) => (
               from(
                 window
-                .visibleTextEditors
+                .visibleTextEditors,
               )
               .pipe(
                 filter((
-                  textEditor
+                  textEditor,
                 ) => (
                   (
                     textEditor
@@ -101,7 +101,7 @@ export const editorChangeEpic = () => (
                     .toString()
                   )
                   === textDocumentUri
-                ))
+                )),
               )
             )),
           )
@@ -121,8 +121,8 @@ export const editorChangeEpic = () => (
                   .push(
                     window
                     .onDidChangeActiveColorTheme(
-                      handler
-                    )
+                      handler,
+                    ),
                   )
                 })
               ),
@@ -138,8 +138,8 @@ export const editorChangeEpic = () => (
                   .push(
                     workspace
                     .onDidChangeConfiguration(
-                      handler
-                    )
+                      handler,
+                    ),
                   )
                 })
               ),
@@ -156,7 +156,7 @@ export const editorChangeEpic = () => (
       )
     )),
     filter(
-      Boolean
+      Boolean,
     ),
     groupBy((
       textEditor,
@@ -169,20 +169,20 @@ export const editorChangeEpic = () => (
       group$
       .pipe(
         debounceTime(
-          250
+          250,
         ),
         concatMap((
           textEditor,
         ) => (
           colorize(
-            textEditor
+            textEditor,
           )
         )),
       )
     )),
     catchEpicError(
       editorChangeEpic
-      .name
-    )
+      .name,
+    ),
   )
 )
