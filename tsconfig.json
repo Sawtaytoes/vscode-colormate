@@ -13,6 +13,7 @@
     "sourceMap": true,
     "strict": true,
     "target": "ES2022",
+    "tsBuildInfoFile": "./.tsbuildinfo", // Specify the path for the build info file
   },
   "exclude": [
     ".vscode-test",
