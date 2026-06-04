@@ -93,11 +93,15 @@ export const getConfiguredTextMateTokenScopes: (
           )
         )
         ? [
+          "constant.other.option.shell",
           "entity.name.function",
           "entity.name.section.markdown",
           "entity.name.tag",
           "entity.other.attribute-name",
           "support.type.property-name.json",
+          "variable.key.dotenv",
+          "variable.other.assignment.shell",
+          "variable.other.normal.shell",
           "variable.other.property",
           "variable.other.readwrite.ts",
           "variable.other.readwrite.alias",
@@ -116,13 +120,31 @@ export const getExcludedTextMateTokenScopes: (
   )
 ) = () => (
   new Set(
-    (
-      getConfiguration()
-      .get(
-        "excludedTextMateTokenScopes",
-      )
-    )
-    ?? [],
+    [
+      ...(
+        (
+          getConfiguration()
+          .get(
+            "excludedTextMateTokenScopes",
+          )
+        ) as string[]
+        ?? []
+      ),
+      ...(
+        (
+          getConfiguration()
+          .get(
+            "hasDefaultTextMateTokenScopes",
+          )
+        )
+        ? [
+          "punctuation.definition.evaluation.parens",
+          "punctuation.definition.variable.shell",
+          "punctuation.section.bracket.curly.variable",
+        ]
+        : []
+      ),
+    ],
   )
 )
 

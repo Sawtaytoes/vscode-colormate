@@ -1,5 +1,19 @@
 # CHANGELOG
 
+## [4.3.0] - 2026-06-04
+
+- Adds default TextMate scopes for dotenv (`variable.key.dotenv`) and shell (`constant.other.option.shell`, `variable.other.assignment.shell`, `variable.other.normal.shell`), so `.env` and shell files are semantically colored out of the box.
+- Adds default excluded TextMate scopes (`punctuation.definition.evaluation.parens`, `punctuation.definition.variable.shell`, `punctuation.section.bracket.curly.variable`) to avoid coloring shell punctuation. Both the new defaults and exclusions respect the `hasDefaultTextMateTokenScopes` setting.
+
+## [4.2.0] - 2026-06-04
+
+- Upgrades the toolchain to TypeScript 6.0 and `@types/node` 24. Adds an explicit `types` array to `tsconfig.json` since TypeScript 6.0 no longer auto-includes `@types/node`.
+
+## [4.1.0] - 2026-06-04
+
+- Adds a dedicated "ColorMate" output channel so epic errors and grammar-loading failures are isolated and easy to capture (View → Output → ColorMate), instead of being buried in the shared extension-host console.
+- Upgrades Yarn to 4.16.0 and bumps dev/runtime dependencies; raises the minimum VSCode to 1.120.
+
 ## [4.0.2] - 2026-03-06
 
 - Adds TextMate scope for `variable.other.readwrite.ts`. This allows coloring an import being aliased. Previously, only the aliased value was colored.

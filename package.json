@@ -2,7 +2,7 @@
   "name": "vscode-colormate",
   "displayName": "ColorMate: Semantic Highlighter",
   "description": "ColorMate colors all similarly named variables the same, so you can quickly and easily skim your code by reading colors instead of text. The hashing algorithm is modeled after the same amazing CRC8 hasher used by Colorcoder for Sublime Text.",
-  "version": "4.2.0",
+  "version": "4.3.0",
   "license": "MIT",
   "author": "Kevin Ghadyani",
   "publisher": "KevinGhadyani",
@@ -175,7 +175,7 @@
         "colormate.hasDefaultTextMateTokenScopes": {
           "type": "boolean",
           "default": true,
-          "markdownDescription": "ColorMate comes with its own TextMate token scopes for JavaScript, TypeScript, HTML, and JSON. If you'd like to disable those defaults, disable this setting.\n\nThese aren't the same as the semantic scopes. Those you can override with a separate setting. All this does is disable the special TextMate token scopes that were defined to make JS, TS, HTML, and JSON fully render with semantic highlighting in areas not covered by semantic tokens."
+          "markdownDescription": "ColorMate comes with its own TextMate token scopes for JavaScript, TypeScript, HTML, JSON, dotenv, and shell. If you'd like to disable those defaults, disable this setting.\n\nThese aren't the same as the semantic scopes. Those you can override with a separate setting. All this does is disable the special TextMate token scopes (and their accompanying default exclusions) that were defined to make these languages fully render with semantic highlighting in areas not covered by semantic tokens."
         },
         "colormate.textMateTokenScopes": {
           "type": "array",
