@@ -20,9 +20,13 @@ import {
   textMateGrammarsState,
 } from "./textMateGrammarsState.js"
 
+let textMateRegistry: (
+  | Registry
+  | undefined
+)
+
 // Create a registry that can create a grammar from a scope name.
-export const getTextMateRegistry = () => (
-  // TODO: Only create a new `Registry` if one doesn't already exist in state.
+const createTextMateRegistry = () => (
   new Registry({
     loadGrammar: (
       grammarScopeName: string,
@@ -95,6 +99,17 @@ export const getTextMateRegistry = () => (
     },
     onigLib: createVscodeOnigurmaLibrary(),
   })
+)
+
+// Memoized so Oniguruma's `loadWASM` only runs once per extension host
+// and loaded grammars stay cached across `colorize` calls. Previously a new
+// `Registry` (and WASM load) was created on every keystroke-debounced call.
+export const getTextMateRegistry = () => (
+  textMateRegistry
+  ?? (
+    textMateRegistry
+      = createTextMateRegistry()
+  )
 )
 
 // Load the JavaScript grammar and any other grammars included by it async.

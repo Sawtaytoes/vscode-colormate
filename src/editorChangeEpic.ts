@@ -174,8 +174,19 @@ export const editorChangeEpic = () => (
         concatMap((
           textEditor,
         ) => (
-          colorize(
-            textEditor,
+          from(
+            colorize(
+              textEditor,
+            ),
+          )
+          .pipe(
+            // Catch per-editor so one failed `colorize` is logged and skipped
+            // instead of completing the whole epic and permanently killing
+            // colorization for this extension host until reload.
+            catchEpicError(
+              editorChangeEpic
+              .name,
+            ),
           )
         )),
       )

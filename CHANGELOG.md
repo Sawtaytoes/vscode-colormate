@@ -1,5 +1,10 @@
 # CHANGELOG
 
+## [4.4.0] - 2026-06-04
+
+- 🐛 Fixes colorization permanently dying after a single error. A failed `colorize` (e.g. a rejected semantic-tokens request under heavy load or across multiple windows) is now logged and skipped per-editor instead of completing the whole epic and killing all coloring until reload.
+- ⚡ Memoizes the TextMate `Registry` so Oniguruma's `loadWASM` only loads once per extension host and grammars stay cached, instead of rebuilding the registry (and reloading WASM) on every debounced `colorize` call.
+
 ## [4.3.0] - 2026-06-04
 
 - Adds default TextMate scopes for dotenv (`variable.key.dotenv`) and shell (`constant.other.option.shell`, `variable.other.assignment.shell`, `variable.other.normal.shell`), so `.env` and shell files are semantically colored out of the box.
