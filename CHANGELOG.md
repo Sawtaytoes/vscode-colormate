@@ -235,3 +235,37 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Added
 
 - First 100% working release with all the right logos!
+
+[4.4.0]: https://github.com/Sawtaytoes/vscode-colormate/compare/v4.3.0...v4.4.0
+[4.3.0]: https://github.com/Sawtaytoes/vscode-colormate/compare/v4.2.0...v4.3.0
+[4.2.0]: https://github.com/Sawtaytoes/vscode-colormate/compare/v4.1.0...v4.2.0
+[4.1.0]: https://github.com/Sawtaytoes/vscode-colormate/compare/v4.0.2...v4.1.0
+[4.0.2]: https://github.com/Sawtaytoes/vscode-colormate/compare/v4.0.1...v4.0.2
+[4.0.1]: https://github.com/Sawtaytoes/vscode-colormate/compare/v4.0.0...v4.0.1
+[4.0.0]: https://github.com/Sawtaytoes/vscode-colormate/compare/v3.3.6...v4.0.0
+[3.3.6]: https://github.com/Sawtaytoes/vscode-colormate/compare/v3.3.5...v3.3.6
+[3.3.5]: https://github.com/Sawtaytoes/vscode-colormate/compare/v3.3.4...v3.3.5
+[3.3.4]: https://github.com/Sawtaytoes/vscode-colormate/compare/v3.3.3...v3.3.4
+[3.3.3]: https://github.com/Sawtaytoes/vscode-colormate/compare/v3.3.2...v3.3.3
+[3.3.2]: https://github.com/Sawtaytoes/vscode-colormate/compare/v3.3.1...v3.3.2
+[3.3.1]: https://github.com/Sawtaytoes/vscode-colormate/compare/v3.2.2...v3.3.1
+[3.2.2]: https://github.com/Sawtaytoes/vscode-colormate/compare/v3.2.1...v3.2.2
+[3.2.1]: https://github.com/Sawtaytoes/vscode-colormate/compare/v3.2.0...v3.2.1
+[3.2.0]: https://github.com/Sawtaytoes/vscode-colormate/compare/v3.1.4...v3.2.0
+[3.1.4]: https://github.com/Sawtaytoes/vscode-colormate/compare/v3.1.3...v3.1.4
+[3.1.3]: https://github.com/Sawtaytoes/vscode-colormate/compare/v3.1.2...v3.1.3
+[3.1.2]: https://github.com/Sawtaytoes/vscode-colormate/compare/v3.1.1...v3.1.2
+[3.1.1]: https://github.com/Sawtaytoes/vscode-colormate/compare/v3.1.0...v3.1.1
+[3.1.0]: https://github.com/Sawtaytoes/vscode-colormate/compare/v3.0.0...v3.1.0
+[3.0.0]: https://github.com/Sawtaytoes/vscode-colormate/compare/v2.1.0...v3.0.0
+[2.1.0]: https://github.com/Sawtaytoes/vscode-colormate/compare/v2.0.0...v2.1.0
+[2.0.0]: https://github.com/Sawtaytoes/vscode-colormate/compare/v1.3.2...v2.0.0
+[1.3.2]: https://github.com/Sawtaytoes/vscode-colormate/compare/v1.3.1...v1.3.2
+[1.3.1]: https://github.com/Sawtaytoes/vscode-colormate/compare/v1.3.0...v1.3.1
+[1.3.0]: https://github.com/Sawtaytoes/vscode-colormate/compare/v1.2.4...v1.3.0
+[1.2.4]: https://github.com/Sawtaytoes/vscode-colormate/compare/v1.2.3...v1.2.4
+[1.2.3]: https://github.com/Sawtaytoes/vscode-colormate/compare/v1.2.2...v1.2.3
+[1.2.2]: https://github.com/Sawtaytoes/vscode-colormate/compare/v1.2.1...v1.2.2
+[1.2.1]: https://github.com/Sawtaytoes/vscode-colormate/compare/v1.2.0...v1.2.1
+[1.2.0]: https://github.com/Sawtaytoes/vscode-colormate/compare/v1.1.1...v1.2.0
+[1.1.1]: https://github.com/Sawtaytoes/vscode-colormate/compare/v1.1.0...v1.1.1
