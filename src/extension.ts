@@ -5,6 +5,7 @@ import {
   addExtensionContext,
   extensionContextsState,
 } from "./extensionContextsState.js"
+import { outputChannel } from "./outputChannel"
 import { removeAllTextEditorDecorations } from "./removeAllTextEditorDecorations"
 import { removeUnusedTextEditorDecorations } from "./removeUnusedTextEditorDecorations"
 
@@ -21,6 +22,12 @@ export const activate = (
     vscode.ExtensionContext
   ),
 ) => {
+  extensionContext
+  .subscriptions
+  .push(
+    outputChannel,
+  )
+
   editorChangeEpic()
   .subscribe()
 

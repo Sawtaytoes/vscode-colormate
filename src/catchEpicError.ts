@@ -5,13 +5,17 @@ import {
   EMPTY,
 } from "rxjs"
 
+import {
+  outputChannel,
+} from "./outputChannel"
+
 export const catchEpicError = (
   epicName: string,
 ) => (
   catchError((
     error,
   ) => {
-    console
+    outputChannel
     .error(
       (
         epicName

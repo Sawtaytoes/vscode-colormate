@@ -4,6 +4,10 @@ import vscode, {
   TextDocument,
 } from "vscode"
 
+import {
+  outputChannel,
+} from "./outputChannel"
+
 interface ExtensionGrammar {
   language?: string
   scopeName?: string
@@ -49,7 +53,7 @@ export function getScopeName(
     }
   }
   catch (error) {
-    console.error(error)
+    outputChannel.error(error as Error)
   }
 
   return ""
