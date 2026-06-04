@@ -1,152 +1,237 @@
-# CHANGELOG
+# Changelog
+
+All notable changes to this project are documented in this file.
+
+The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
+and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
 ## [4.4.0] - 2026-06-04
 
-- 🐛 Fixes colorization permanently dying after a single error. A failed `colorize` (e.g. a rejected semantic-tokens request under heavy load or across multiple windows) is now logged and skipped per-editor instead of completing the whole epic and killing all coloring until reload.
-- ⚡ Memoizes the TextMate `Registry` so Oniguruma's `loadWASM` only loads once per extension host and grammars stay cached, instead of rebuilding the registry (and reloading WASM) on every debounced `colorize` call.
+### Fixed
+
+- Colorization no longer permanently dies after a single error. A failed `colorize` (e.g. a rejected semantic-tokens request under heavy load or across multiple windows) is now logged and skipped per-editor instead of completing the whole epic and killing all coloring until reload.
+
+### Changed
+
+- Memoizes the TextMate `Registry` so Oniguruma's `loadWASM` only loads once per extension host and grammars stay cached, instead of rebuilding the registry (and reloading WASM) on every debounced `colorize` call.
 
 ## [4.3.0] - 2026-06-04
 
-- Adds default TextMate scopes for dotenv (`variable.key.dotenv`) and shell (`constant.other.option.shell`, `variable.other.assignment.shell`, `variable.other.normal.shell`), so `.env` and shell files are semantically colored out of the box.
-- Adds default excluded TextMate scopes (`punctuation.definition.evaluation.parens`, `punctuation.definition.variable.shell`, `punctuation.section.bracket.curly.variable`) to avoid coloring shell punctuation. Both the new defaults and exclusions respect the `hasDefaultTextMateTokenScopes` setting.
+### Added
+
+- Default TextMate scopes for dotenv (`variable.key.dotenv`) and shell (`constant.other.option.shell`, `variable.other.assignment.shell`, `variable.other.normal.shell`), so `.env` and shell files are semantically colored out of the box.
+- Default excluded TextMate scopes (`punctuation.definition.evaluation.parens`, `punctuation.definition.variable.shell`, `punctuation.section.bracket.curly.variable`) to avoid coloring shell punctuation. Both the new defaults and exclusions respect the `hasDefaultTextMateTokenScopes` setting.
 
 ## [4.2.0] - 2026-06-04
+
+### Changed
 
 - Upgrades the toolchain to TypeScript 6.0 and `@types/node` 24. Adds an explicit `types` array to `tsconfig.json` since TypeScript 6.0 no longer auto-includes `@types/node`.
 
 ## [4.1.0] - 2026-06-04
 
-- Adds a dedicated "ColorMate" output channel so epic errors and grammar-loading failures are isolated and easy to capture (View → Output → ColorMate), instead of being buried in the shared extension-host console.
+### Added
+
+- A dedicated "ColorMate" output channel so epic errors and grammar-loading failures are isolated and easy to capture (View → Output → ColorMate), instead of being buried in the shared extension-host console.
+
+### Changed
+
 - Upgrades Yarn to 4.16.0 and bumps dev/runtime dependencies; raises the minimum VSCode to 1.120.
 
 ## [4.0.2] - 2026-03-06
 
-- Adds TextMate scope for `variable.other.readwrite.ts`. This allows coloring an import being aliased. Previously, only the aliased value was colored.
+### Added
+
+- TextMate scope for `variable.other.readwrite.ts`. This allows coloring an import being aliased. Previously, only the aliased value was colored.
 
 ## [4.0.1] - 2026-03-06
 
-- Adds missing Oniguruma WASM file when publishing.
+### Fixed
+
+- Adds the missing Oniguruma WASM file when publishing.
 
 ## [4.0.0] - 2026-03-06
+
+### Changed
 
 - Upgrades all packages to the latest.
 
 ## [3.3.6] - 2023-11-21
 
-- 🐛 Attempts to fix Oniguruma memory loading error.
+### Fixed
+
+- Attempts to fix Oniguruma memory loading error.
 
 ## [3.3.5] - 2023-11-21
 
-- 🐛 Increases debounce time to reduce flashiness when scopes disappear and reappear.
+### Fixed
+
+- Increases debounce time to reduce flashiness when scopes disappear and reappear.
 
 ## [3.3.4] - 2023-11-21
 
-- ♻️ Refactors removal of text decorations to occur after recoloring.
+### Changed
+
+- Refactors removal of text decorations to occur after recoloring.
 
 ## [3.3.3] - 2023-11-13
+
+### Fixed
 
 - Hack-fix for keywords being variable names that also happen to have TextMate scopes.
 
 ## [3.3.2] - 2023-11-13
 
+### Added
+
+- TextMate grammars to Redux state.
+
+### Changed
+
 - Improves TextMate registry.
-- Adds TextMate grammars to Redux state.
 
 ## [3.3.1] - 2023-11-13
 
-- Adds Redux for keeping track of state.
+### Added
+
+- Redux for keeping track of state.
 
 ## [3.2.2] - 2022-08-02
 
-- 🐛 Fixed a bug where TextMate scopes would sometimes stop working forever. The easiest way to reproduce was deleting a file or closing a file that wasn't yet saved.
+### Fixed
+
+- A bug where TextMate scopes would sometimes stop working forever. The easiest way to reproduce was deleting a file or closing a file that wasn't yet saved.
 
 ## [3.2.1] - 2022-07-31
 
-- 🐛 Added missing default for entity.name.function in JS and TS.
+### Fixed
+
+- Missing default for `entity.name.function` in JS and TS.
 
 ## [3.2.0] - 2022-07-31
 
-- ✨ Added a new setting for default TextMate token scopes. Before, you were able to override these with the `textMateTokenScopes` setting, but if you wanted the defaults, it was possible to lose them completely. This new way makes them optional, but also able to be kept up-to-date by the user.
+### Added
+
+- A new setting for default TextMate token scopes. Before, you were able to override these with the `textMateTokenScopes` setting, but if you wanted the defaults, it was possible to lose them completely. This new way makes them optional, but also able to be kept up-to-date by the user.
 
 ## [3.1.4] - 2022-07-31
 
-- 🐛 Fixed an improper regex for root scopes with 2 roots (source.jsx)
-- 🐛 Fixed edge-case bug in matching TextMate scopes with a single category name
-- 🐛 Fixed incorrect defaults in package.json
+### Fixed
+
+- An improper regex for root scopes with 2 roots (`source.jsx`).
+- An edge-case bug in matching TextMate scopes with a single category name.
+- Incorrect defaults in `package.json`.
 
 ## [3.1.3] - 2022-07-31
 
-- 🔧 Added more search keywords.
+### Added
+
+- More search keywords.
 
 ## [3.1.2] - 2022-07-31
 
-- 📝 Fixed README title.
+### Fixed
+
+- README title.
 
 ## [3.1.1] - 2022-07-31
 
-- 🔧 Updated to use the correct Git location.
+### Changed
+
+- Updated to use the correct Git location.
 
 ## [3.1.0] - 2022-07-31
 
-- 💄 Updated default lighting and saturation values to look better on all theme types.
+### Changed
+
+- Updated default lighting and saturation values to look better on all theme types.
 
 ## [3.0.0] - 2022-07-31
 
-- 💥 Changed how TextMate tokens are processed. Previously, they were 1:1, but now they're processed within the TextMate scope hierarchy. This change means existing scopes could be far more generic than intended.
-- ✨ Added a new feature to exclude TextMate scopes. Now that they're more generic, there's a need to exclude as well. Excluded scopes are also hierarchical and rely on specificity. If equal to or greater than the selected TextMate scopes, it will take precedence and exclude those scopes.
+### Added
+
+- A new feature to exclude TextMate scopes. Now that they're more generic, there's a need to exclude as well. Excluded scopes are also hierarchical and rely on specificity. If equal to or greater than the selected TextMate scopes, it will take precedence and exclude those scopes.
+
+### Changed
+
+- Changed how TextMate tokens are processed. Previously, they were 1:1, but now they're processed within the TextMate scope hierarchy. This change means existing scopes could be far more generic than intended.
 
 ## [2.1.0] - 2022-07-30
 
-- ✨ Semantic highlights now show when only TextMate tokens are available. Now you can even semantically highlight JSON!
+### Added
+
+- Semantic highlights now show when only TextMate tokens are available. Now you can even semantically highlight JSON!
 
 ## [2.0.0] - 2022-07-30
 
-- 💥 Renamed `colormate.tokenKinds` setting to `colormate.semanticTokenTypes`.
-- ✨ textMate tokens are now semantically highlighted when semantic tokens are unavailable. This is especially useful if you don't have any semantic tokens in your language of choice (JSX has none).
-- 🔧 Added configuration for `colormate.textMateTokenScopes`. Now you can select textMate tokens to style as well as semantic tokens. This is especially useful if you don't have any semantic tokens in your language of choice (JSX has none).
+### Added
+
+- TextMate tokens are now semantically highlighted when semantic tokens are unavailable. This is especially useful if you don't have any semantic tokens in your language of choice (JSX has none).
+- Configuration for `colormate.textMateTokenScopes`. Now you can select TextMate tokens to style as well as semantic tokens. This is especially useful if you don't have any semantic tokens in your language of choice (JSX has none).
+
+### Changed
+
+- Renamed `colormate.tokenKinds` setting to `colormate.semanticTokenTypes`.
 
 ## [1.3.2] - 2022-07-30
 
-- 🔧 Updated the VSCode displayName to fit.
+### Changed
+
+- Updated the VSCode displayName to fit.
 
 ## [1.3.1] - 2022-07-30
 
-- 🐛 Fixed a memory leak where invisible code windows weren't hidden. In doing this fix, only visible editors are semantically highlighted. A future change will need to be made to keep background editors highlighted.
+### Fixed
+
+- A memory leak where invisible code windows weren't hidden. In doing this fix, only visible editors are semantically highlighted. A future change will need to be made to keep background editors highlighted.
 
 ## [1.3.0] - 2022-07-30
 
+### Added
 
-- ✨ Added `lighting` and `saturation` configuration settings for all color theme types.
-- ✨ Changing settings now results in immediate visible changes.
-- 🐛 Fixed an issue where leaving an editor view would remove semantic highlighting. This was most-apparent when using multiple columns or windows.
-- 🎨 Major code styling and refactoring.
+- `lighting` and `saturation` configuration settings for all color theme types.
+
+### Changed
+
+- Changing settings now results in immediate visible changes.
+- Major code styling and refactoring.
+
+### Fixed
+
+- An issue where leaving an editor view would remove semantic highlighting. This was most-apparent when using multiple columns or windows.
 
 ## [1.2.4] - 2022-07-30
 
+### Fixed
 
-- 🚑 Fixed a critical issue where local changes were incorrectly packaged.
+- A critical issue where local changes were incorrectly packaged.
 
 ## [1.2.3] - 2022-07-30
 
+### Changed
 
-- 📝 Updated README with a callout on how to force-enable semantic highlighting.
+- Updated README with a callout on how to force-enable semantic highlighting.
 
 ## [1.2.2] - 2022-07-30
 
+### Changed
 
-- 📝 Updated README with troubleshooting information.
+- Updated README with troubleshooting information.
 
 ## [1.2.1] - 2022-07-30
 
+### Fixed
 
-- 🩹 Fixed incorrect `CHANGELOG`.
+- Incorrect `CHANGELOG`.
 
 ## [1.2.0] - 2022-07-30
 
+### Added
 
-- ✨ Added more semantic token selectors for the default token configuration.
+- More semantic token selectors for the default token configuration.
 
 ## [1.1.1] - 2022-07-30
 
+### Added
 
-- 🎉 First 100% working release with all the right logos!
+- First 100% working release with all the right logos!
