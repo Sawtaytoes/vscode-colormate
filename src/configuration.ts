@@ -98,13 +98,18 @@ export const getConfiguredTextMateTokenScopes: (
           "entity.name.section.markdown",
           "entity.name.tag",
           "entity.other.attribute-name",
+          "entity.other.attribute.lua",
+          "support.function.library.lua",
+          "support.function.lua",
           "support.type.property-name.json",
           "variable.key.dotenv",
           "variable.other.assignment.shell",
+          "variable.other.lua",
           "variable.other.normal.shell",
           "variable.other.property",
           "variable.other.readwrite.ts",
           "variable.other.readwrite.alias",
+          "variable.parameter.function.lua",
         ]
         : []
       ),

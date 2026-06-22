@@ -5,6 +5,12 @@ All notable changes to this project are documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [4.5.0] - 2026-06-22
+
+### Added
+
+- Default TextMate scopes for Lua (`variable.other.lua`, `variable.parameter.function.lua`, `support.function.lua`, `support.function.library.lua`, `entity.other.attribute.lua`), so Lua locals, function parameters, built-ins, and namespaced stdlib calls are semantically colored out of the box. Language keywords (`if`, `then`, `end`, `local`, `function`, etc.) keep their theme color since the root `source.lua` scope is intentionally excluded. Respects the `hasDefaultTextMateTokenScopes` setting. Fixes [#8](https://github.com/Sawtaytoes/vscode-colormate/issues/8).
+
 ## [4.4.0] - 2026-06-04
 
 ### Fixed
