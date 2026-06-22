@@ -387,37 +387,21 @@ export const colorize = async (
     textEditorDecorations,
   )
 
-  Object
-  .entries(
-    semanticTokenRangesBySymbolName
+  const rangesByTokenName = (
+    Object
+    .entries(
+      semanticTokenRangesBySymbolName
+    )
+    .concat(
+      textMateTokenRangesBySymbolName
+    )
   )
-  .concat(
-    textMateTokenRangesBySymbolName
-  )
-  .map(([
-    identifier,
-    ranges,
-  ]) => ({
-    ranges,
-    textEditorDecoration: (
-      getTextEditorDecoration(
-        identifier
-      )
-    ),
-  }))
-  .forEach(({
-    ranges,
-    textEditorDecoration,
-  }) => {
+
+  rangesByTokenName
+  .forEach(() => {
     textEditorDecorations
     .add(
       textEditorDecoration,
-    )
-
-    editor
-    .setDecorations(
-      textEditorDecoration,
-      ranges,
     )
   })
 }
