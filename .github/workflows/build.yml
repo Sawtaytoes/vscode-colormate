@@ -36,3 +36,28 @@ jobs:
           name: vscode-colormate-vsix
           path: '*.vsix'
           if-no-files-found: error
+
+  release:
+    name: Attach VSIX to GitHub Release
+    needs: build
+    # Only on version tags (e.g. v4.5.0). Uses the automatic GITHUB_TOKEN —
+    # no external/Marketplace token. Publishing to the Marketplace stays manual.
+    if: startsWith(github.ref, 'refs/tags/v')
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+    steps:
+      - name: Download VSIX artifact
+        uses: actions/download-artifact@v8
+        with:
+          name: vscode-colormate-vsix
+
+      - name: Create or update the GitHub Release and attach the VSIX
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          if gh release view "$GITHUB_REF_NAME" --repo "$GITHUB_REPOSITORY" >/dev/null 2>&1; then
+            gh release upload "$GITHUB_REF_NAME" *.vsix --repo "$GITHUB_REPOSITORY" --clobber
+          else
+            gh release create "$GITHUB_REF_NAME" *.vsix --repo "$GITHUB_REPOSITORY" --title "$GITHUB_REF_NAME" --generate-notes
+          fi
