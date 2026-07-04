@@ -30,6 +30,7 @@
     "publish:updateLogin": "vsce login KevinGhadyani",
     "start": "yarn watch",
     "test": "yarn clean && yarn compile-tests && yarn compile && yarn lint && vscode-test",
+    "test:headless": "xvfb-run -a yarn test",
     "vscode:prepublish": "yarn package",
     "watch-tests": "tsc -p . -w --outDir out",
     "watch:esbuild": "node esbuild.mjs --watch",
