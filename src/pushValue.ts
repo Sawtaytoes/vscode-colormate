@@ -4,10 +4,9 @@ export function pushValue<Element>(
   value: Element,
 ) {
   // use Object.prototype.hasOwnProperty.call instead of dictionary.hasOwnProperty incase dictionary["hasOwnProperty"] was replaced
-  if (Object.prototype.hasOwnProperty.call(dictionary, key)) {
+  if (Object.hasOwn(dictionary, key)) {
     dictionary[key].push(value)
-  }
-  else {
+  } else {
     dictionary[key] = [value]
   }
 }

@@ -10,11 +10,7 @@ import {
   merge,
   mergeMap,
 } from "rxjs"
-import {
-  TextEditor,
-  window,
-  workspace,
-} from "vscode"
+import { type TextEditor, window, workspace } from "vscode"
 
 import { catchEpicError } from "./catchEpicError"
 import { colorize } from "./colorize"
@@ -23,177 +19,77 @@ import {
   extensionContextsState,
 } from "./extensionContextsState.js"
 
-export const editorChangeEpic = () => (
-  extensionContextsState
-  .action$
-  .pipe(
+export const editorChangeEpic = () =>
+  extensionContextsState.action$.pipe(
     filter(
-      extensionContextsSlice
-      .actions
-      .addExtensionContext
-      .match,
+      extensionContextsSlice.actions.addExtensionContext
+        .match,
     ),
-    concatMap(({
-      payload: extensionContext,
-    }) => (
+    concatMap(({ payload: extensionContext }) =>
       merge(
-        from(
-          window
-          .visibleTextEditors,
-        ),
-        (
-          fromEventPattern<
-            | TextEditor
-            | undefined
-          >((
-            handler,
-          ) => {
-            extensionContext
-            .subscriptions
-            .push(
-              window
-              .onDidChangeActiveTextEditor(
-                handler,
-              ),
+        from(window.visibleTextEditors),
+        fromEventPattern<TextEditor | undefined>(
+          (handler) => {
+            extensionContext.subscriptions.push(
+              window.onDidChangeActiveTextEditor(handler),
             )
-          })
+          },
         ),
-        (
-          fromEventPattern<
-            | TextEditor
-            | undefined
-          >((
-            handler,
-          ) => {
-            extensionContext
-            .subscriptions
-            .push(
-              workspace
-              .onDidChangeTextDocument(
-                handler,
-              ),
+        fromEventPattern<TextEditor | undefined>(
+          (handler) => {
+            extensionContext.subscriptions.push(
+              workspace.onDidChangeTextDocument(handler),
             )
-          })
-          .pipe(
-            map((
-              textDocumentChangeEvent,
-            ) => (
-              textDocumentChangeEvent
-              ?.document
-              .uri
-              .toString()
-            )),
-            concatMap((
-              textDocumentUri,
-            ) => (
-              from(
-                window
-                .visibleTextEditors,
-              )
-              .pipe(
-                filter((
-                  textEditor,
-                ) => (
-                  (
-                    textEditor
-                    ?.document
-                    .uri
-                    .toString()
-                  )
-                  === textDocumentUri
-                )),
-              )
-            )),
-          )
-        ),
-        (
-          (
-            merge(
-              (
-                fromEventPattern<
-                  | TextEditor
-                  | undefined
-                >((
-                  handler,
-                ) => {
-                  extensionContext
-                  .subscriptions
-                  .push(
-                    window
-                    .onDidChangeActiveColorTheme(
-                      handler,
-                    ),
-                  )
-                })
+          },
+        ).pipe(
+          map((textDocumentChangeEvent) =>
+            textDocumentChangeEvent?.document.uri.toString(),
+          ),
+          concatMap((textDocumentUri) =>
+            from(window.visibleTextEditors).pipe(
+              filter(
+                (textEditor) =>
+                  textEditor?.document.uri.toString() ===
+                  textDocumentUri,
               ),
-              (
-                fromEventPattern<
-                  | TextEditor
-                  | undefined
-                >((
-                  handler,
-                ) => {
-                  extensionContext
-                  .subscriptions
-                  .push(
-                    workspace
-                    .onDidChangeConfiguration(
-                      handler,
-                    ),
-                  )
-                })
-              ),
-            )
-          )
-          .pipe(
-            map(() => (
-              window
-              .visibleTextEditors
-            )),
-            concatAll(),
-          )
-        ),
-      )
-    )),
-    filter(
-      Boolean,
-    ),
-    groupBy((
-      textEditor,
-    ) => (
-      textEditor
-    )),
-    mergeMap((
-      group$,
-    ) => (
-      group$
-      .pipe(
-        debounceTime(
-          250,
-        ),
-        concatMap((
-          textEditor,
-        ) => (
-          from(
-            colorize(
-              textEditor,
             ),
-          )
-          .pipe(
+          ),
+        ),
+        merge(
+          fromEventPattern<TextEditor | undefined>(
+            (handler) => {
+              extensionContext.subscriptions.push(
+                window.onDidChangeActiveColorTheme(handler),
+              )
+            },
+          ),
+          fromEventPattern<TextEditor | undefined>(
+            (handler) => {
+              extensionContext.subscriptions.push(
+                workspace.onDidChangeConfiguration(handler),
+              )
+            },
+          ),
+        ).pipe(
+          map(() => window.visibleTextEditors),
+          concatAll(),
+        ),
+      ),
+    ),
+    filter(Boolean),
+    groupBy((textEditor) => textEditor),
+    mergeMap((group$) =>
+      group$.pipe(
+        debounceTime(250),
+        concatMap((textEditor) =>
+          from(colorize(textEditor)).pipe(
             // Catch per-editor so one failed `colorize` is logged and skipped
             // instead of completing the whole epic and permanently killing
             // colorization for this extension host until reload.
-            catchEpicError(
-              editorChangeEpic
-              .name,
-            ),
-          )
-        )),
-      )
-    )),
-    catchEpicError(
-      editorChangeEpic
-      .name,
+            catchEpicError(editorChangeEpic.name),
+          ),
+        ),
+      ),
     ),
+    catchEpicError(editorChangeEpic.name),
   )
-)

@@ -1,26 +1,25 @@
 {
+  "extends": "@charcuterie/tsconfig/base",
   "compilerOptions": {
-    "esModuleInterop": true,
+    // The VS Code extension host, NOT the fleet default. The base
+    // targets ESNext with `moduleResolution: bundler`; an extension
+    // is loaded by VS Code's own Node runtime, so it keeps
+    // ES2022/Node16. `useDefineForClassFields` is inherited as
+    // `true`, which is also what `target: ES2022` gives on its own —
+    // TypeScript defaults that flag to true at ES2022 and above, so
+    // extending the base does not change class-field semantics here.
+    "lib": ["ES2022"],
     "module": "Node16",
-    "lib": [
-      "ES2022"
-    ],
-		"noFallthroughCasesInSwitch": true,
-		"noImplicitReturns": true,
-		"noUnusedParameters": true,
+    "target": "ES2022",
+
+    "noFallthroughCasesInSwitch": true,
+    "noImplicitReturns": true,
+    "noUnusedParameters": true,
     "rootDir": "src",
     "skipLibCheck": true, // TEMP: This is breaking because of bad types in `vscode-oniguruma`.
     "sourceMap": true,
-    "strict": true,
-    "target": "ES2022",
-    "types": [
-      "mocha",
-      "node"
-    ],
     "tsBuildInfoFile": "./.tsbuildinfo", // Specify the path for the build info file
+    "types": ["mocha", "node"]
   },
-  "exclude": [
-    ".vscode-test",
-    "node_modules"
-  ],
+  "exclude": [".vscode-test", "node_modules"]
 }

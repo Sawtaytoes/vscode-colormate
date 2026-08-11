@@ -1,116 +1,68 @@
 // Modified from https://github.com/Microsoft/vscode-textmate#readme.
-import {
-  readFile,
-} from "fs/promises"
+import { readFile } from "node:fs/promises"
 import {
   INITIAL,
-  IToken,
+  type IToken,
   parseRawGrammar,
   Registry,
 } from "vscode-textmate"
 
-import {
-  createVscodeOnigurmaLibrary,
-} from "./createVscodeOnigurmaLibrary.js"
-import {
-  getScopeFilePath,
-} from "./textMateGrammars.js"
+import { createVscodeOnigurmaLibrary } from "./createVscodeOnigurmaLibrary.js"
+import { getScopeFilePath } from "./textMateGrammars.js"
 import {
   addTextMateGrammar,
   textMateGrammarsState,
 } from "./textMateGrammarsState.js"
 
-let textMateRegistry: (
-  | Registry
-  | undefined
-)
+let textMateRegistry: Registry | undefined
 
 // Create a registry that can create a grammar from a scope name.
-const createTextMateRegistry = () => (
+const createTextMateRegistry = () =>
   new Registry({
-    loadGrammar: (
-      grammarScopeName: string,
-    ) => {
-      const scopeFilePath = (
-        getScopeFilePath(
-          grammarScopeName,
-        )
+    loadGrammar: (grammarScopeName: string) => {
+      const scopeFilePath = getScopeFilePath(
+        grammarScopeName,
       )
 
-      const parsedGrammarData = (
-        textMateGrammarsState
-        .getState()
-        .entities
-        [grammarScopeName]
-        ?.parsedGrammarData
-      )
+      const parsedGrammarData =
+        textMateGrammarsState.getState().entities[
+          grammarScopeName
+        ]?.parsedGrammarData
 
-      return (
-        parsedGrammarData
-        ? (
-          Promise
-          .resolve(
-            parsedGrammarData,
-          )
-        )
-        : (
-          readFile(
-            scopeFilePath,
-          )
-          .then((
-            data,
-          ) => (
-            data
-            .toString()
-          ))
-          .then((
-            data,
-          ) => (
-            parseRawGrammar(
-              data,
-              scopeFilePath,
+      return parsedGrammarData
+        ? Promise.resolve(parsedGrammarData)
+        : readFile(scopeFilePath)
+            .then((data) => data.toString())
+            .then((data) =>
+              parseRawGrammar(data, scopeFilePath),
             )
-          ))
-          .then((
-            parsedGrammarData,
-          ) => {
-            textMateGrammarsState
-            .dispatch(
-              addTextMateGrammar({
-                id: grammarScopeName,
-                parsedGrammarData,
-              }),
-            )
+            .then((parsedGrammarData) => {
+              textMateGrammarsState.dispatch(
+                addTextMateGrammar({
+                  id: grammarScopeName,
+                  parsedGrammarData,
+                }),
+              )
 
-            return parsedGrammarData
-          })
-          .catch((
-            error,
-          ) => {
-            console
-            .error(
-              error,
-            )
+              return parsedGrammarData
+            })
+            .catch((error) => {
+              console.error(error)
 
-            return null
-          })
-        )
-      )
+              return null
+            })
     },
     onigLib: createVscodeOnigurmaLibrary(),
   })
-)
 
 // Memoized so Oniguruma's `loadWASM` only runs once per extension host
 // and loaded grammars stay cached across `colorize` calls. Previously a new
 // `Registry` (and WASM load) was created on every keystroke-debounced call.
-export const getTextMateRegistry = () => (
-  textMateRegistry
-  ?? (
-    textMateRegistry
-      = createTextMateRegistry()
-  )
-)
+export const getTextMateRegistry = () => {
+  textMateRegistry ??= createTextMateRegistry()
+
+  return textMateRegistry
+}
 
 // Load the JavaScript grammar and any other grammars included by it async.
 export const getTextMateLineTokens = ({
@@ -121,115 +73,81 @@ export const getTextMateLineTokens = ({
   documentText: string
   registry: Registry
   scopeName: string
-}) => (
+}) =>
   registry
-  .loadGrammar(
-    scopeName,
-  )
-  .then((
-    grammar,
-  ) => {
-    const lineTokens: (
-      Array<
+    .loadGrammar(scopeName)
+    .then((grammar) => {
+      const lineTokens: Array<
         Array<{
           lineNumber: number
           symbol: string
           token: IToken
         }>
-      >
-    ) = []
+      > = []
 
-    let ruleStack = INITIAL
+      let ruleStack = INITIAL
 
-    const documentLines = (
-      documentText
-      .split(
-        /\r\n|\r|\n/,
-      )
-    )
+      const documentLines = documentText.split(/\r\n|\r|\n/)
 
-    for (let i = 0; i < documentLines.length; i++) {
-      const line = documentLines[i]
+      for (
+        let lineIndex = 0;
+        lineIndex < documentLines.length;
+        lineIndex++
+      ) {
+        const line = documentLines[lineIndex]
 
-      const tokenizedLine = (
-        grammar
-        ?.tokenizeLine(
+        const tokenizedLine = grammar?.tokenizeLine(
           line,
           ruleStack,
         )
-      )
 
-      if (tokenizedLine) {
-        // console.log(`\nTokenizing line: ${line}`)
-        const tokenSymbols: string[] = []
+        if (tokenizedLine) {
+          // console.log(`\nTokenizing line: ${line}`)
+          const tokenSymbols: string[] = []
 
-        for (let j = 0; j < tokenizedLine.tokens.length; j++) {
-          const token = tokenizedLine.tokens[j]
+          for (
+            let tokenIndex = 0;
+            tokenIndex < tokenizedLine.tokens.length;
+            tokenIndex++
+          ) {
+            const token = tokenizedLine.tokens[tokenIndex]
 
-          tokenSymbols
-          .push(
-            line
-            .substring(
-              (
-                token
-                .startIndex
+            tokenSymbols.push(
+              line.substring(
+                token.startIndex,
+                token.endIndex,
               ),
-              (
-                token
-                .endIndex
-              ),
-            ),
+            )
+
+            // console.log(` - token from ${token.startIndex} to ${token.endIndex} ` +
+            //   `(${line.substring(token.startIndex, token.endIndex)}) ` +
+            //   `with scopes ${token.scopes.join(', ')}`
+            // )
+          }
+
+          lineTokens.push(
+            tokenizedLine.tokens.map((token, index) => ({
+              lineNumber: lineIndex,
+              symbol: tokenSymbols[index],
+              token,
+            })),
           )
 
-          // console.log(` - token from ${token.startIndex} to ${token.endIndex} ` +
-          //   `(${line.substring(token.startIndex, token.endIndex)}) ` +
-          //   `with scopes ${token.scopes.join(', ')}`
-          // )
+          ruleStack = tokenizedLine.ruleStack
         }
-
-        lineTokens
-        .push(
-          tokenizedLine
-          .tokens
-          .map((
-            token,
-            index,
-          ) => ({
-            lineNumber: i,
-            symbol: (
-              tokenSymbols
-              [index]
-            ),
-            token,
-          })),
-        )
-
-        ruleStack = tokenizedLine.ruleStack
+        // else {
+        //   console.log(`\nNo tokens for line: ${line}`)
+        // }
       }
-      // else {
-      //   console.log(`\nNo tokens for line: ${line}`)
-      // }
-    }
 
-    return (
-      lineTokens
-      .flat()
-    )
-  })
-  .catch((
-    error,
-  ) => {
-    console
-    .error(
-      error,
-    )
+      return lineTokens.flat()
+    })
+    .catch((error) => {
+      console.error(error)
 
-    return [] as (
-      Array<{
+      return [] as Array<{
         lineNumber: number
         symbol: string
         token: IToken
       }>
-    )
-  })
-)
+    })

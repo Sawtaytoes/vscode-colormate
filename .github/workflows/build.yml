@@ -16,15 +16,30 @@ jobs:
     steps:
       - uses: actions/checkout@v7
 
+      # Read `.nvmrc` rather than pinning a literal — the pin had drifted to
+      # 24 while `.nvmrc` said 26, so CI was testing a Node the repo does not
+      # target. Same fix castkit took during the Charcuterie rollout.
       - uses: actions/setup-node@v6
         with:
-          node-version: 24
+          node-version-file: .nvmrc
 
       - name: Enable Corepack
         run: corepack enable
 
       - name: Install dependencies
         run: yarn install --immutable
+
+      # Run the linters as their own steps so a lint failure reads as a lint
+      # failure. `vsce package` below runs them again through the
+      # `vscode:prepublish` hook, which is fine — but its output buries them.
+      - name: Lint (Biome)
+        run: yarn lint:biome
+
+      - name: Lint (ESLint)
+        run: yarn lint:eslint
+
+      - name: Typecheck
+        run: yarn check-types
 
       - name: Package VSIX
         # Runs the `vscode:prepublish` hook (clean + check-types + lint + production build).
