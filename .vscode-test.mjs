@@ -2,9 +2,7 @@ import { defineConfig } from "@vscode/test-cli"
 
 export default defineConfig({
   files: "out/**/*.test.js",
-  launchArgs: [
-    "--disable-extensions",
-  ],
+  launchArgs: ["--disable-extensions"],
   mocha: {
     ui: "tdd",
     color: true,

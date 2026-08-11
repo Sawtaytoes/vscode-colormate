@@ -1,20 +1,33 @@
 // Source: https://stackoverflow.com/a/44134328/1624862
 export const hslToHexColor = (
-  h: number,
-  s: number,
-  l: number,
+  hue: number,
+  saturation: number,
+  lightness: number,
 ) => {
-  l /= 100
+  const lightnessFraction = lightness / 100
 
-  const a = s * Math.min(l, 1 - l) / 100
+  const amplitude =
+    (saturation *
+      Math.min(lightnessFraction, 1 - lightnessFraction)) /
+    100
 
-  const f = (n: number) => {
-    const k = (n + h / 30) % 12
-    const color = l - a * Math.max(Math.min(k - 3, 9 - k, 1), -1)
+  // `channel` is 0/8/4 — the red/green/blue offsets into the
+  // hue wheel that the source formula uses.
+  const toHexChannel = (channel: number) => {
+    const wheelPosition = (channel + hue / 30) % 12
 
-    return Math.round(255 * color).toString(16)
-    .padStart(2, "0")
+    const color =
+      lightnessFraction -
+      amplitude *
+        Math.max(
+          Math.min(wheelPosition - 3, 9 - wheelPosition, 1),
+          -1,
+        )
+
+    return Math.round(255 * color)
+      .toString(16)
+      .padStart(2, "0")
   }
 
-  return `#${f(0)}${f(8)}${f(4)}`
+  return `#${toHexChannel(0)}${toHexChannel(8)}${toHexChannel(4)}`
 }

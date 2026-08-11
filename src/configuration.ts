@@ -1,241 +1,125 @@
-import vscode, {
-  ColorThemeKind,
-} from "vscode"
+import vscode, { ColorThemeKind } from "vscode"
 
-const getConfiguration = () => (
-  vscode
-  .workspace
-  .getConfiguration(
-    "colormate",
-  )
-)
+const getConfiguration = () =>
+  vscode.workspace.getConfiguration("colormate")
 
-export const getIgnoredLanguages: (
-  () => (
-    Set<
-      string
-    >
-  )
-) = () => (
-  new Set(
-    (
-      getConfiguration()
-      .get(
-        "ignoredLanguages",
-      )
+export const getIgnoredLanguages: () => Set<string> = () =>
+  new Set(getConfiguration().get("ignoredLanguages") ?? [])
+
+export const getConfiguredSemanticTokenTypes: () => Set<string> =
+  () =>
+    new Set(
+      getConfiguration().get("semanticTokenTypes") ?? [
+        "class.defaultLibrary",
+        "class",
+        "enum",
+        "enumMember",
+        "event",
+        "function.defaultLibrary",
+        "function",
+        "interface",
+        "macro",
+        "method",
+        "namespace",
+        "parameter",
+        "property.readonly",
+        "property",
+        "struct",
+        "type.defaultLibrary",
+        "type",
+        "variable.readonly.defaultLibrary",
+        "variable.readonly",
+        "variable",
+      ],
     )
-    ?? [],
-  )
-)
 
-export const getConfiguredSemanticTokenTypes: (
-  () => (
-    Set<
-      string
-    >
-  )
-) = () => (
-  new Set(
-    (
-      getConfiguration()
-      .get(
-        "semanticTokenTypes",
+export const getConfiguredTextMateTokenScopes: () => Set<string> =
+  () =>
+    new Set([
+      ...((getConfiguration().get(
+        "textMateTokenScopes",
+      ) as string[]) ?? []),
+      ...(getConfiguration().get(
+        "hasDefaultTextMateTokenScopes",
       )
-    )
-    ?? [
-      "class.defaultLibrary",
-      "class",
-      "enum",
-      "enumMember",
-      "event",
-      "function.defaultLibrary",
-      "function",
-      "interface",
-      "macro",
-      "method",
-      "namespace",
-      "parameter",
-      "property.readonly",
-      "property",
-      "struct",
-      "type.defaultLibrary",
-      "type",
-      "variable.readonly.defaultLibrary",
-      "variable.readonly",
-      "variable",
-    ],
-  )
-)
-
-export const getConfiguredTextMateTokenScopes: (
-  () => (
-    Set<
-      string
-    >
-  )
-) = () => (
-  new Set(
-    [
-      ...(
-        (
-          getConfiguration()
-          .get(
-            "textMateTokenScopes",
-          )
-        ) as string[]
-        ?? []
-      ),
-      ...(
-        (
-          getConfiguration()
-          .get(
-            "hasDefaultTextMateTokenScopes",
-          )
-        )
         ? [
-          "constant.other.option.shell",
-          "entity.name.function",
-          "entity.name.section.markdown",
-          "entity.name.tag",
-          "entity.other.attribute-name",
-          "entity.other.attribute.lua",
-          "support.function.library.lua",
-          "support.function.lua",
-          "support.type.property-name.json",
-          "variable.key.dotenv",
-          "variable.other.assignment.shell",
-          "variable.other.lua",
-          "variable.other.normal.shell",
-          "variable.other.property",
-          "variable.other.readwrite.ts",
-          "variable.other.readwrite.alias",
-          "variable.parameter.function.lua",
-        ]
-        : []
-      ),
-    ],
-  )
-)
+            "constant.other.option.shell",
+            "entity.name.function",
+            "entity.name.section.markdown",
+            "entity.name.tag",
+            "entity.other.attribute-name",
+            "entity.other.attribute.lua",
+            "support.function.library.lua",
+            "support.function.lua",
+            "support.type.property-name.json",
+            "variable.key.dotenv",
+            "variable.other.assignment.shell",
+            "variable.other.lua",
+            "variable.other.normal.shell",
+            "variable.other.property",
+            "variable.other.readwrite.ts",
+            "variable.other.readwrite.alias",
+            "variable.parameter.function.lua",
+          ]
+        : []),
+    ])
 
-export const getExcludedTextMateTokenScopes: (
-  () => (
-    Set<
-      string
-    >
-  )
-) = () => (
-  new Set(
-    [
-      ...(
-        (
-          getConfiguration()
-          .get(
-            "excludedTextMateTokenScopes",
-          )
-        ) as string[]
-        ?? []
-      ),
-      ...(
-        (
-          getConfiguration()
-          .get(
-            "hasDefaultTextMateTokenScopes",
-          )
-        )
+export const getExcludedTextMateTokenScopes: () => Set<string> =
+  () =>
+    new Set([
+      ...((getConfiguration().get(
+        "excludedTextMateTokenScopes",
+      ) as string[]) ?? []),
+      ...(getConfiguration().get(
+        "hasDefaultTextMateTokenScopes",
+      )
         ? [
-          "punctuation.definition.evaluation.parens",
-          "punctuation.definition.variable.shell",
-          "punctuation.section.bracket.curly.variable",
-        ]
-        : []
-      ),
-    ],
-  )
-)
+            "punctuation.definition.evaluation.parens",
+            "punctuation.definition.variable.shell",
+            "punctuation.section.bracket.curly.variable",
+          ]
+        : []),
+    ])
 
 export const hslConfig = {
-  [
-  ColorThemeKind
-  .Dark
-  ]: {
-    getLighting: () => (
-      (
-        getConfiguration()
-        .get(
-          "darkTheme.lighting",
-        )
-      ) as number
-      ?? 65
-    ),
-    getSaturation: () => (
-      getConfiguration()
-      .get(
+  [ColorThemeKind.Dark]: {
+    getLighting: () =>
+      (getConfiguration().get(
+        "darkTheme.lighting",
+      ) as number) ?? 65,
+    getSaturation: () =>
+      (getConfiguration().get(
         "darkTheme.saturation",
-      ) as number
-      ?? 65
-    ),
+      ) as number) ?? 65,
   },
-  [
-  ColorThemeKind
-  .HighContrast
-  ]: {
-    getLighting: () => (
-      (
-        getConfiguration()
-        .get(
-          "highContrastDarkTheme.lighting",
-        )
-      ) as number
-      ?? 90
-    ),
-    getSaturation: () => (
-      getConfiguration()
-      .get(
+  [ColorThemeKind.HighContrast]: {
+    getLighting: () =>
+      (getConfiguration().get(
+        "highContrastDarkTheme.lighting",
+      ) as number) ?? 90,
+    getSaturation: () =>
+      (getConfiguration().get(
         "highContrastDarkTheme.saturation",
-      ) as number
-      ?? 100
-    ),
+      ) as number) ?? 100,
   },
-  [
-  ColorThemeKind
-  .HighContrastLight
-  ]: {
-    getLighting: () => (
-      (
-        getConfiguration()
-        .get(
-          "highContrastLightTheme.lighting",
-        )
-      ) as number
-      ?? 15
-    ),
-    getSaturation: () => (
-      getConfiguration()
-      .get(
+  [ColorThemeKind.HighContrastLight]: {
+    getLighting: () =>
+      (getConfiguration().get(
+        "highContrastLightTheme.lighting",
+      ) as number) ?? 15,
+    getSaturation: () =>
+      (getConfiguration().get(
         "highContrastLightTheme.saturation",
-      ) as number
-      ?? 100
-    ),
+      ) as number) ?? 100,
   },
-  [
-  ColorThemeKind
-  .Light
-  ]: {
-    getLighting: () => (
-      (
-        getConfiguration()
-        .get(
-          "lightTheme.lighting",
-        )
-      ) as number
-      ?? 100
-    ),
-    getSaturation: () => (
-      getConfiguration()
-      .get(
+  [ColorThemeKind.Light]: {
+    getLighting: () =>
+      (getConfiguration().get(
+        "lightTheme.lighting",
+      ) as number) ?? 100,
+    getSaturation: () =>
+      (getConfiguration().get(
         "lightTheme.saturation",
-      ) as number
-      ?? 35
-    ),
+      ) as number) ?? 35,
   },
 }

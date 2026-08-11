@@ -1,12 +1,8 @@
 // Originally sourced from https://github.com/mnespor/vscode-color-identifiers-mode/blob/a2fbd18e64c200dfe29f391addff6bca327ac414/src/rangesByName.ts
 import * as vscode from "vscode"
 
-import {
-  getConfiguredSemanticTokenTypes,
-} from "./configuration.js"
-import {
-  pushValue,
-} from "./pushValue.js"
+import { getConfiguredSemanticTokenTypes } from "./configuration.js"
+import { pushValue } from "./pushValue.js"
 
 /**
  * Tokens in a file are represented as an array of integers. The position of each token is expressed relative to
@@ -78,28 +74,29 @@ export function rangesByName(
   let line = 0
   let column = 0
 
-  for (let i = 0; i < data.data.length; i += recordSize) {
-    const [deltaLine, deltaColumn, length, kindIndex] = data.data.slice(i, i + recordSize)
+  for (
+    let offset = 0;
+    offset < data.data.length;
+    offset += recordSize
+  ) {
+    const [deltaLine, deltaColumn, length, kindIndex] =
+      data.data.slice(offset, offset + recordSize)
 
     column = deltaLine === 0 ? column : 0
     line += deltaLine
     column += deltaColumn
 
-    const range = new vscode.Range(line, column, line, column + length)
+    const range = new vscode.Range(
+      line,
+      column,
+      line,
+      column + length,
+    )
     const name = editor.document.getText(range)
     const kind = legend.tokenTypes[kindIndex]
 
-    if (
-      getConfiguredSemanticTokenTypes()
-      .has(
-        kind,
-      )
-    ) {
-      pushValue(
-        accumulator,
-        name,
-        range,
-      )
+    if (getConfiguredSemanticTokenTypes().has(kind)) {
+      pushValue(accumulator, name, range)
     }
   }
 
