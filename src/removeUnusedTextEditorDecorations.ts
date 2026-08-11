@@ -1,39 +1,13 @@
-import {
-  TextEditor,
-} from "vscode"
+import type { TextEditor } from "vscode"
 
-import {
-  textEditorDecorationMap,
-} from "./cache.js"
+import { textEditorDecorationMap } from "./cache.js"
 
 export const removeUnusedTextEditorDecorations = (
-  editors: (
-    readonly (
-      TextEditor
-    )[]
-  ),
+  editors: readonly TextEditor[],
 ) => {
-  Array
-  .from(
-    textEditorDecorationMap
-    .keys(),
-  )
-  .filter((
-    editor,
-  ) => (
-    !(
-      editors
-      .includes(
-        editor,
-      )
-    )
-  ))
-  .forEach((
-    editor,
-  ) => {
-    textEditorDecorationMap
-    .delete(
-      editor,
-    )
-  })
+  Array.from(textEditorDecorationMap.keys())
+    .filter((editor) => !editors.includes(editor))
+    .forEach((editor) => {
+      textEditorDecorationMap.delete(editor)
+    })
 }

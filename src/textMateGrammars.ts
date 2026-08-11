@@ -1,12 +1,8 @@
 // Parts copied and modified from https://github.com/siegebell/scope-info/blob/master/src/extension.ts.
-import path from "path"
-import vscode, {
-  TextDocument,
-} from "vscode"
+import path from "node:path"
+import vscode, { type TextDocument } from "vscode"
 
-import {
-  outputChannel,
-} from "./outputChannel"
+import { outputChannel } from "./outputChannel"
 
 interface ExtensionGrammar {
   language?: string
@@ -26,33 +22,28 @@ interface ExtensionPackage {
 }
 
 export function getScopeName(
-  languageId: (
-    TextDocument["languageId"]
-  ),
+  languageId: TextDocument["languageId"],
 ): string {
   try {
-    const languages = (
-      vscode
-      .extensions
-      .all
-      .filter((x) => x.packageJSON && x.packageJSON.contributes && x.packageJSON.contributes.grammars)
-      .reduce((a: ExtensionGrammar[], b) => [
-        ...a,
-        ...(
-          (b.packageJSON as ExtensionPackage).contributes?.grammars
-          || []
-        ),
-      ], [])
-    )
+    // `flatMap`, not `reduce` + spread: the accumulator was
+    // rebuilt on every extension, which is quadratic over the
+    // full extension list.
+    const languages: ExtensionGrammar[] =
+      vscode.extensions.all.flatMap(
+        (extension) =>
+          (extension.packageJSON as ExtensionPackage)
+            .contributes?.grammars ?? [],
+      )
 
-    const matchingLanguages = languages.filter((g) => g.language === languageId)
+    const matchingLanguages = languages.filter(
+      (grammar) => grammar.language === languageId,
+    )
 
     if (matchingLanguages.length > 0) {
       // console.info(`Mapping language ${languageId} to initial scope ${matchingLanguages[0].scopeName}`);
       return matchingLanguages[0].scopeName || ""
     }
-  }
-  catch (error) {
+  } catch (error) {
     outputChannel.error(error as Error)
   }
 
@@ -62,24 +53,32 @@ export function getScopeName(
 export function getScopeFilePath(
   scopeName: string,
 ): string {
-  const grammars
-    = vscode.extensions.all
-    .filter((x) => x.packageJSON && x.packageJSON.contributes && x.packageJSON.contributes.grammars)
-    .reduce((a: (ExtensionGrammar & { extensionPath: string })[], b) => [
-      ...a,
-      ...((
-        b.packageJSON as ExtensionPackage).contributes?.grammars
-        || []
-      ).map((x) => Object.assign({ extensionPath: b.extensionPath }, x)),
-    ], [])
-  const matchingLanguages = grammars.filter((g) => g.scopeName === scopeName)
+  // `flatMap`, not `reduce` + spread — same quadratic
+  // accumulator as `getScopeName` above.
+  const grammars: (ExtensionGrammar & {
+    extensionPath: string
+  })[] = vscode.extensions.all.flatMap((extension) =>
+    (
+      (extension.packageJSON as ExtensionPackage)
+        .contributes?.grammars ?? []
+    ).map((grammar) => ({
+      extensionPath: extension.extensionPath,
+      ...grammar,
+    })),
+  )
+  const matchingLanguages = grammars.filter(
+    (grammar) => grammar.scopeName === scopeName,
+  )
   // let match : RegExpExecArray;
   // if (matchingLanguages.length === 0 && (match = /^source[.](.*)/.exec(scopeName)))
   //   matchingLanguages = grammars.filter(g => g.language === match[1]);
 
   if (matchingLanguages.length > 0) {
     const ext = matchingLanguages[0]
-    const file = path.join(ext.extensionPath, ext.path || "")
+    const file = path.join(
+      ext.extensionPath,
+      ext.path || "",
+    )
     // console.info(`Scope-info: found grammar for ${scopeName} at ${file}`)
     return file
   }

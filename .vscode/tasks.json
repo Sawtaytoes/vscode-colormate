@@ -5,10 +5,7 @@
   "tasks": [
     {
       "label": "watch",
-      "dependsOn": [
-        "npm: watch:tsc",
-        "npm: watch:esbuild"
-      ],
+      "dependsOn": ["npm: watch:tsc", "npm: watch:esbuild"],
       "presentation": {
         "reveal": "never"
       },
@@ -54,10 +51,7 @@
     },
     {
       "label": "tasks: watch-tests",
-      "dependsOn": [
-        "npm: watch",
-        "npm: watch-tests"
-      ],
+      "dependsOn": ["npm: watch", "npm: watch-tests"],
       "problemMatcher": []
     }
   ]

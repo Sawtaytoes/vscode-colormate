@@ -1,38 +1,11 @@
-import {
-  crc8HashTable,
-} from "./crc8HashTable.js"
+import { crc8HashTable } from "./crc8HashTable.js"
 
-export const crc8Hash = (
-  word: string,
-) => (
-  Array
-  .from(
-    word,
-  )
-  .map((
-    character,
-  ) => (
-    character
-    .charCodeAt(
+export const crc8Hash = (word: string) =>
+  Array.from(word)
+    .map((character) => character.charCodeAt(0))
+    .map((characterCode) => characterCode % 256)
+    .reduce(
+      (crcHash, eightBitCharacterCode) =>
+        crc8HashTable[crcHash ^ eightBitCharacterCode],
       0,
     )
-  ))
-  .map((
-    characterCode,
-  ) => (
-    characterCode
-    % 256
-  ))
-  .reduce(
-    (
-      crcHash,
-      eightBitCharacterCode,
-    ) => (
-      crc8HashTable[
-      crcHash
-      ^ eightBitCharacterCode
-      ]
-    ),
-    0,
-  )
-)

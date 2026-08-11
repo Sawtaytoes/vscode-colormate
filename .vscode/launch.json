@@ -13,10 +13,8 @@
         "--disable-extensions",
         "--extensionDevelopmentPath=${workspaceFolder}"
       ],
-      "outFiles": [
-        "${workspaceFolder}/dist/**/*.js"
-      ],
-      "preLaunchTask": "${defaultBuildTask}",
+      "outFiles": ["${workspaceFolder}/dist/**/*.js"],
+      "preLaunchTask": "${defaultBuildTask}"
     },
     {
       "name": "Run Tests",
@@ -26,12 +24,10 @@
         "--disable-extensions",
         "--extensionDevelopmentPath=${workspaceFolder}"
       ],
-      "outFiles": [
-        "${workspaceFolder}/dist/**/*.js"
-      ],
+      "outFiles": ["${workspaceFolder}/dist/**/*.js"],
       "preLaunchTask": "${defaultBuildTask}",
-      "testConfiguration": "${workspaceFolder}/.vscode-test.mjs",
-    },
+      "testConfiguration": "${workspaceFolder}/.vscode-test.mjs"
+    }
     // {
     //   "name": "Run Tests",
     //   "type": "extensionHost",

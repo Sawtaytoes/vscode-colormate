@@ -1,0 +1,15 @@
+{
+  "$schema": "https://biomejs.dev/schemas/2.5.7/schema.json",
+  "extends": ["@charcuterie/biome-config"],
+  "files": {
+    "includes": [
+      "**",
+      "!**/node_modules",
+      "!**/.vscode-test",
+      "!**/dist",
+      "!**/out",
+      "!**/*.vsix",
+      "!src/visualTester*.ts"
+    ]
+  }
+}

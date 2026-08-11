@@ -1,48 +1,17 @@
-import {
-  catchError,
-} from "rxjs/operators"
-import {
-  EMPTY,
-} from "rxjs"
+import { EMPTY } from "rxjs"
+import { catchError } from "rxjs/operators"
 
-import {
-  outputChannel,
-} from "./outputChannel"
+import { outputChannel } from "./outputChannel"
 
-export const catchEpicError = (
-  epicName: string,
-) => (
-  catchError((
-    error,
-  ) => {
-    outputChannel
-    .error(
-      (
-        epicName
-      ),
-      (
-        "\n"
-      ),
-      (
-        (
-          (
-            error
-            .constructor
-            .name
-          )
-          === "ErrorEvent"
-        )
-        ? (
-          error
-          .error
-          .stack
-        )
-        : error
-      ),
+export const catchEpicError = (epicName: string) =>
+  catchError((error) => {
+    outputChannel.error(
+      epicName,
+      "\n",
+      error.constructor.name === "ErrorEvent"
+        ? error.error.stack
+        : error,
     )
 
-    return (
-      EMPTY
-    )
+    return EMPTY
   })
-)
