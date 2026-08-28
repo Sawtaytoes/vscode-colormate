@@ -1,9 +1,9 @@
 import {
   createTestRules,
   createTypedRules,
+  tseslint,
 } from "@charcuterie/eslint-config"
 import { defineConfig, globalIgnores } from "eslint/config"
-import typescriptEslint from "typescript-eslint"
 
 /**
  * The fleet's shared ESLint rules, from `@charcuterie/eslint-config`
@@ -18,7 +18,7 @@ import typescriptEslint from "typescript-eslint"
  */
 export default defineConfig([
   globalIgnores(["dist", "out", "src/visualTester*.ts"]),
-  ...typescriptEslint.configs.recommended,
+  ...tseslint.configs.recommended,
   createTypedRules({
     tsconfigRootDir: import.meta.dirname,
   }),
