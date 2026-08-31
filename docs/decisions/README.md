@@ -9,3 +9,4 @@ Newest first.
 | Date | Decision |
 | --- | --- |
 | 2026-08-11 | [**Biome formats this repo; `@stylistic` is dropped**](2026-08-11-biome-formats-colormate-not-stylistic.md) — the fleet `@charcuterie/*` biome/eslint/tsconfig stack. `@stylistic` was never VS Code-specific; it was enforcing a chain style no other repo uses. `useDefineForClassFields` is a non-issue at `target: ES2022` |
+| 2022-07-29 | [**Identifier names map to stable CRC8 colors**](2022-07-29-identifier-names-map-to-stable-crc8-colors.md) — the name selects the hue; theme settings control saturation and lightness |

@@ -1,80 +1,57 @@
 # ColorMate for Visual Studio Code
 
-![ColorMate logo made by Noah Raskin](images/logo.png)
+![ColorMate logo](images/logo.png)
 
-ColorMate is a semantic highlighter (similar to a syntax highlighter) that colors all similarly named variables the same.
+ColorMate assigns a consistent color to identifiers with the same name. The
+result makes code easier to skim and provides an additional visual cue beyond
+the text itself.
 
-This allows you to quickly and easily skim your code by reading colors instead of text. This solves a specific set of accessibility requirements for code skimming.
+**[Install ColorMate and enable semantic highlighting →](docs/use-colormate.md)**
 
-> _**NOTE:** Your color theme needs to support semantic highlighting. See Troubleshooting below for how to **force it always on**._
+> **Note:** Your color theme must support semantic highlighting. The use guide
+> explains how to enable it for every theme.
 
 ## Examples
 
 ### Electron
 
-![Electron -> Before](images/theme-electron-before.png)
-![Electron -> After](images/theme-electron-after.png)
+![Electron before ColorMate](images/theme-electron-before.png)
+![Electron after ColorMate](images/theme-electron-after.png)
 
-### VSCode Dark
+### Visual Studio Code Dark
 
-![Dark -> Before](images/theme-dark-before.png)
-![Dark -> After](images/theme-dark-after.png)
+![Dark theme before ColorMate](images/theme-dark-before.png)
+![Dark theme after ColorMate](images/theme-dark-after.png)
 
-### VSCode Light
+### Visual Studio Code Light
 
-![Light -> Before](images/theme-light-before.png)
-![Light -> After](images/theme-light-after.png)
+![Light theme before ColorMate](images/theme-light-before.png)
+![Light theme after ColorMate](images/theme-light-after.png)
 
-## Features
+## What it provides
 
-This extension works for any language that has semantic tokens in Visual Studio Code. It uses the language server to determine which words to highlight.
+- Consistent colors for identifiers that have the same name.
+- Support for every language that exposes semantic tokens through Visual Studio Code.
+- Additional TextMate token scopes for common languages.
+- Separate lightness and saturation controls for light, dark, and high-contrast themes.
+- Configurable semantic token types, TextMate scopes, exclusions, and ignored languages.
 
-It changes saturation and lighting settings based on the use of a light or dark theme.
+## Documentation
 
-## Extension Settings
+- [Install, configure, and troubleshoot ColorMate](docs/use-colormate.md)
+- [Develop and publish the extension](INSTALLATION.md)
+- [Performance notes and planned work](docs/performance.md)
+- [Project history and attribution](docs/project-history.md)
+- [Architecture decisions](docs/decisions/README.md)
 
-By going to the extension settings, you can view and change:
+## Development
 
-- Lightness and saturation of highlights.
-- Customize the highlighted token types.
-- Ignore highlighting on languages you specify.
-
-## Troubleshooting
-
-It's possible semantic highlighting doesn't work for you. By default, VSCode only turns on semantic highlighting when the color scheme supports it. If you want it always turned on, change this setting to `true`:
-![Always enable Semantic Highlighting VSCode](images/semantic-highlighting-enable-always.png)
-
-Or manually add this to your preferences JSON:
-
-```json
-{
-  "editor.semanticHighlighting.enabled": true,
-}
+```sh
+yarn install
+yarn test:headless
 ```
 
-## Fun Facts
+Use `yarn start` for a watch build. See the [development and publishing guide](INSTALLATION.md)
+for the complete workflow.
 
-Made by [Kevin Ghadyani](https://twitter.com/Sawtaytoes).
-
-### Why Semantic Highlighting?
-
-I was stuck on Sublime Text for years until I created this **semantic highlighting** extension for VSCode.
-
-- **Article:** [Why I don't use VSCode](https://medium.com/@Sawtaytoes/why-i-dont-use-visual-studio-code-f5ac7274fb96)
-- **Video:** [Why I still don't use VSCode](https://www.youtube.com/watch?v=1OIVjK8-jA8)
-
-To me, semantic highlighting is an accessibility feature. It's tough to read code, but with semantic highlighting, code becomes significantly easier to skim. Instead of reading code, you're now skimming colors.
-
-Not only that, but by having each variable defined with a certain color, you'll always know exactly what "looks right" in your code.
-
-### Originally Forked
-
-This package was originally forked from [Color Identifiers](https://marketplace.visualstudio.com/items?itemName=MatthewNespor.vscode-color-identifiers-mode) by Matthew Nespor.
-
-### Hashing Algorithm
-
-The hashing algorithm is modeled after the same amazing CRC8 hasher used by [Colorcoder for Sublime Text](https://packagecontrol.io/packages/Colorcoder).
-
-## Special Thanks
-
-Beautiful logo curtesy of [Noah Raskin](https://twitter.com/NoahRaskin_).
+ColorMate is available under the [MIT License](LICENSE).
