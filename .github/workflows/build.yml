@@ -10,74 +10,17 @@ on:
   workflow_dispatch:
 
 jobs:
-  # Decide whether this change is documentation only.
+  # The docs-only detector is SHARED: the body lives in Charcuterie and is
+  # imported, not copied. Fix it there, then move the `workflows-v1` tag.
   #
-  # Nothing below reads markdown. There is no markdownlint, no remark, no
-  # prettier over `.md` and no link check anywhere in this fleet, and Biome
-  # does not format markdown. So a `.md`-only diff makes every gate below run
-  # without ever opening the file that changed.
-  #
-  # WARNING: this job must run on EVERY event, and the gates below must be
-  # turned off with `if:` rather than with `paths-ignore:` on the trigger.
-  # Branch protection requires the `Build & package` check. A job that `if:` skips still
-  # reports its context: GitHub records the conclusion `skipped` and counts it
-  # as success, and Forgejo posts `skipped` and keeps the combined state green
-  # (verified on portly-controllers#17, which merged with `CI / check
-  # (pull_request)` skipped). A workflow that never STARTED posts nothing at
-  # all, so a required check stays pending and the pull request can never
-  # merge, with no failure to explain why.
+  # WARNING: imported from GitHub. A reusable
+  # workflow resolves on THIS host only. A cross-host import is dropped
+  # SILENTLY -- the run still reports success -- so the gates below would
+  # never run. Consumers must also keep turning their gates off with `if:`
+  # rather than `paths-ignore:`, or a required check stays pending forever.
   changes:
-    runs-on: ubuntu-latest
+    uses: Sawtaytoes/charcuterie/.github/workflows/shared-docs-only-changes.yml@workflows-v1
 
-    outputs:
-      isDocsOnly: ${{ steps.detect.outputs.isDocsOnly }}
-
-    steps:
-      - uses: actions/checkout@v7
-        # The full history: the diff below needs the base commit present.
-        with: { fetch-depth: 0 }
-
-      - id: detect
-        env:
-          BASE_SHA: ${{ github.event_name == 'pull_request' && github.event.pull_request.base.sha || github.event.before }}
-        run: |
-          set -euo pipefail
-
-          # Fail SAFE. Anything we cannot diff -- a workflow_dispatch, a tag, a
-          # new branch whose `before` is all zeros, a base commit the fetch
-          # missed -- runs the whole suite rather than skipping it.
-          if [ -z "${BASE_SHA:-}" ] \
-            || [ "${BASE_SHA}" = "0000000000000000000000000000000000000000" ] \
-            || ! git cat-file -e "${BASE_SHA}^{commit}" 2>/dev/null
-          then
-            echo "No usable base commit -- running every gate."
-            echo "isDocsOnly=false" >> "$GITHUB_OUTPUT"
-            exit 0
-          fi
-
-          mergeBase="$(git merge-base "${BASE_SHA}" HEAD || echo "${BASE_SHA}")"
-          changedFiles="$(git diff --name-only "${mergeBase}" HEAD)"
-          printf 'Changed files:\n%s\n\n' "${changedFiles}"
-
-          isDocsOnly=true
-
-          if [ -z "${changedFiles}" ]
-          then
-            isDocsOnly=false
-          elif printf '%s\n' "${changedFiles}" | grep -q '^\.changeset/'
-          then
-            # A changeset file is markdown, but it is a RELEASE input rather
-            # than documentation. Treat it as code.
-            isDocsOnly=false
-          elif printf '%s\n' "${changedFiles}" | grep -qvE '^(.+\.md|LICENSE)$'
-          then
-            # `.mdx` deliberately does NOT match `.md$` -- it is Storybook
-            # source in several repos here, and it compiles.
-            isDocsOnly=false
-          fi
-
-          echo "isDocsOnly=${isDocsOnly}"
-          echo "isDocsOnly=${isDocsOnly}" >> "$GITHUB_OUTPUT"
 
   build:
     needs: [changes]
