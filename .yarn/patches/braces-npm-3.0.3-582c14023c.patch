@@ -1,0 +1,26 @@
+diff --git a/lib/parse.js b/lib/parse.js
+index 3a6988e629f52aee6609dc5ec290a5e9ff47cecb..8982bc8a9210a696c92e06771f5c9a4851e4de2a 100644
+--- a/lib/parse.js
++++ b/lib/parse.js
+@@ -144,6 +144,10 @@ const parse = (input, options = {}) => {
+ 
+     if (value === CHAR_LEFT_PARENTHESES) {
+       block = push({ type: 'paren', nodes: [] });
++      // Temporary mitigation for GHSA-vfj7-8cjw-p6xm; bound all AST nesting.
++      if (stack.length > 100) {
++        throw new SyntaxError('Input nesting depth exceeds maximum (100)');
++      }
+       stack.push(block);
+       push({ type: 'text', value });
+       continue;
+@@ -210,6 +214,10 @@ const parse = (input, options = {}) => {
+       };
+ 
+       block = push(brace);
++      // Temporary mitigation for GHSA-vfj7-8cjw-p6xm; bound all AST nesting.
++      if (stack.length > 100) {
++        throw new SyntaxError('Input nesting depth exceeds maximum (100)');
++      }
+       stack.push(block);
+       push({ type: 'open', value });
+       continue;
