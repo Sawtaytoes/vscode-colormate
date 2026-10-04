@@ -203,5 +203,11 @@
     "publisherDisplayName": "Kevin Ghadyani",
     "publisherId": "7e325be2-1610-4c6d-b78f-e8e08c8b74ed",
     "isPreReleaseVersion": false
+  },
+  "resolutions": {
+    "braces": "patch:braces@npm%3A3.0.3#./.yarn/patches/braces-npm-3.0.3-582c14023c.patch",
+    "http-cache-semantics": "patch:http-cache-semantics@npm%3A4.2.0#./.yarn/patches/http-cache-semantics-npm-4.2.0-max-stale.patch",
+    "mocha/serialize-javascript": "^7.0.5",
+    "mocha/diff": "^8.0.3"
   }
 }
