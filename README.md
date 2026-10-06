@@ -47,11 +47,11 @@ the text itself.
 ## Development
 
 ```sh
-yarn install
-yarn test:headless
+pnpm install
+pnpm test:headless
 ```
 
-Use `yarn start` for a watch build. See the [development and publishing guide](INSTALLATION.md)
+Use `pnpm start` for a watch build. See the [development and publishing guide](INSTALLATION.md)
 for the complete workflow.
 
 ColorMate is available under the [MIT License](LICENSE).

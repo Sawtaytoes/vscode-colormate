@@ -1,3 +1,5 @@
+import { copyFile, mkdir } from "node:fs/promises"
+import { createRequire } from "node:module"
 import esbuild from "esbuild"
 
 const production = process.argv.includes("--production")
@@ -26,6 +28,13 @@ const esbuildProblemMatcherPlugin = {
 }
 
 async function main() {
+  const require = createRequire(import.meta.url)
+  await mkdir("dist", { recursive: true })
+  await copyFile(
+    require.resolve("vscode-oniguruma/release/onig.wasm"),
+    "dist/onig.wasm",
+  )
+
   const ctx = await esbuild.context({
     entryPoints: ["src/extension.ts"],
     bundle: true,
