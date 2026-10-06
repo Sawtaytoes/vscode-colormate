@@ -1,0 +1,13 @@
+autoInstallPeers: false
+strictPeerDependencies: false
+minimumReleaseAge: 0
+enableGlobalVirtualStore: false
+verifyDepsBeforeRun: error
+# Yarn disabled dependency lifecycle scripts in this repo.
+ignoreScripts: true
+patchedDependencies:
+  braces@3.0.3: .yarn/patches/braces-npm-3.0.3-582c14023c.patch
+  http-cache-semantics@4.2.0: .yarn/patches/http-cache-semantics-npm-4.2.0-max-stale.patch
+overrides:
+  mocha>serialize-javascript: ^7.0.5
+  mocha>diff: ^8.0.3

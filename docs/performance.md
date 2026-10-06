@@ -98,7 +98,7 @@ changed line ranges from `onDidChangeTextDocument` `contentChanges`.
 - Manual: open a large file, hold a key / spam edits, confirm colorization stays
   responsive; switch editors and themes and confirm colors update correctly
   (esp. that theme changes still force a recolor after task 1).
-- `yarn compile` and `yarn lint` must pass; run `yarn test` for the existing
+- `pnpm compile` and `pnpm lint` must pass; run `pnpm test` for the existing
   suite ([crc8Hash.test.ts](../src/crc8Hash.test.ts) and others).
 
 ---

@@ -10,16 +10,12 @@ import type { IOnigLib } from "vscode-textmate"
 
 export const createVscodeOnigurmaLibrary =
   (): Promise<IOnigLib> =>
-    readFile(
-      join(
-        __dirname,
-        "../node_modules/vscode-oniguruma/release/onig.wasm",
-      ),
-    ).then(({ buffer }) =>
-      loadWASM(buffer).then(() => ({
-        createOnigScanner: (patterns: string[]) =>
-          new OnigScanner(patterns),
-        createOnigString: (string: string) =>
-          new OnigString(string),
-      })),
+    readFile(join(__dirname, "../dist/onig.wasm")).then(
+      ({ buffer }) =>
+        loadWASM(buffer).then(() => ({
+          createOnigScanner: (patterns: string[]) =>
+            new OnigScanner(patterns),
+          createOnigString: (string: string) =>
+            new OnigString(string),
+        })),
     )

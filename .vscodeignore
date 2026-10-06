@@ -12,7 +12,8 @@
 **/tsconfig.json
 esbuild.js
 node_modules/**
-!node_modules/vscode-oniguruma/release/onig.wasm
 out/**
 src/**
 vsc-extension-quickstart.md
+pnpm-lock.yaml
+pnpm-workspace.yaml
