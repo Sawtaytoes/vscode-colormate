@@ -82,4 +82,3 @@ another authorized agent; report the gate instead of silently waiving it. Only a
 explicit owner instruction can waive the review, with its scope recorded in the same
 review evidence.
 Existing required checks, merge rules, and deployment verification still apply.
-
