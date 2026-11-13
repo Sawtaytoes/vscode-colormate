@@ -17,7 +17,12 @@ import { defineConfig, globalIgnores } from "eslint/config"
  * — see `docs/decisions/2026-08-11-biome-formats-colormate-not-stylistic.md`.
  */
 export default defineConfig([
-  globalIgnores(["dist", "out", "src/visualTester*.ts"]),
+  globalIgnores([
+    ".vscode-test",
+    "dist",
+    "out",
+    "src/visualTester*.ts",
+  ]),
   ...tseslint.configs.recommended,
   createTypedRules({
     tsconfigRootDir: import.meta.dirname,
