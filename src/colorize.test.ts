@@ -93,7 +93,12 @@ const waitForSemanticTokens = async () => {
   const deadline =
     performance.now() + semanticTokensWarmUpTimeout
 
-  while (performance.now() < deadline) {
+  let hasSemanticTokens = false
+
+  while (
+    !hasSemanticTokens &&
+    performance.now() < deadline
+  ) {
     const semanticTokens =
       await vscode.commands.executeCommand<
         vscode.SemanticTokens | undefined
@@ -102,13 +107,13 @@ const waitForSemanticTokens = async () => {
         document.uri,
       )
 
-    if (semanticTokens) {
-      break
-    }
+    hasSemanticTokens = Boolean(semanticTokens)
 
-    await new Promise((resolve) => {
-      setTimeout(resolve, 250)
-    })
+    if (!hasSemanticTokens) {
+      await new Promise((resolve) => {
+        setTimeout(resolve, 250)
+      })
+    }
   }
 
   await vscode.commands.executeCommand(
@@ -116,6 +121,14 @@ const waitForSemanticTokens = async () => {
   )
 
   await unlink(filePath)
+
+  // Without semantic tokens, `colorize` takes its TextMate-only path, and
+  // the timing tests below would no longer measure the full pipeline.
+  if (!hasSemanticTokens) {
+    throw new Error(
+      `No semantic tokens within ${semanticTokensWarmUpTimeout} ms.`,
+    )
+  }
 }
 
 suite("colorize", () => {
