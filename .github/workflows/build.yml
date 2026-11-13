@@ -62,6 +62,23 @@ jobs:
       - name: Typecheck
         run: pnpm check-types
 
+      # The tests run inside a real VS Code that `vscode-test` downloads.
+      # `colorize.test.ts` loads `dist/onig.wasm`, so the bundle is built
+      # first, and VS Code needs a display, so `xvfb-run` provides one.
+      - name: Build extension bundle
+        run: node esbuild.mjs
+
+      - name: Compile tests
+        run: pnpm compile-tests
+
+      - name: Test
+        run: |
+          if ! command -v xvfb-run >/dev/null; then
+            sudo apt-get update
+            sudo apt-get install --yes xvfb
+          fi
+          xvfb-run -a pnpm exec vscode-test
+
       - name: Package VSIX
         # Runs the `vscode:prepublish` hook (clean + check-types + lint + production build).
         run: npx --yes @vscode/vsce package --no-yarn --no-dependencies

@@ -8,6 +8,7 @@ import {
 import { outputChannel } from "./outputChannel"
 import { removeAllTextEditorDecorations } from "./removeAllTextEditorDecorations"
 import { removeUnusedTextEditorDecorations } from "./removeUnusedTextEditorDecorations"
+import { subscriptionToDisposable } from "./subscriptionToDisposable"
 
 function onTextEditorListChange() {
   removeUnusedTextEditorDecorations(
@@ -20,7 +21,13 @@ export const activate = (
 ) => {
   extensionContext.subscriptions.push(outputChannel)
 
-  editorChangeEpic().subscribe()
+  // VS Code disposes everything in `subscriptions` when the extension
+  // deactivates, so the epic stops listening for editor changes.
+  extensionContext.subscriptions.push(
+    subscriptionToDisposable(
+      editorChangeEpic().subscribe(),
+    ),
+  )
 
   extensionContextsState.dispatch(
     addExtensionContext(extensionContext),
@@ -34,6 +41,7 @@ export const activate = (
 }
 
 export const deactivate = () => {
-  // TODO: Stop the Redux store and Redux-Observable listeners.
+  // The epic and the VS Code event listeners are in
+  // `extensionContext.subscriptions`, so VS Code disposes them.
   removeAllTextEditorDecorations()
 }

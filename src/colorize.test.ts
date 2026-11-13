@@ -71,12 +71,61 @@ const performanceTest = async () => {
   expect(endTime).toBeLessThan(2000)
 }
 
-suite("colorize", () => {
-  before(() =>
-    vscode.commands.executeCommand(
-      "workbench.action.closeActiveEditor",
-    ),
+// The built-in TypeScript server starts on the first JavaScript file and
+// takes seconds to answer its first semantic-token request. That start-up
+// is not `colorize`'s cost, so wait for it before timing anything.
+const semanticTokensWarmUpTimeout = 30_000
+
+const waitForSemanticTokens = async () => {
+  const filePath = path.join(
+    __dirname,
+    `./colorizeWarmUp-${Math.random()}.js`,
   )
+
+  await writeFile(filePath, fileContents, "utf-8")
+
+  const document = await vscode.workspace.openTextDocument(
+    vscode.Uri.file(filePath),
+  )
+
+  await vscode.window.showTextDocument(document)
+
+  const deadline =
+    performance.now() + semanticTokensWarmUpTimeout
+
+  while (performance.now() < deadline) {
+    const semanticTokens =
+      await vscode.commands.executeCommand<
+        vscode.SemanticTokens | undefined
+      >(
+        "vscode.provideDocumentSemanticTokens",
+        document.uri,
+      )
+
+    if (semanticTokens) {
+      break
+    }
+
+    await new Promise((resolve) => {
+      setTimeout(resolve, 250)
+    })
+  }
+
+  await vscode.commands.executeCommand(
+    "workbench.action.closeActiveEditor",
+  )
+
+  await unlink(filePath)
+}
+
+suite("colorize", () => {
+  before(async () => {
+    await vscode.commands.executeCommand(
+      "workbench.action.closeActiveEditor",
+    )
+
+    await waitForSemanticTokens()
+  })
 
   test(
     "Runs within a given timeframe - try 1",
