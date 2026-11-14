@@ -60,6 +60,12 @@ Every released version must have a matching git tag named `vX.Y.Z` on its releas
 commit, and the tag must be pushed (`git push origin vX.Y.Z`). The compare links
 depend on these tags existing.
 
+## Lint
+
+`pnpm lint:check` runs the check-mode `lint:biome` (`biome check --error-on-warnings`) and
+`lint:eslint` (`eslint . --max-warnings 0`), as CI and packaging do, so a Biome or ESLint
+warning fails the same as an error. `pnpm lint` applies fixes with the same flags.
+
 ## Independent adversarial review
 
 Before integrating any change in this repository, including an authorized direct push
