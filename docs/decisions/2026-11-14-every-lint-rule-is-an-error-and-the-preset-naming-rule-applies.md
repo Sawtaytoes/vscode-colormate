@@ -46,7 +46,14 @@ None of the three has a platform reason. The extension host runs ordinary TypeSc
 `curly` and `no-throw-literal` are style and safety rules that the template ships at `warn` as a
 default, not because VS Code needs it. The import entry was not protecting an import name that
 the `vscode` API forces: the code imports `vscode` as `vscode`, and the preset does not check
-import names at all. Its only effect was to switch the boolean rule off.
+import names at all. Its effect differed by file type:
+
+- In `.ts` files, it replaced the preset's boolean rule, so booleans were not checked and import
+  names were checked at `warn`. Now booleans are checked at `error` and import names are not.
+- In `.mjs` files (`esbuild.mjs`, `eslint.config.mjs`, `.vscode-test.mjs`), which
+  `createTypedRules` does not cover, it was the only naming rule. Now those files have no naming
+  rule, which is the preset's coverage. They have no camelCase or PascalCase import finding to
+  lose.
 
 At `error` with no override, all three report 0 findings, and so does the restored boolean rule,
 so no code changes.

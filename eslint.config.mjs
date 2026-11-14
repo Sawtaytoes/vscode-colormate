@@ -39,8 +39,8 @@ export default defineConfig([
     // Do not add `@typescript-eslint/naming-convention` to this
     // block. ESLint replaces a rule's options rather than merging
     // them, so the template's `selector: "import"` entry switched
-    // off the preset's `is`/`has` boolean rule above for every file
-    // from 2026-08-11 to 2026-11-14
+    // off the preset's `is`/`has` boolean rule above for every `.ts`
+    // file from 2026-08-11 to 2026-11-14
     // (`docs/decisions/2026-11-14-every-lint-rule-is-an-error-and-the-preset-naming-rule-applies.md`).
     files: ["**/*.mjs", "**/*.ts"],
     rules: {
