@@ -66,6 +66,12 @@ depend on these tags existing.
 `lint:eslint` (`eslint . --max-warnings 0`), as CI and packaging do, so a Biome or ESLint
 warning fails the same as an error. `pnpm lint` applies fixes with the same flags.
 
+Every rule in `eslint.config.mjs` is at `error`, and no local block sets a rule that
+`@charcuterie/eslint-config` already sets. ESLint replaces a rule's options instead of merging
+them, so a local `@typescript-eslint/naming-convention` entry would switch off the preset's
+`is`/`has` boolean rule. That happened from 2026-08-11 to 2026-11-14
+([decision](docs/decisions/2026-11-14-every-lint-rule-is-an-error-and-the-preset-naming-rule-applies.md)).
+
 ## Independent adversarial review
 
 Before integrating any change in this repository, including an authorized direct push
