@@ -1,5 +1,9 @@
 import vscode from "vscode"
 
+import {
+  startColorizing,
+  stopColorizing,
+} from "./colorizeLifecycle"
 import { editorChangeEpic } from "./editorChangeEpic"
 import {
   addExtensionContext,
@@ -19,6 +23,8 @@ function onTextEditorListChange() {
 export const activate = (
   extensionContext: vscode.ExtensionContext,
 ) => {
+  startColorizing()
+
   extensionContext.subscriptions.push(outputChannel)
 
   // VS Code disposes everything in `subscriptions` when the extension
@@ -42,6 +48,10 @@ export const activate = (
 
 export const deactivate = () => {
   // The epic and the VS Code event listeners are in
-  // `extensionContext.subscriptions`, so VS Code disposes them.
+  // `extensionContext.subscriptions`, so VS Code disposes them. A `colorize`
+  // call that is still waiting on VS Code would finish after that, so stop
+  // it first, then remove the decorations.
+  stopColorizing()
+
   removeAllTextEditorDecorations()
 }

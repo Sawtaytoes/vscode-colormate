@@ -10,6 +10,7 @@ import {
 import type { IToken } from "vscode-textmate"
 
 import { textEditorDecorationMap } from "./cache.js"
+import { getColorizeAbortSignal } from "./colorizeLifecycle.js"
 import {
   getConfiguredTextMateTokenScopes,
   getExcludedTextMateTokenScopes,
@@ -27,8 +28,9 @@ import { createIsInTextMateScope } from "./textMateScopes.js"
 
 export const colorize = async (
   editor: TextEditor,
+  abortSignal: AbortSignal = getColorizeAbortSignal(),
 ): Promise<void> => {
-  if (!editor?.document) {
+  if (abortSignal.aborted || !editor?.document) {
     return
   }
 
@@ -62,6 +64,13 @@ export const colorize = async (
         scopeName,
       }),
     ])
+
+  // The extension can deactivate while the requests above run. Everything
+  // below is synchronous, so this one check keeps a late call from adding
+  // decorations after `deactivate` removed them.
+  if (abortSignal.aborted) {
+    return
+  }
 
   const semanticTokenRangesBySymbolName =
     legend && tokensData
